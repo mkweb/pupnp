@@ -25,5 +25,8 @@ Tested UPnP Devices (yet):
 * XBMC (Raspbmc - V12.0-RC2)
 
 Known issues:
-* XBMC is unable to read media data and shows allways "Unknown" 
-* Userlogins gets not encrypted yet
+* Userlogins gets not encrypted or hashed yet
+
+Todos:
+* Playlist support
+* _Sometimes_ there is an error when trying to stream any url with special chars

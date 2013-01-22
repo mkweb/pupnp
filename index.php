@@ -90,6 +90,7 @@ if(!isset($_SERVER['PHP_AUTH_USER']) || !loginValid()) {
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="res/js/lightbox.js"></script>
+	<script type="text/javascript" src="res/js/phpjs.js"></script>
 	<script type="text/javascript" src="res/js/upnp-backend.js"></script>
 </head>
 <body>

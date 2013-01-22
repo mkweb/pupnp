@@ -9,7 +9,6 @@ var currentObject = {
     'name' : i18n('Root')
 };
 var disableSliderUpdate = false;
-var disableButtonChange = false;
 var counter = 0;
 var favorites = {};
 
@@ -207,7 +206,7 @@ window.onload = function() {
 
                 deviceSelected(site);
 
-                if(false && site == 'left' && $('.properties').css('display') != 'none') {
+                if(site == 'left' && $('.properties').css('display') != 'none') {
 
                     breadcrumps = {};
                     currentObject = {'id' : 0, 'name' : i18n('Root') };
@@ -416,124 +415,122 @@ function currentPlaying() {
 
 	var device = $('#device-right').val();
 
-	UPnPBackend.call(device, 'getPositionInfo', null, function(res) {
+	UPnPBackend.call(device, 'getTransportInfo', null, function(res) {
 
-		console.log(res);
-		var data = res.TrackMetaData;
-
-		if(undefined == data || res.TrackDuration == '00:00:00') {
-
-			if(intv_playing != null) {
-
-				window.clearInterval(intv_playing);
-				intv_playing = null;
-			}
+        if(res.CurrentTransportState != 'PLAYING') {
 
 			$('#p_right').text(i18n('Currently nothing is playing.'));
 
 			window.setTimeout('currentPlaying()', 1000);
-		} else {
+        } else {
 
-			var title = data.title;
-			var duration = res.TrackDuration;
-			var currentTime = res.RelTime;
+            UPnPBackend.call(device, 'getPositionInfo', null, function(res) {
 
-			var percentage = getPercentage(currentTime, duration);
+                var data = res.TrackMetaData;
 
-			var html = '<div id="controls">'; 
-			html += '<div style="margin-bottom: 6px;"><img src="res/images/icons/ajax-loader-player.gif" id="player-loading"/>' + i18n('Now Playing') + ': ' + title + '</div>';
-			html += '<table>';
-			html += '<tr>';
-			html += '<td width="50" id="time-current">' + currentTime + '</td><td><div id="slider"></div></td><td width="50" id="time-all">' + duration + '</td>';
-			html += '</tr>';
-			html += '<tr>';
-			html += '<td colspan="3">';
-			html += '<ul class="buttons">';
-			html += 	'<li><a href="javascript:playControl(\'play-pause\');" class="control disabled" id="pause" title="' + i18n('Pause') + '"></a></li>';
-			html += 	'<li><a href="javascript:playControl(\'stop\');" class="control" id="stop" title="' + i18n('Stop') + '"></a></li>';
-			html += '</ul>';
-			html += '</td>';
-			html += '</tr>';
-			html += '</table>';
-			html += '</div>';
+                    var title = (undefined == data ? null : data.title);
+                    var duration = (null == res.TrackDuration ? null : res.TrackDuration);
+                    var currentTime = (null == res.RelTime ? null : res.RelTime);
 
-			html += '<div id="mediainfo"></div>';
+                    var percentage = getPercentage(currentTime, duration);
 
-			html += '<input type="hidden" id="currently-playing-id" value="' + data.id + '" />';
+                    var html = '<div id="controls">'; 
+                    html += '<div style="margin-bottom: 6px;"><img src="res/images/icons/ajax-loader-player.gif" id="player-loading"/>' + i18n('Now Playing') + ': ' + title + '</div>';
+                    html += '<table>';
+                    html += '<tr>';
+                    html += '<td width="50" id="time-current">' + currentTime + '</td><td><div id="slider"></div></td><td width="50" id="time-all">' + duration + '</td>';
+                    html += '</tr>';
+                    html += '<tr>';
+                    html += '<td colspan="3">';
+                    html += '<ul class="buttons">';
+                    html += 	'<li><a href="javascript:playControl(\'play\');" class="control disabled" style="display: none;" id="play" title="' + i18n('Play') + '"></a></li>';
+                    html += 	'<li><a href="javascript:playControl(\'pause\');" class="control disabled" style="display: none;" id="pause" title="' + i18n('Pause') + '"></a></li>';
+                    html += 	'<li><a href="javascript:playControl(\'stop\');" class="control disabled" id="stop" title="' + i18n('Stop') + '"></a></li>';
+                    html += '</ul>';
+                    html += '</td>';
+                    html += '</tr>';
+                    html += '</table>';
+                    html += '</div>';
 
-			$('#p_right').html(html);
+                    html += '<div id="mediainfo"></div>';
 
-            UPnPBackend.call($('#device-right').val(), 'getCurrentInfoHtml', '', function(res) {
+                    html += '<input type="hidden" id="currently-playing-id" value="' + (undefined == data ? null : data.id) + '" />';
 
-                $('#mediainfo').html(res);
+                    $('#p_right').html(html);
+
+                    UPnPBackend.call($('#device-right').val(), 'getCurrentInfoHtml', '', function(res) {
+
+                        $('#mediainfo').html(res);
+                    });
+
+                    $('#slider').slider({
+                        max : 100,
+                        value: percentage,
+                        start: function(ev, ui) {
+
+                            disableSliderUpdate = true;
+                        },
+                        slide: function(ev, ui) {
+
+                            var all = $('#time-all').html();
+
+                            $('#slider-tooltip').html(getTimeByPercentage(all, ui.value));
+                            $('#slider-tooltip').fadeIn();
+                        },
+                        stop: function(ev, ui) {
+
+                            $('#player-loading').show();
+                            $('#slider-tooltip').fadeOut();
+
+                            var all = $('#time-all').html();
+
+                            var time = getTimeByPercentage(all, ui.value);
+
+                            UPnPBackend.call($('#device-right').val(), 'Seek', 'InstanceID=0&Unit=REL_TIME&Target=' + time, function() {
+
+                                $('#player-loading').hide();
+
+                                window.setTimeout(function() {
+
+                                    disableSliderUpdate = false;
+                                }, 3000);
+                            });
+                        }
+                    });
+
+                    $('#slider').hover(function(e) {
+
+                        window.mouseXPos = e.pageX;
+                        window.mouseYPos = e.pageY;
+
+                        if($('#slider-tooltip').length < 1) {
+
+                            var pos = $('#slider').position();
+
+                            $(document.body).append($('<div id="slider-tooltip"></div>'));
+
+                            $('#slider-tooltip').css('top', pos.top - $('#slider').height());
+                            $('#slider-tooltip').css('left', window.mouseXPos);
+                        }
+
+                        var all = $('#time-all').html();
+
+                        $('#slider-tooltip').html(getTimeByPercentage(all, ui.value));
+                    }, function(e) {
+
+                        $('#slider-tooltip').remove();
+                    });
+
+                    $('#slider').mousemove(function(e) {
+
+                        $('#slider-tooltip').css('left', window.mouseXPos);
+                    });
+
+                    watchPlaying();
+                    intv_playing = window.setInterval('watchPlaying()', 1000);
             });
-
-			$('#slider').slider({
-				max : 100,
-				value: percentage,
-				start: function(ev, ui) {
-
-					disableSliderUpdate = true;
-				},
-				slide: function(ev, ui) {
-
-					var all = $('#time-all').html();
-
-					$('#slider-tooltip').html(getTimeByPercentage(all, ui.value));
-					$('#slider-tooltip').fadeIn();
-				},
-				stop: function(ev, ui) {
-
-					$('#player-loading').show();
-					$('#slider-tooltip').fadeOut();
-
-					var all = $('#time-all').html();
-
-					var time = getTimeByPercentage(all, ui.value);
-
-					UPnPBackend.call($('#device-right').val(), 'Seek', 'InstanceID=0&Unit=REL_TIME&Target=' + time, function() {
-
-						$('#player-loading').hide();
-
-						window.setTimeout(function() {
-
-							disableSliderUpdate = false;
-						}, 3000);
-					});
-				}
-			});
-
-			$('#slider').hover(function(e) {
-
-				window.mouseXPos = e.pageX;
-				window.mouseYPos = e.pageY;
-
-				if($('#slider-tooltip').length < 1) {
-
-					var pos = $('#slider').position();
-
-					$(document.body).append($('<div id="slider-tooltip"></div>'));
-
-					$('#slider-tooltip').css('top', pos.top - $('#slider').height());
-					$('#slider-tooltip').css('left', window.mouseXPos);
-				}
-
-				var all = $('#time-all').html();
-
-				$('#slider-tooltip').html(getTimeByPercentage(all, ui.value));
-			}, function(e) {
-
-				$('#slider-tooltip').remove();
-			});
-
-			$('#slider').mousemove(function(e) {
-
-				$('#slider-tooltip').css('left', window.mouseXPos);
-			});
-
-			intv_playing = window.setInterval('watchPlaying()', 2000);
-		}
-	});
+        }
+    });
 }
 
 function disableLink(link) {
@@ -556,59 +553,39 @@ function playControl(action) {
 
 	var button = null;
 
-	if(action == 'stop') {
+    if($('#' + action).length > 0) {
 
-		button = $('#stop');
-	} else if(action == 'play-pause') {
+        $('#' + action).addClass('disabled');
+    }
 
-		button = ($('#pause').length > 0 ? $('#pause') : $('#play'));
-	}
-
-	if(null != button && $(button).length > 0) {
+	if(action == 'play' || action == 'pause') {
 
 		$('#player-loading').show();
 		disableLink(button);
 
-		if(action == 'play-pause') {
+        var button = (action == 'pause' ? $('#pause') : $('#play'));
 
-			var button = ($('#pause').length > 0 ? $('#pause') : $('#play'));
-			var method = ($(button).attr('id') == 'pause' ? 'Pause' : 'Play');
+        UPnPBackend.call($('#device-right').val(), action, null, function() {
 
-			UPnPBackend.call($('#device-right').val(), method, null, function() {
+            enableLink(button);
 
-				enableLink(button);
+            $('#player-loading').hide();
+            
+            $('#' + action).removeClass('disabled');
+        });
 
-				if($('#pause').length > 0) {
+    } else if (action == 'stop') {
 
-					$(button).attr('id', 'play');
-					$(button).attr('title', i18n('Play'));
-				} else {
+        UPnPBackend.call($('#device-right').val(), 'Stop', null, function() {
 
-					$(button).attr('id', 'pause');
-					$(button).attr('title', i18n('Play'));
-				}
+            var button = $('#stop');
 
-				disableButtonChange = true;
+            enableLink(button);
 
-				window.setTimeout(function() {
+            $('#player-loading').hide();
 
-					disableButtonChange = false;
-				}, 2000);
-
-				$('#player-loading').hide();
-			});
-
-		} else if (action == 'stop') {
-
-			UPnPBackend.call($('#device-right').val(), 'Stop', null, function() {
-
-				var button = $('#stop');
-
-				enableLink(button);
-
-				$('#player-loading').hide();
-			});
-		}
+            $('#stop').removeClass('disabled');
+        });
 	}
 }
 
@@ -617,6 +594,46 @@ function watchPlaying() {
 	var device = $('#device-right').val();
 
 	if($('#slider').length > 0) {
+		
+        UPnPBackend.call(device, 'getTransportInfo', null, function(res) {
+
+            if(undefined != res.CurrentTransportState) {
+
+                switch(res.CurrentTransportState) {
+
+                    case 'PLAYING':
+
+                        $('#play').hide();
+
+                        $('#stop').removeClass('disabled');
+
+                        $('#pause').removeClass('disabled');
+                        $('#pause').show();
+                        break;
+
+                    case 'PAUSED_PLAYBACK':
+
+                        $('#pause').hide();
+                        $('#stop').removeClass('disabled');
+
+                        $('#play').removeClass('disabled');
+                        $('#play').show();
+                        break;
+
+                    case 'STOPPED':
+
+                        $('#stop').addClass('disabled');
+
+                        $('#play').removeClass('disabled');
+                        $('#play').show();
+
+                        $('#pause').hide();
+
+                        currentPlaying();
+                        break;
+                }
+            }
+        });
 
 		UPnPBackend.call(device, 'getPositionInfo', null, function(res) {
 
@@ -649,43 +666,6 @@ function watchPlaying() {
 				var currentTime = res.RelTime;
 
 				var percentage = getPercentage(currentTime, duration);
-
-				if(!disableButtonChange) {
-
-					if($('#time-current').text() == currentTime && $('#pause').length > 0) {
-
-						if(counter == 1) {
-
-							$('#pause').attr('id', 'play');
-							$('#play').attr('title', i18n('Play'));
-
-							counter = 0;
-						} else {
-
-							counter ++;
-						} 
-					}
-
-					if($('#time-current').text() != currentTime && $('#play').length > 0) {
-
-						if(counter == 1) {
-
-							$('#play').attr('id', 'pause');
-							$('#pause').attr('title', i18n('Pause'));
-
-							counter = 0;
-						} else {
-
-							counter ++;
-						} 
-					}
-				}
-
-				var button = ($('#play').length > 0 ? $('#play') : $('#pause'));
-				if($(button).hasClass('disabled')) {
-
-					$(button).removeClass('disabled');
-				}
 
 				$('#time-current').html(currentTime);
 
@@ -856,7 +836,7 @@ function buildFileTable(files) {
             $('#filetable').remove();
         }
 
-        var table = $('<div id="filetable"><table class="files"></table></div>');
+        var table = $('<div id="filetable"></div>');
         $('#p_left').append(table);
 
         for(var i in files) {
@@ -865,23 +845,32 @@ function buildFileTable(files) {
 
             currentFiles[data.id] = data;
 
-            var html = '<tr class="filerow">';
-            html += '	<td width="16">';
+            var html = '<div class="filerow">';
+
+            html += '	<div class="mime">';
             html += '		<img src="res/images/icons/mime/' + data.class + '.png" alt="' + data.class + '" title="' + data.class + '" />';
-            html += '	</td>';
-            html += '	<td>';
+            html += '	</div>';
 
             if(data.class.substr(0, 16) == 'object.container') {
 
-                html += '		<a href="javascript:loadFiles(\'' + data.id + '\', \'' + data.title + '\');" id="item-' + md5(data.id) + '">' + data.title + '</a>';
+                html += '		<a href="javascript:loadFiles(\'' + data.id + '\', \'' + data.title + '\');" id="item-' + md5(data.id) + '" class="filerow">' + data.title + '</a>';
             } else {
 
-                html += '		<a href="javascript:showFileInfo(\'' + data.id + '\');" id="item-' + md5(data.id) + '">' + data.title + '</a>';
+                html += '		<a href="javascript:showFileInfo(\'' + data.id + '\');" id="item-' + md5(data.id) + '" class="filerow">' + data.title + '</a>';
             }
 
-            html += '	</td>';
-            html += '   <td align="right">';
+            html += '   <div class="right">';
             if(data.class.split('.')[1] != 'container') {
+
+                switch(data.class) {
+
+                    case 'object.item.imageItem.photo':
+
+                        html += '   <a href="backend.php?image=' + data.res + '&w=640" rel="lightbox[preview]" title="' + i18n('View') + '">';
+                        html += '       <img src="res/images/icons/view.png" alt="' + i18n('View') + '" />';
+                        html += '   </a>';
+                        break;
+                }
 
                 if(in_array(data.mimeType, allowedMimes)) {
 
@@ -896,10 +885,10 @@ function buildFileTable(files) {
                 }
 
             }
-            html += '	</td>';
-            html += '</tr>';
+            html += '	</div>';
+            html += '</div>';
 
-            $('table.files').append($(html));
+            $('div#filetable').append($(html));
         }
 }
 
@@ -981,19 +970,21 @@ function play(objectId) {
             break;
         }
 
-        if(!in_array(data.mimeType, allowedMimes)) {
+        var mime = (undefined == data ? null : data.mimeType);
 
-            setError(i18n('Selected device does not support files with type ' + data.mimeType));
+        if(mime != null && !in_array(mime, allowedMimes)) {
+
+            setError(i18n('Selected device does not support files with type ' + mime));
             hideLoadingLayer();
         }
 
-        var artist = data.artist;
-        var album = data.album;
-        var originalTrackNumber = data.originalTrackNumber;
-        var genre = data.genre;
+        var artist = (undefined == data ? null : data.artist);
+        var album = (undefined == data ? null : data.album);
+        var originalTrackNumber = (undefined == data ? null : data.originalTrackNumber);
+        var genre = (undefined == data ? null : data.genre);
 
-        var url = data.res;
-        var xml = res.Result_XML.split('<').join('&lt;').split('>').join('&gt;').split('&').join('amp;');
+        var url = (undefined == data ? null : data.res);
+        var xml = (undefined == data ? null : res.Result_XML.split('<').join('&lt;').split('>').join('&gt;').split('&').join('amp;'));
 
         UPnPBackend.call($('#device-right').val(), 'StartPlay', 'source=' + $('#device-left').val() + '&id=' + objectId, function(res) {
 
@@ -1080,7 +1071,7 @@ function addFavorite() {
         path += '/' + breadcrumps[i];
     }
 
-    var data = 'deviceId=' + deviceId + '&deviceName=' + deviceName + '&objectId=' + currentObject.id + '&path=' + path + '&breadcrumps=' + json_encode(breadcrumps);
+    var data = 'deviceId=' + deviceId + '&deviceName=' + deviceName + '&objectId=' + currentObject.id + '&path=' + path + '&breadcrumps=' + json_encode(breadcrumps).split('&').join('%26');
 
     UPnPBackend.call(null, 'addFavorite', data, function(res) {
 
@@ -1144,7 +1135,8 @@ function updateFavorites() {
                         'name' : favorites[uid].objectName
                     };
 
-                    breadcrumps = eval('(' + utf8_decode(favorites[uid].breadcrumps) + ')');
+                    var bc = favorites[uid].breadcrumps;
+                    breadcrumps = eval('(' + bc + ')');
 
                     deviceSelected('left');
                     loadFiles(currentObject.id);

@@ -1,5 +1,24 @@
 <?php
+/**
+ * pUPnP, an PHP UPnP MediaControl
+ * 
+ * Copyright (C) 2012 Mario Klug
+ * 
+ * This file is part of pUPnP.
+ * 
+ * pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ * 
+ * pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
+ */
 use at\mkweb\upnp\UPnP;
+
+use at\mkweb\Logger;
 
 function is_utf8($str){
   $strlen = strlen($str);
@@ -17,11 +36,24 @@ function is_utf8($str){
   return true; // kein ungültiges UTF-8-Zeichen gefunden
 }
 
+/**
+* Wrapper for simple data access using Ajax (JavaScript)
+*
+* @author Mario Klug <mario.klug@mk-web.at>
+*/
 class AjaxHandler {
 
 	private $callback = null;
+    private static $logfile = 'AjaxHandler';
+
+    public function __construct() {
+
+        Logger::debug('construct()', self::$logfile);
+    }
 
 	public function call($method, $params) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
 		if(isset($params['callback'])) {
 
@@ -44,6 +76,8 @@ class AjaxHandler {
 	}
 
     public function StartPlay($device, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
         $sourceDevice = UPnP::getDevice($data['source']);
         $sourceClient = $sourceDevice->getClient('ContentDirectory');
@@ -74,13 +108,14 @@ class AjaxHandler {
 
                 $data = array(
                     'CurrentURI' => $url,
-                    'CurrentURIMetaData' => str_replace('&amp;', '&', utf8_encode(urldecode($xml)))
+                    'CurrentURIMetaData' => htmlspecialchars($xml) #utf8_encode(urldecode($xml))
                 );
 
                 $dstDevice = UPnP::getDevice($device);
                 $client = $dstDevice->getClient('AVTransport');
+                
+                $client->call('Stop', array('Speed' => 1));
 
-                $client->call('Stop');
                 $client->call('SetAVTransportURI', $data);
 
                 $client->call('Play', array('Speed' => 1));
@@ -89,6 +124,8 @@ class AjaxHandler {
     }
 
     public function getFileInfoHtml($device, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
         $objectId = $data['ObjectID'];
         $objectId = $objectId;
@@ -110,6 +147,8 @@ class AjaxHandler {
 
     public function getCurrentInfoHtml($device, Array $data) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
         $device = UPnP::getDevice($device);
         $client = $device->getClient('AVTransport');
 
@@ -125,6 +164,8 @@ class AjaxHandler {
 
 	public function getDeviceData($device) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
 		$device = UPnP::getDevice($device);
 		$data = $device->getData();
 
@@ -139,6 +180,8 @@ class AjaxHandler {
 	}
 
 	public function getMetaData($device, Array $data, $return = false) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
         $device = UPnP::getDevice($device);
         $client = $device->getClient('ContentDirectory');
@@ -163,6 +206,8 @@ class AjaxHandler {
 
 	public function getChilds($device, Array $data) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
         $device = UPnP::getDevice($device);
         $client = $device->getClient('ContentDirectory');
 
@@ -180,6 +225,8 @@ class AjaxHandler {
 
 	public function getProtocolInfo($device) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('ConnectionManager');
 
@@ -189,6 +236,8 @@ class AjaxHandler {
 	}
 
 	public function SetAVTransportURI($device, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
@@ -200,6 +249,8 @@ class AjaxHandler {
 
 	public function Play($device) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
 
@@ -209,6 +260,8 @@ class AjaxHandler {
 	}
 
 	public function Pause($device) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
@@ -220,6 +273,8 @@ class AjaxHandler {
 
 	public function Stop($device) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
 
@@ -230,6 +285,8 @@ class AjaxHandler {
 
 	public function Seek($device, Array $data) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
 
@@ -239,6 +296,8 @@ class AjaxHandler {
 	}
 
 	public function getPositionInfo($device, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
@@ -251,7 +310,21 @@ class AjaxHandler {
 		$this->respond($result);
 	}
 
+	public function getTransportInfo($device, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
+
+		$device = UPnP::getDevice($device);
+		$client = $device->getClient('AVTransport');
+
+		$result = $client->call('GetTransportInfo', array('InstanceID' => 0));
+
+		$this->respond($result);
+	}
+
 	public function getMediaInfo($device, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
@@ -263,12 +336,16 @@ class AjaxHandler {
 
 	public function getDevices($request) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
 		$service = (isset($request['service']) ? $request['service'] : null);
 
 		$this->respond(UPnP::getDevices($service));
 	}
 
     public function getFavorites() {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
         $username = null;
         if(isset($_SERVER['PHP_AUTH_USER'])) {
@@ -297,6 +374,8 @@ class AjaxHandler {
 
     public function addFavorite(Array $data) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
         $deviceId = $data['deviceId'];
         $deviceName = $data['deviceName'];
         $objectId = $data['objectId'];
@@ -321,6 +400,8 @@ class AjaxHandler {
     }
 
     public function removeFavorite(Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
         $uid = $data['uid'];
 
@@ -347,6 +428,8 @@ class AjaxHandler {
 
 	public function respond($data) {
 
+        Logger::debug(__METHOD__, self::$logfile);
+
         if(isset($_GET['print'])) {
 
             pr($data);
@@ -363,6 +446,8 @@ class AjaxHandler {
 	}
 
     private function prepareMetaData(Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
         $newData = array();
 
@@ -428,6 +513,8 @@ class AjaxHandler {
     }
 
     private function respondHtmlTemplate($template, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
 
         if(isset($data['0'])) {
 

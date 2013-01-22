@@ -1,4 +1,21 @@
 <?php
+/**
+ * pUPnP, an PHP UPnP MediaControl
+ * 
+ * Copyright (C) 2012 Mario Klug
+ * 
+ * This file is part of pUPnP.
+ * 
+ * pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ * 
+ * pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
+ */
 use at\mkweb\Config;
 
 function pr($value) {
@@ -6,8 +23,7 @@ function pr($value) {
     print_r($value);
     echo '</pre>';
 }
-
-require_once('src/at/mkweb/config.php');
+require_once('src/at/mkweb/Config.php');
 
 Config::init('config.php');
 
@@ -48,6 +64,10 @@ function loginValid() {
                 }
             }
             break;
+
+        default: 
+            return true;
+            break;
     }
 
     return false;
@@ -64,10 +84,12 @@ if(!isset($_SERVER['PHP_AUTH_USER']) || !loginValid()) {
 
 	<link rel="stylesheet" type="text/css" href="res/css/style.css" />
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="res/css/lightbox.css" rel="stylesheet" />
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 
+    <script type="text/javascript" src="res/js/lightbox.js"></script>
 	<script type="text/javascript" src="res/js/upnp-backend.js"></script>
 </head>
 <body>

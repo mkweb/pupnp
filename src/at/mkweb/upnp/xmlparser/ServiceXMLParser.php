@@ -1,22 +1,97 @@
 <?php
+/**
+ * pUPnP, an PHP UPnP MediaControl
+ * 
+ * Copyright (C) 2012 Mario Klug
+ * 
+ * This file is part of pUPnP.
+ * 
+ * pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ * 
+ * pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
+ */
 namespace at\mkweb\upnp\xmlparser;
 
 use at\mkweb\upnp\exception\UPnPException;
 
 use \DOMDocument;
 
+/**
+* Parser and data provider class for UPnP Device service XML
+*
+* @author Mario Klug <mario.klug@mk-web.at>
+*/
 class ServiceXMLParser extends XMLParser {
 
+    /**
+    * URL to service description
+    *
+    * @access private
+    * @var string
+    */
     private $scpdUrl;
+
+    /**
+    * Control URL
+    *
+    * @access private
+    * @var string
+    */
     private $controlUrl;
+
+    /**
+    * URL for eventing
+    *
+    * @access private
+    * @var string
+    */
     private $eventSubUrl;
 
+    /**
+    * UPnP ServiceType
+    *
+    * @access private
+    * @var string
+    */
     private $type;
+
+    /**
+    * UPnP Service UID
+    *
+    * @access private
+    * @var string
+    */
     private $id;
 
+    /**
+    * Action storage
+    *
+    * @access private
+    * @var array
+    */
     private $actions;
+
+    /**
+    * StateVar storage
+    *
+    * @access private
+    * @var array
+    */
     private $stateVars;
 
+    /**
+    * Constructor
+    * Triggers ServiceXMLParser::parse() for scpdUrl
+    *
+    * @access public
+    * @param array $data    Service data from RootXMLParser
+    */
     public function __construct($data) {
 
         $this->type = $data->serviceType;
@@ -29,41 +104,101 @@ class ServiceXMLParser extends XMLParser {
         $this->parse($this->scpdUrl);
     }
 
+    /**
+    * Get service description URL
+    *
+    * @access public
+    * 
+    * @return string    if found or null
+    */
     public function getScdpUrl() {
 
         return $this->scpdUrl;
     }
 
+    /**
+    * Get control URL
+    *
+    * @access public
+    * 
+    * @return string    if found or null
+    */
     public function getControlUrl() {
 
         return $this->controlUrl;
     }
 
+    /**
+    * Get eventing URL
+    *
+    * @access public
+    * 
+    * @return string    if found or null
+    */
     public function getEventSubUrl() {
 
         return $this->eventSubUrl;
     }
 
+    /**
+    * Get ServiceType
+    *
+    * @access public
+    * 
+    * @return string    if found or null
+    */
     public function getType() {
 
         return $this->type;
     }
 
+    /**
+    * Get UID of this service
+    *
+    * @access public
+    * 
+    * @return string    if found or null
+    */
     public function getId() {
 
         return $this->id;
     }
 
+    /**
+    * Get action list
+    *
+    * @access public
+    * 
+    * @return array
+    */
     public function getActions() {
 
         return $this->actions;
     }
 
+    /**
+    * Get stateVars
+    *
+    * @access public
+    *
+    * @param string $name
+    * 
+    * @return array
+    */
     public function getStateVar($name) {
 
         return (isset($this->stateVars[$name]) ? $this->stateVars[$name] : null);
     }
 
+    /**
+    * Parse given service XML
+    * 
+    * @access public
+    * 
+    * @param $path      URL to service XML
+    * 
+    * @throws at.mkweb.upnp.exception.UPnPException     if unable to load service XML
+    */
     public function parse($path) {
 
         parent::__construct($path);
@@ -72,10 +207,9 @@ class ServiceXMLParser extends XMLParser {
 
         $xml = file_get_contents($path);
 
-        #if($this->debug()) {
-        #   header('Content-Type: text/xml');
-        #   echo $xml; exit;
-        #}
+        // Debugging:
+        // header('Content-Type: text/xml');
+        // echo $xml; exit;
 
         if(false == $xml) {
 
@@ -101,6 +235,14 @@ class ServiceXMLParser extends XMLParser {
         }
     }
 
+    /**
+    * Parse service XML action structure
+    *
+    * @access private
+    *
+    * @param \DOMDocument $dom
+    * @param \DOMElement $node
+    */
     private function parseActionList(DOMDocument &$dom, $node) {
 
         if($node->hasChildNodes()) {
@@ -152,11 +294,14 @@ class ServiceXMLParser extends XMLParser {
         }
     }
         
-    function debug() {
-
-         return ($this->id == 'urn:upnp-org:serviceId:ContentDirectory');
-    }
-
+    /**
+    * Parse service XML statevars
+    *
+    * @access private
+    *
+    * @param \DOMDocument $dom
+    * @param \DOMElement $node
+    */
     private function parseStateVars(DOMDocument &$dom, $node) {
 
         if($node->hasChildNodes()) {

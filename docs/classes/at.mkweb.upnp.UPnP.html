@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \at\mkweb\upnp\UPnP</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/at.html"><i class="icon-th"></i> at</a></li>
+<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/at.html"><i class="icon-folder-open"></i> at</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">35</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_discover" title="discover :: Performs a standardized UPnP multicast request to 239.255.255.250:1900
+and listens $timeout seconds for responses"><span class="description">Performs a standardized UPnP multicast request to 239.255.255.250:1900
+and listens $timeout seconds for responses</span><pre>discover()</pre></a></li>
+<li class="method public "><a href="#method_findDevices" title="findDevices :: Find devices by UPnP multicast message and stores them to cache"><span class="description">Find devices by UPnP multicast message and stores them to cache</span><pre>findDevices()</pre></a></li>
+<li class="method public "><a href="#method_getDevice" title="getDevice :: Returns device from cache"><span class="description">Returns device from cache</span><pre>getDevice()</pre></a></li>
+<li class="method public "><a href="#method_getDevices" title="getDevices :: Get all known devices."><span class="description">Get all known devices.</span><pre>getDevices()</pre></a></li>
+<li class="method public "><a href="#method_saveCache" title="saveCache :: Write devicelist to cache file [cachdir]/devices.serialized"><span class="description">Write devicelist to cache file [cachdir]/devices.serialized</span><pre>saveCache()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="method private "><a href="#method_discoveryReponse2Array" title="discoveryReponse2Array :: Transforms discovery response string to key/value array"><span class="description">Transforms discovery response string to key/value array</span><pre>discoveryReponse2Array()</pre></a></li>
+<li class="method private "><a href="#method_getCacheDir" title="getCacheDir :: Returns path to cache directory"><span class="description">Returns path to cache directory</span><pre>getCacheDir()</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\at\mkweb\upnp\UPnP"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/at.html">at</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.html">mkweb</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.upnp.html">upnp</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/at.mkweb.upnp.UPnP.html">UPnP</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">UPnP main class</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/at.mkweb.upnp.html">at.mkweb.upnp</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:mario.klug@mk-web.at">Mario Klug</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_discover"></a><div class="element clickable method public method_discover" data-toggle="collapse" data-target=".method_discover .collapse">
+<h2>Performs a standardized UPnP multicast request to 239.255.255.250:1900
+and listens $timeout seconds for responses</h2>
+<pre>discover(int $timeout) : array</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Thanks to artheus (https://github.com/artheus/PHP-UPnP/blob/master/phpupnp.class.php)</p></div>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$timeout</h4>
+<code>int</code><p>Timeout to wait for responses</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Response</div>
+</div></div>
+</div>
+<a id="method_findDevices"></a><div class="element clickable method public method_findDevices" data-toggle="collapse" data-target=".method_findDevices .collapse">
+<h2>Find devices by UPnP multicast message and stores them to cache</h2>
+<pre>findDevices() : array</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Parsed device list</div>
+</div></div>
+</div>
+<a id="method_getDevice"></a><div class="element clickable method public method_getDevice" data-toggle="collapse" data-target=".method_getDevice .collapse">
+<h2>Returns device from cache</h2>
+<pre>getDevice(string $uid) : \at\mkweb\upnp\at.mkweb.upnp.Device</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$uid</h4>
+<code>string</code><p>UID     Device UID</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\at\mkweb\upnp\at.mkweb.upnp.Device</code></div>
+</div></div>
+</div>
+<a id="method_getDevices"></a><div class="element clickable method public method_getDevices" data-toggle="collapse" data-target=".method_getDevices .collapse">
+<h2>Get all known devices.</h2>
+<pre>getDevices(string $service) : array</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>If devices are cached it will return cached devicelist, either it will perform an UPnP
+multicast lookup.</p></div>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$service</h4>
+<code>string</code><p>Only return devices which provide given services</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Array of devices</div>
+</div></div>
+</div>
+<a id="method_saveCache"></a><div class="element clickable method public method_saveCache" data-toggle="collapse" data-target=".method_saveCache .collapse">
+<h2>Write devicelist to cache file [cachdir]/devices.serialized</h2>
+<pre>saveCache(array $data) </pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\at\mkweb\upnp\at.mkweb.upnp.exception.UPnPLogicException</code></th>
+<td>Thrown if cache dir is not found or not writeable</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_discoveryReponse2Array"></a><div class="element clickable method private method_discoveryReponse2Array" data-toggle="collapse" data-target=".method_discoveryReponse2Array .collapse">
+<h2>Transforms discovery response string to key/value array</h2>
+<pre>discoveryReponse2Array(string $res) : \stdObj</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>access</th>
+<td>private</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$res</h4>
+<code>string</code><p>discovery response</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\stdObj</code></div>
+</div></div>
+</div>
+<a id="method_getCacheDir"></a><div class="element clickable method private method_getCacheDir" data-toggle="collapse" data-target=".method_getCacheDir .collapse">
+<h2>Returns path to cache directory</h2>
+<pre>getCacheDir() : string</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>access</th>
+<td>private</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-01-22T15:56:03+01:00.<br></footer></div>
+</div>
+</body>
+</html>

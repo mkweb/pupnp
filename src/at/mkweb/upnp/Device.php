@@ -1,4 +1,21 @@
 <?php
+/**
+ * pUPnP, an PHP UPnP MediaControl
+ * 
+ * Copyright (C) 2012 Mario Klug
+ * 
+ * This file is part of pUPnP.
+ * 
+ * pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ * 
+ * pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
+ */
 namespace at\mkweb\upnp;
 
 use at\mkweb\upnp\exception\UPnPLogicException;
@@ -8,20 +25,72 @@ use at\mkweb\upnp\xmlparser\ServiceXMLParser;
 
 use \ReflectionClass;
 
+/**
+* UPnP Device representation
+*
+* @package at.mkweb.upnp
+* @author Mario Klug <mario.klug@mk-web.at>
+*/
 class Device {
 
+    /**
+    * Device UID
+    * @var str
+    */
     public $id;
+
+    /**
+    * Device friendlyName
+    * @var str
+    */
     public $name;
 
+    /**
+    * Date of last discovery response
+    * @var str
+    */
     public $date;
+
+    /**
+    * Location of the root XML
+    * @var str
+    */
     public $location;
+    
+    /**
+    * Server name
+    * @var str
+    */
     public $server;
+
+    /**
+    * ST value in UPnP discovery response
+    * @var str
+    */
     public $st;
+
+    /**
+    * USN value in UPnP discovery response
+    * @var str
+    */
     public $usn;
 
+    /**
+    * USN value in UPnP discovery response
+    * @var str
+    */
     public $root;
+
+    /**
+    * Root xml
+    * @var at.mkweb.upnp.xmlparsers.RootXMLParser
+    */
     public $services;
-	
+
+    /**
+    * Typemapping for more simple services access
+    * @var array
+    */	
     private $typeMapping = array(
 		'urn:schemas-upnp-org:service:AVTransport:1' 		=> 'AVTransport',
 		'urn:schemas-upnp-org:service:AVTransport:2' 		=> 'AVTransport',
@@ -35,36 +104,87 @@ class Device {
 		'urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:2' => 'X_MS_MediaReceiverRegistrar'
 	);
 
+    /**
+    * Returns uid for selected device
+    * 
+    * @access public
+    *
+    * @return str
+    */
     public function getId() {
 
         return $this->id;
     }
 
+    /**
+    * Returns friendlyName for selected device
+    * 
+    * @access public
+    *
+    * @return str
+    */
     public function getName() {
 
         return $this->name;
     }
 
+    /**
+    * Returns all available service names
+    * 
+    * @access public
+    *
+    * @return array
+    */
     public function getServices() {
 
         return array_keys($this->services);
     }
 
+    /**
+    * Returns new HTTP-Client for selected service
+    * 
+    * @access public
+    * 
+    * @param string $service    Service Name
+    *
+    * @return at.mkweb.upnp.Client
+    */
     public function getClient($service) {
 
         return new Client($this, $service);
     }
 
+    /**
+    * Returns data from root-xml
+    * 
+    * @access public
+    * 
+    * @return array
+    */
     public function getData() {
 
         return $this->root->getData();
     }
 
+    /**
+    * Returns icons list from root-xml
+    * 
+    * @access public
+    * 
+    * @return array
+    */
     public function getIcons() {
 
         return $this->root->getIcons();
     }
 
+    /**
+    * Loading device from serialized cache file
+    *
+    * @access public
+    *
+    * @param string $uid    Device UID
+    */ 
     public function loadFromCache($uid) {
 
         $cacheFile = self::getCacheDir() . DIRECTORY_SEPARATOR . $uid;
@@ -86,6 +206,13 @@ class Device {
         }
     }
 
+    /**
+    * Init device by discovery response
+    *
+    * @access public
+    *
+    * @param \stdClass $response    Discovery response
+    */
     public function initByDiscoveryReponse(\stdClass $response) {
 
         $this->date     = $response->DATE;
@@ -115,6 +242,11 @@ class Device {
         $this->name = $this->root->getName();
     }
 
+    /**
+    * Save current device to serialized cache file
+    *
+    * @access public
+    */
     public function saveToCache() {
 
         $content = serialize($this);
@@ -133,6 +265,15 @@ class Device {
         fclose($fh);
     }
 
+    /**
+    * Returns path to current cache dir
+    *
+    * @static
+    * @access public
+    *
+    * @throws at.mkweb.upnp.exception.UPnPLogicException    If cache dir not found or not writeable
+    * @return string                                        Path of cache dir
+    */
     private static function getCacheDir() {
 
         $tmp = explode('\\', __NAMESPACE__);

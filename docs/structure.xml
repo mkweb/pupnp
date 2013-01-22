@@ -1,0 +1,2380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2.0.0a12" title="">
+  <file path="index.php" hash="f6083da1236173a7e69267841c5fd794" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <include line="26" type="Require Once" package="Default">
+      <name>src/at/mkweb/Config.php</name>
+    </include>
+    <function namespace="global" line="21" package="Default">
+      <name>pr</name>
+      <full_name>\pr</full_name>
+      <argument line="21">
+        <name>$value</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="30" package="Default">
+      <name>sendAuthHeader</name>
+      <full_name>\sendAuthHeader</full_name>
+      <argument line="30">
+        <name>$msg</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <function namespace="global" line="36" package="Default">
+      <name>loginValid</name>
+      <full_name>\loginValid</full_name>
+    </function>
+    <parse_markers>
+      <error line="21" code="50009">No DocBlock was found for function \pr()</error>
+      <error line="30" code="50009">No DocBlock was found for function \sendAuthHeader()</error>
+      <error line="36" code="50009">No DocBlock was found for function \loginValid()</error>
+    </parse_markers>
+  </file>
+  <file path="ajax-templates/fileinfo.php" hash="24505669eac820ddea9183892ecb9d1e" package="Default">
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file ajax-templates/fileinfo.php</error>
+    </parse_markers>
+  </file>
+  <file path="config.php" hash="e5962d968468619c050b2a5b7a584709" package="Default">
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file config.php</error>
+    </parse_markers>
+  </file>
+  <file path="image.php" hash="ec9ffd735682fe5e9212ee7a32647644" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+  </file>
+  <file path="class.AjaxHandler.php" hash="8376aad508f10b71a89e5008a427c885" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <include line="548" type="Require Once" package="Default">
+      <name/>
+    </include>
+    <function namespace="global" line="23" package="Default">
+      <name>is_utf8</name>
+      <full_name>\is_utf8</full_name>
+      <argument line="23">
+        <name>$str</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <class final="false" abstract="false" namespace="global" line="44" package="Default">
+      <extends/>
+      <name>AjaxHandler</name>
+      <full_name>\AjaxHandler</full_name>
+      <docblock line="39">
+        <description>Wrapper for simple data access using Ajax (JavaScript)</description>
+        <long-description/>
+        <tag line="39" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="46" namespace="global" package="Default">
+        <name>$callback</name>
+        <default>null</default>
+      </property>
+      <property final="false" static="true" visibility="private" line="47" namespace="global" package="Default">
+        <name>$logfile</name>
+        <default>'AjaxHandler'</default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="49" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="54" package="Default">
+        <name>call</name>
+        <full_name>call</full_name>
+        <argument line="54">
+          <name>$method</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="54">
+          <name>$params</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="78" package="Default">
+        <name>StartPlay</name>
+        <full_name>StartPlay</full_name>
+        <argument line="78">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="78">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="126" package="Default">
+        <name>getFileInfoHtml</name>
+        <full_name>getFileInfoHtml</full_name>
+        <argument line="126">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="126">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="148" package="Default">
+        <name>getCurrentInfoHtml</name>
+        <full_name>getCurrentInfoHtml</full_name>
+        <argument line="148">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="148">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="165" package="Default">
+        <name>getDeviceData</name>
+        <full_name>getDeviceData</full_name>
+        <argument line="165">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="182" package="Default">
+        <name>getMetaData</name>
+        <full_name>getMetaData</full_name>
+        <argument line="182">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="182">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+        <argument line="182">
+          <name>$return</name>
+          <default>false</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="207" package="Default">
+        <name>getChilds</name>
+        <full_name>getChilds</full_name>
+        <argument line="207">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="207">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="226" package="Default">
+        <name>getProtocolInfo</name>
+        <full_name>getProtocolInfo</full_name>
+        <argument line="226">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="238" package="Default">
+        <name>SetAVTransportURI</name>
+        <full_name>SetAVTransportURI</full_name>
+        <argument line="238">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="238">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="250" package="Default">
+        <name>Play</name>
+        <full_name>Play</full_name>
+        <argument line="250">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="262" package="Default">
+        <name>Pause</name>
+        <full_name>Pause</full_name>
+        <argument line="262">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="274" package="Default">
+        <name>Stop</name>
+        <full_name>Stop</full_name>
+        <argument line="274">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="286" package="Default">
+        <name>Seek</name>
+        <full_name>Seek</full_name>
+        <argument line="286">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="286">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="298" package="Default">
+        <name>getPositionInfo</name>
+        <full_name>getPositionInfo</full_name>
+        <argument line="298">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="298">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="313" package="Default">
+        <name>getTransportInfo</name>
+        <full_name>getTransportInfo</full_name>
+        <argument line="313">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="313">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="325" package="Default">
+        <name>getMediaInfo</name>
+        <full_name>getMediaInfo</full_name>
+        <argument line="325">
+          <name>$device</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="325">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="337" package="Default">
+        <name>getDevices</name>
+        <full_name>getDevices</full_name>
+        <argument line="337">
+          <name>$request</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="346" package="Default">
+        <name>getFavorites</name>
+        <full_name>getFavorites</full_name>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="375" package="Default">
+        <name>addFavorite</name>
+        <full_name>addFavorite</full_name>
+        <argument line="375">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="402" package="Default">
+        <name>removeFavorite</name>
+        <full_name>removeFavorite</full_name>
+        <argument line="402">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="429" package="Default">
+        <name>respond</name>
+        <full_name>respond</full_name>
+        <argument line="429">
+          <name>$data</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="448" package="Default">
+        <name>prepareMetaData</name>
+        <full_name>prepareMetaData</full_name>
+        <argument line="448">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="515" package="Default">
+        <name>respondHtmlTemplate</name>
+        <full_name>respondHtmlTemplate</full_name>
+        <argument line="515">
+          <name>$template</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="515">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="23" code="50009">No DocBlock was found for function \is_utf8()</error>
+      <error line="46" code="50018">No DocBlock was found for property $callback</error>
+      <error line="47" code="50018">No DocBlock was found for property $logfile</error>
+      <error line="49" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="54" code="50010">No DocBlock was found for method call()</error>
+      <error line="78" code="50010">No DocBlock was found for method StartPlay()</error>
+      <error line="126" code="50010">No DocBlock was found for method getFileInfoHtml()</error>
+      <error line="148" code="50010">No DocBlock was found for method getCurrentInfoHtml()</error>
+      <error line="165" code="50010">No DocBlock was found for method getDeviceData()</error>
+      <error line="182" code="50010">No DocBlock was found for method getMetaData()</error>
+      <error line="207" code="50010">No DocBlock was found for method getChilds()</error>
+      <error line="226" code="50010">No DocBlock was found for method getProtocolInfo()</error>
+      <error line="238" code="50010">No DocBlock was found for method SetAVTransportURI()</error>
+      <error line="250" code="50010">No DocBlock was found for method Play()</error>
+      <error line="262" code="50010">No DocBlock was found for method Pause()</error>
+      <error line="274" code="50010">No DocBlock was found for method Stop()</error>
+      <error line="286" code="50010">No DocBlock was found for method Seek()</error>
+      <error line="298" code="50010">No DocBlock was found for method getPositionInfo()</error>
+      <error line="313" code="50010">No DocBlock was found for method getTransportInfo()</error>
+      <error line="325" code="50010">No DocBlock was found for method getMediaInfo()</error>
+      <error line="337" code="50010">No DocBlock was found for method getDevices()</error>
+      <error line="346" code="50010">No DocBlock was found for method getFavorites()</error>
+      <error line="375" code="50010">No DocBlock was found for method addFavorite()</error>
+      <error line="402" code="50010">No DocBlock was found for method removeFavorite()</error>
+      <error line="429" code="50010">No DocBlock was found for method respond()</error>
+      <error line="448" code="50010">No DocBlock was found for method prepareMetaData()</error>
+      <error line="515" code="50010">No DocBlock was found for method respondHtmlTemplate()</error>
+    </parse_markers>
+  </file>
+  <file path="src/at/mkweb/upnp/Client.php" hash="238ce91032b1437f4dd36490eda9ccfe" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp" line="32" package="at\mkweb\upnp">
+      <extends/>
+      <name>Client</name>
+      <full_name>\at\mkweb\upnp\Client</full_name>
+      <docblock line="26">
+        <description>pUPnP HTTP-Client</description>
+        <long-description/>
+        <tag line="26" name="package" description="at.mkweb.upnp"/>
+        <tag line="26" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="38" namespace="at\mkweb\upnp" package="Default">
+        <name>$device</name>
+        <default/>
+        <docblock line="34">
+          <description>Device object</description>
+          <long-description/>
+          <tag line="34" name="var" description="" type="\at\mkweb\upnp\at.mkweb.upnp.Device">
+            <type by_reference="false">\at\mkweb\upnp\at.mkweb.upnp.Device</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="44" namespace="at\mkweb\upnp" package="Default">
+        <name>$service</name>
+        <default/>
+        <docblock line="40">
+          <description>Service</description>
+          <long-description/>
+          <tag line="40" name="var" description="" type="\at\mkweb\upnp\at.mkweb.upnp.xmlparser.ServiceXMLParser">
+            <type by_reference="false">\at\mkweb\upnp\at.mkweb.upnp.xmlparser.ServiceXMLParser</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="private" line="50" namespace="at\mkweb\upnp" package="Default">
+        <name>$logfile</name>
+        <default>'Client'</default>
+        <docblock line="46">
+          <description>Name of logfile for this class</description>
+          <long-description/>
+          <tag line="46" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="56" namespace="at\mkweb\upnp" package="Default">
+        <name>$hideLogs</name>
+        <default>false</default>
+        <docblock line="52">
+          <description>Hide logs for debugging purposes</description>
+          <long-description/>
+          <tag line="52" name="var" description="" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="62" namespace="at\mkweb\upnp" package="Default">
+        <name>$hideLogsMethods</name>
+        <default>array('GetPositionInfo', 'GetTransportInfo')</default>
+        <docblock line="58">
+          <description>Hide logs for these methods - for debugging purposes</description>
+          <long-description/>
+          <tag line="58" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="72" package="at\mkweb\upnp">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="64">
+          <description>Constructor - preparing Service</description>
+          <long-description/>
+          <tag line="64" name="access" description="public"/>
+          <tag line="64" name="param" description="" type="\at\mkweb\upnp\Device" variable="$device">
+            <type by_reference="false">\at\mkweb\upnp\Device</type>
+          </tag>
+          <tag line="64" name="param" description="" type="string" variable="$service">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="72">
+          <name>$device</name>
+          <default/>
+          <type>\at\mkweb\upnp\Device</type>
+        </argument>
+        <argument line="72">
+          <name>$service</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="97" package="at\mkweb\upnp">
+        <name>getAction</name>
+        <full_name>getAction</full_name>
+        <docblock line="88">
+          <description>Returns action name if it's a valid action for selected service, either null</description>
+          <long-description/>
+          <tag line="88" name="access" description="public"/>
+          <tag line="88" name="param" description="return mixed  Action name or null" type="string" variable="$name">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="97">
+          <name>$name</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="111" package="at\mkweb\upnp">
+        <name>getActions</name>
+        <full_name>getActions</full_name>
+        <docblock line="104">
+          <description>Returns all actions for selected service</description>
+          <long-description/>
+          <tag line="104" name="access" description="public"/>
+          <tag line="104" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="126" package="at\mkweb\upnp">
+        <name>call</name>
+        <full_name>call</full_name>
+        <docblock line="116">
+          <description>Sending HTTP-Request and returns parsed response</description>
+          <long-description/>
+          <tag line="116" name="access" description="public"/>
+          <tag line="116" name="param" description="Method name" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="116" name="param" description="Key-Value array" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="116" name="return" description="Parsed response" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="126">
+          <name>$method</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="126">
+          <name>$data</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp" line="205" package="at\mkweb\upnp">
+        <name>getResponseCode</name>
+        <full_name>getResponseCode</full_name>
+        <docblock line="196">
+          <description>Filters response HTTP-Code from response headers</description>
+          <long-description/>
+          <tag line="196" name="access" description="private"/>
+          <tag line="196" name="param" description="HTTP response headers" type="string" variable="$headers">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="196" name="return" description="Response code (int) or null if not found" type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="205">
+          <name>$headers</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="228" package="at\mkweb\upnp">
+        <name>__call</name>
+        <full_name>__call</full_name>
+        <docblock line="218">
+          <description>Catchall function to enable direct method calls like $client-&gt;methodName();</description>
+          <long-description/>
+          <tag line="218" name="access" description="public"/>
+          <tag line="218" name="param" description="Method name" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="218" name="param" description="Key-value array" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="218" name="return" description="Parsed response" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="228">
+          <name>$method</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="228">
+          <name>$data</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="243" package="at\mkweb\upnp">
+        <name>getRequest</name>
+        <full_name>getRequest</full_name>
+        <docblock line="233">
+          <description>Prepares SOAP XML-Request</description>
+          <long-description/>
+          <tag line="233" name="access" description="public"/>
+          <tag line="233" name="param" description="Method name" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="233" name="param" description="Key-value array" type="array" variable="$userData">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="233" name="return" description="Request XML" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="243">
+          <name>$method</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="243">
+          <name>$userData</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp" line="331" package="at\mkweb\upnp">
+        <name>getFirst</name>
+        <full_name>getFirst</full_name>
+        <docblock line="322">
+          <description>DOMDocument helper to return first non-DOMText child</description>
+          <long-description/>
+          <tag line="322" name="access" description="private"/>
+          <tag line="322" name="param" description="List of DOMNodes" type="\DOMNodeList" variable="$node">
+            <type by_reference="false">\DOMNodeList</type>
+          </tag>
+          <tag line="322" name="return" description="" type="\DOMNode">
+            <type by_reference="false">\DOMNode</type>
+          </tag>
+        </docblock>
+        <argument line="331">
+          <name>$node</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp" line="354" package="at\mkweb\upnp">
+        <name>parseResponseError</name>
+        <full_name>parseResponseError</full_name>
+        <docblock line="345">
+          <description>Transforms SOAPFault XML to Array</description>
+          <long-description/>
+          <tag line="345" name="access" description="private"/>
+          <tag line="345" name="param" description="Response XML" type="string" variable="$xml">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="345" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="354">
+          <name>$xml</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp" line="415" package="at\mkweb\upnp">
+        <name>parseResponse</name>
+        <full_name>parseResponse</full_name>
+        <docblock line="405">
+          <description>Transforms response XML to Array</description>
+          <long-description/>
+          <tag line="405" name="access" description="private"/>
+          <tag line="405" name="param" description="Method name" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="405" name="param" description="Response XML" type="string" variable="$xml">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="405" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="415">
+          <name>$method</name>
+          <default/>
+          <type/>
+        </argument>
+        <argument line="415">
+          <name>$xml</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="src/at/mkweb/upnp/autoload.php" hash="e2b95def687791fbe32ad3a9986ebe6d" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <include line="65" type="Require Once" package="Default">
+      <name/>
+    </include>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp" line="27" package="at\mkweb\upnp">
+      <extends/>
+      <name>Autoloader</name>
+      <full_name>\at\mkweb\upnp\Autoloader</full_name>
+      <docblock line="21">
+        <description>Autoloader for at.mkweb.upnp namespace</description>
+        <long-description/>
+        <tag line="21" name="package" description="at.mkweb.upnp"/>
+        <tag line="21" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb\upnp" line="35" package="at\mkweb\upnp">
+        <name>register</name>
+        <full_name>register</full_name>
+        <docblock line="29">
+          <description>Registers autoloader with spl_autoload_register</description>
+          <long-description/>
+          <tag line="29" name="static" description=""/>
+          <tag line="29" name="access" description="public"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb\upnp" line="49" package="at\mkweb\upnp">
+        <name>autoload</name>
+        <full_name>autoload</full_name>
+        <docblock line="40">
+          <description>Autoloading method
+Searches for source file and includes it if found</description>
+          <long-description/>
+          <tag line="40" name="static" description=""/>
+          <tag line="40" name="access" description="public"/>
+          <tag line="40" name="param" description="" type="string" variable="$className">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="49">
+          <name>$className</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="src/at/mkweb/upnp/exception/UPnPLogicException.php" hash="acaf86443be9602670731941d33fc3c1" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp\exception" line="27" package="Default">
+      <extends>\Exception</extends>
+      <name>UPnPLogicException</name>
+      <full_name>\at\mkweb\upnp\exception\UPnPLogicException</full_name>
+      <docblock line="21">
+        <description>UPnPLogicException
+This type of exception is thrown when anything in program logic fails</description>
+        <long-description/>
+        <tag line="21" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+    </class>
+  </file>
+  <file path="src/at/mkweb/upnp/exception/UPnPException.php" hash="230e1f1d77c3e74f7ca7fb7830c51e03" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp\exception" line="28" package="Default">
+      <extends>\Exception</extends>
+      <name>UPnPException</name>
+      <full_name>\at\mkweb\upnp\exception\UPnPException</full_name>
+      <docblock line="21">
+        <description>UPnPException
+This type of exception is thrown when anything failes while
+talking to devices</description>
+        <long-description/>
+        <tag line="21" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+    </class>
+  </file>
+  <file path="src/at/mkweb/upnp/xmlparser/XMLParser.php" hash="82e09e543ffbf8fd6e230979362b9e86" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp\xmlparser" line="30" package="Default">
+      <extends/>
+      <name>XMLParser</name>
+      <full_name>\at\mkweb\upnp\xmlparser\XMLParser</full_name>
+      <docblock line="25">
+        <description>Helper class to parse UPnP relevant XMLs</description>
+        <long-description/>
+        <tag line="25" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="38" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$host</name>
+        <default/>
+        <docblock line="32">
+          <description>Device hostname or IP</description>
+          <long-description/>
+          <tag line="32" name="access" description="protected"/>
+          <tag line="32" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="46" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$port</name>
+        <default/>
+        <docblock line="40">
+          <description>Device port</description>
+          <long-description/>
+          <tag line="40" name="access" description="protected"/>
+          <tag line="40" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="54" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$specVersion_min</name>
+        <default>0</default>
+        <docblock line="48">
+          <description>Supported UPnP Version (min)</description>
+          <long-description/>
+          <tag line="48" name="access" description="protected"/>
+          <tag line="48" name="var" description="" type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="62" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$specVersion_max</name>
+        <default>0</default>
+        <docblock line="56">
+          <description>Supported UPnP Version (max)</description>
+          <long-description/>
+          <tag line="56" name="access" description="protected"/>
+          <tag line="56" name="var" description="" type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="72" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="64">
+          <description>Constructor
+Read host and port if path is set</description>
+          <long-description/>
+          <tag line="64" name="access" description="public"/>
+          <tag line="64" name="param" description="XML-Url" type="\at\mkweb\upnp\xmlparser\" variable="$path"/>
+        </docblock>
+        <argument line="72">
+          <name>$path</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="at\mkweb\upnp\xmlparser" line="92" package="Default">
+        <name>isText</name>
+        <full_name>isText</full_name>
+        <docblock line="83">
+          <description>Check if this node is a DOMText-Node or if it only contains 1 DOMText node</description>
+          <long-description/>
+          <tag line="83" name="access" description="protected"/>
+          <tag line="83" name="param" description="" type="\DOMElement" variable="$node">
+            <type by_reference="false">\DOMElement</type>
+          </tag>
+          <tag line="83" name="return" description="" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="92">
+          <name>$node</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="at\mkweb\upnp\xmlparser" line="116" package="Default">
+        <name>parseSpecVersion</name>
+        <full_name>parseSpecVersion</full_name>
+        <docblock line="108">
+          <description>Search for min and max supported UPnP version</description>
+          <long-description/>
+          <tag line="108" name="access" description="protected"/>
+          <tag line="108" name="param" description="" type="\DOMDocument" variable="$doc">
+            <type by_reference="false">\DOMDocument</type>
+          </tag>
+          <tag line="108" name="param" description="" type="\DOMElement" variable="$tag">
+            <type by_reference="false">\DOMElement</type>
+          </tag>
+        </docblock>
+        <argument line="116">
+          <name>$doc</name>
+          <default/>
+          <type>\DOMDocument</type>
+        </argument>
+        <argument line="116">
+          <name>$tag</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="at\mkweb\upnp\xmlparser" line="140" package="Default">
+        <name>relativeToAbsolutePath</name>
+        <full_name>relativeToAbsolutePath</full_name>
+        <docblock line="131">
+          <description>Transforms relative paths to absolute ones</description>
+          <long-description/>
+          <tag line="131" name="access" description="protected"/>
+          <tag line="131" name="param" description="" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="131" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="140">
+          <name>$path</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="src/at/mkweb/upnp/xmlparser/ServiceXMLParser.php" hash="8e17b9705e9fbab14ec8fafcc15c7e62" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp\xmlparser" line="30" package="Default">
+      <extends>\at\mkweb\upnp\xmlparser\XMLParser</extends>
+      <name>ServiceXMLParser</name>
+      <full_name>\at\mkweb\upnp\xmlparser\ServiceXMLParser</full_name>
+      <docblock line="25">
+        <description>Parser and data provider class for UPnP Device service XML</description>
+        <long-description></long-description>
+        <tag line="25" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="38" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$scpdUrl</name>
+        <default></default>
+        <docblock line="32">
+          <description>URL to service description</description>
+          <long-description></long-description>
+          <tag line="32" name="access" description="private"/>
+          <tag line="32" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="46" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$controlUrl</name>
+        <default></default>
+        <docblock line="40">
+          <description>Control URL</description>
+          <long-description></long-description>
+          <tag line="40" name="access" description="private"/>
+          <tag line="40" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="54" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$eventSubUrl</name>
+        <default></default>
+        <docblock line="48">
+          <description>URL for eventing</description>
+          <long-description></long-description>
+          <tag line="48" name="access" description="private"/>
+          <tag line="48" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="62" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$type</name>
+        <default></default>
+        <docblock line="56">
+          <description>UPnP ServiceType</description>
+          <long-description></long-description>
+          <tag line="56" name="access" description="private"/>
+          <tag line="56" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="70" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$id</name>
+        <default></default>
+        <docblock line="64">
+          <description>UPnP Service UID</description>
+          <long-description></long-description>
+          <tag line="64" name="access" description="private"/>
+          <tag line="64" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="78" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$actions</name>
+        <default></default>
+        <docblock line="72">
+          <description>Action storage</description>
+          <long-description></long-description>
+          <tag line="72" name="access" description="private"/>
+          <tag line="72" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="86" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$stateVars</name>
+        <default></default>
+        <docblock line="80">
+          <description>StateVar storage</description>
+          <long-description></long-description>
+          <tag line="80" name="access" description="private"/>
+          <tag line="80" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="95" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="88">
+          <description>Constructor
+Triggers ServiceXMLParser::parse() for scpdUrl</description>
+          <long-description></long-description>
+          <tag line="88" name="access" description="public"/>
+          <tag line="88" name="param" description="Service data from RootXMLParser" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="95">
+          <name>$data</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="114" package="Default">
+        <name>getScdpUrl</name>
+        <full_name>getScdpUrl</full_name>
+        <docblock line="107">
+          <description>Get service description URL</description>
+          <long-description></long-description>
+          <tag line="107" name="access" description="public"/>
+          <tag line="107" name="return" description="if found or null" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="126" package="Default">
+        <name>getControlUrl</name>
+        <full_name>getControlUrl</full_name>
+        <docblock line="119">
+          <description>Get control URL</description>
+          <long-description></long-description>
+          <tag line="119" name="access" description="public"/>
+          <tag line="119" name="return" description="if found or null" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="138" package="Default">
+        <name>getEventSubUrl</name>
+        <full_name>getEventSubUrl</full_name>
+        <docblock line="131">
+          <description>Get eventing URL</description>
+          <long-description></long-description>
+          <tag line="131" name="access" description="public"/>
+          <tag line="131" name="return" description="if found or null" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="150" package="Default">
+        <name>getType</name>
+        <full_name>getType</full_name>
+        <docblock line="143">
+          <description>Get ServiceType</description>
+          <long-description></long-description>
+          <tag line="143" name="access" description="public"/>
+          <tag line="143" name="return" description="if found or null" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="162" package="Default">
+        <name>getId</name>
+        <full_name>getId</full_name>
+        <docblock line="155">
+          <description>Get UID of this service</description>
+          <long-description></long-description>
+          <tag line="155" name="access" description="public"/>
+          <tag line="155" name="return" description="if found or null" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="174" package="Default">
+        <name>getActions</name>
+        <full_name>getActions</full_name>
+        <docblock line="167">
+          <description>Get action list</description>
+          <long-description></long-description>
+          <tag line="167" name="access" description="public"/>
+          <tag line="167" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="188" package="Default">
+        <name>getStateVar</name>
+        <full_name>getStateVar</full_name>
+        <docblock line="179">
+          <description>Get stateVars</description>
+          <long-description></long-description>
+          <tag line="179" name="access" description="public"/>
+          <tag line="179" name="param" description="" type="string" variable="$name">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="179" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="188">
+          <name>$name</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="202" package="Default">
+        <name>parse</name>
+        <full_name>parse</full_name>
+        <docblock line="193">
+          <description>Parse given service XML</description>
+          <long-description></long-description>
+          <tag line="193" name="access" description="public"/>
+          <tag line="193" name="param" description="URL to service XML" type="\at\mkweb\upnp\xmlparser\" variable="$path"/>
+          <tag line="193" name="throws" description="if unable to load service XML" type="\at\mkweb\upnp\xmlparser\at.mkweb.upnp.exception.UPnPException">
+            <type by_reference="false">\at\mkweb\upnp\xmlparser\at.mkweb.upnp.exception.UPnPException</type>
+          </tag>
+        </docblock>
+        <argument line="202">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp\xmlparser" line="246" package="Default">
+        <name>parseActionList</name>
+        <full_name>parseActionList</full_name>
+        <docblock line="238">
+          <description>Parse service XML action structure</description>
+          <long-description></long-description>
+          <tag line="238" name="access" description="private"/>
+          <tag line="238" name="param" description="" type="\DOMDocument" variable="$dom">
+            <type by_reference="false">\DOMDocument</type>
+          </tag>
+          <tag line="238" name="param" description="" type="\DOMElement" variable="$node">
+            <type by_reference="false">\DOMElement</type>
+          </tag>
+        </docblock>
+        <argument line="246">
+          <name>$dom</name>
+          <default></default>
+          <type>\DOMDocument</type>
+        </argument>
+        <argument line="246">
+          <name>$node</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp\xmlparser" line="305" package="Default">
+        <name>parseStateVars</name>
+        <full_name>parseStateVars</full_name>
+        <docblock line="297">
+          <description>Parse service XML statevars</description>
+          <long-description></long-description>
+          <tag line="297" name="access" description="private"/>
+          <tag line="297" name="param" description="" type="\DOMDocument" variable="$dom">
+            <type by_reference="false">\DOMDocument</type>
+          </tag>
+          <tag line="297" name="param" description="" type="\DOMElement" variable="$node">
+            <type by_reference="false">\DOMElement</type>
+          </tag>
+        </docblock>
+        <argument line="305">
+          <name>$dom</name>
+          <default></default>
+          <type>\DOMDocument</type>
+        </argument>
+        <argument line="305">
+          <name>$node</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="src/at/mkweb/upnp/xmlparser/RootXMLParser.php" hash="9c7a96902ab1116d2bdbc8321546cf57" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp\xmlparser" line="31" package="Default">
+      <extends>\at\mkweb\upnp\xmlparser\XMLParser</extends>
+      <name>RootXMLParser</name>
+      <full_name>\at\mkweb\upnp\xmlparser\RootXMLParser</full_name>
+      <docblock line="25">
+        <description>Parser and data provider class for UPnP Device root XML</description>
+        <long-description/>
+        <tag line="25" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+        <tag line="25" name="uses" description="\at\mkweb\upnp\xmlparser\XMLParser" refers="\at\mkweb\upnp\xmlparser\XMLParser"/>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="40" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$toAbsolutePath</name>
+        <default>array('presentationURL')</default>
+        <docblock line="33">
+          <description>Values with these keys gets transformed
+from relative to absolute path if possible</description>
+          <long-description/>
+          <tag line="33" name="access" description="private"/>
+          <tag line="33" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="48" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$data</name>
+        <default>array()</default>
+        <docblock line="42">
+          <description>Main device data</description>
+          <long-description/>
+          <tag line="42" name="access" description="private"/>
+          <tag line="42" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="56" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$icons</name>
+        <default>array()</default>
+        <docblock line="50">
+          <description>Iconslist</description>
+          <long-description/>
+          <tag line="50" name="access" description="private"/>
+          <tag line="50" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="64" namespace="at\mkweb\upnp\xmlparser" package="Default">
+        <name>$services</name>
+        <default>array()</default>
+        <docblock line="58">
+          <description>Available services</description>
+          <long-description/>
+          <tag line="58" name="access" description="private"/>
+          <tag line="58" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="73" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="66">
+          <description>Constructor
+If path equals null RootXMLParser::parse gets triggered</description>
+          <long-description/>
+          <tag line="66" name="access" description="public"/>
+          <tag line="66" name="param" description="Url to root XML" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="73">
+          <name>$path</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="88" package="Default">
+        <name>getId</name>
+        <full_name>getId</full_name>
+        <docblock line="81">
+          <description>Get UID of device</description>
+          <long-description/>
+          <tag line="81" name="access" description="public"/>
+          <tag line="81" name="return" description="if found or null" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="100" package="Default">
+        <name>getName</name>
+        <full_name>getName</full_name>
+        <docblock line="93">
+          <description>Get friendlyName of device</description>
+          <long-description/>
+          <tag line="93" name="access" description="public"/>
+          <tag line="93" name="return" description="if found or null" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="115" package="Default">
+        <name>getData</name>
+        <full_name>getData</full_name>
+        <docblock line="105">
+          <description>Get data parsed from root XML
+If key is not set, all datas gets returned</description>
+          <long-description/>
+          <tag line="105" name="accesss" description="public"/>
+          <tag line="105" name="param" description="" type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="105" name="return" description="" type="\stdObj">
+            <type by_reference="false">\stdObj</type>
+          </tag>
+        </docblock>
+        <argument line="115">
+          <name>$key</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="132" package="Default">
+        <name>getIcons</name>
+        <full_name>getIcons</full_name>
+        <docblock line="125">
+          <description>Returns icon list if found</description>
+          <long-description/>
+          <tag line="125" name="access" description="public"/>
+          <tag line="125" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="144" package="Default">
+        <name>getServices</name>
+        <full_name>getServices</full_name>
+        <docblock line="137">
+          <description>Returns service list if found</description>
+          <long-description/>
+          <tag line="137" name="access" description="public"/>
+          <tag line="137" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp\xmlparser" line="158" package="Default">
+        <name>parse</name>
+        <full_name>parse</full_name>
+        <docblock line="149">
+          <description>Parse given root XML</description>
+          <long-description/>
+          <tag line="149" name="access" description="public"/>
+          <tag line="149" name="param" description="URL to root XML" type="\at\mkweb\upnp\xmlparser\" variable="$path"/>
+          <tag line="149" name="throws" description="if unable to load root XML" type="\at\mkweb\upnp\xmlparser\at.mkweb.upnp.exception.UPnPException">
+            <type by_reference="false">\at\mkweb\upnp\xmlparser\at.mkweb.upnp.exception.UPnPException</type>
+          </tag>
+        </docblock>
+        <argument line="158">
+          <name>$path</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp\xmlparser" line="205" package="Default">
+        <name>parseDevice</name>
+        <full_name>parseDevice</full_name>
+        <docblock line="195">
+          <description>Parse root XML device structure</description>
+          <long-description/>
+          <tag line="195" name="access" description="private"/>
+          <tag line="195" name="param" description="" type="\DOMDocument" variable="$doc">
+            <type by_reference="false">\DOMDocument</type>
+          </tag>
+          <tag line="195" name="param" description="" type="\DOMElement" variable="$tag">
+            <type by_reference="false">\DOMElement</type>
+          </tag>
+          <tag line="195" name="throws" description="If an unknown tag appears" type="\at\mkweb\upnp\xmlparser\at.mkweb.upnp.exception.UPnPException">
+            <type by_reference="false">\at\mkweb\upnp\xmlparser\at.mkweb.upnp.exception.UPnPException</type>
+          </tag>
+        </docblock>
+        <argument line="205">
+          <name>$doc</name>
+          <default/>
+          <type>\DOMDocument</type>
+        </argument>
+        <argument line="205">
+          <name>$tag</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp\xmlparser" line="249" package="Default">
+        <name>parseIconList</name>
+        <full_name>parseIconList</full_name>
+        <docblock line="241">
+          <description>Parse root XML icon structure</description>
+          <long-description/>
+          <tag line="241" name="access" description="private"/>
+          <tag line="241" name="param" description="" type="\DOMDocument" variable="$doc">
+            <type by_reference="false">\DOMDocument</type>
+          </tag>
+          <tag line="241" name="param" description="" type="\DOMElement" variable="$tag">
+            <type by_reference="false">\DOMElement</type>
+          </tag>
+        </docblock>
+        <argument line="249">
+          <name>$doc</name>
+          <default/>
+          <type>\DOMDocument</type>
+        </argument>
+        <argument line="249">
+          <name>$tag</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="at\mkweb\upnp\xmlparser" line="282" package="Default">
+        <name>parseServiceList</name>
+        <full_name>parseServiceList</full_name>
+        <docblock line="274">
+          <description>Parse root XML servicelist structure</description>
+          <long-description/>
+          <tag line="274" name="access" description="private"/>
+          <tag line="274" name="param" description="" type="\DOMDocument" variable="$doc">
+            <type by_reference="false">\DOMDocument</type>
+          </tag>
+          <tag line="274" name="param" description="" type="\DOMElement" variable="$tag">
+            <type by_reference="false">\DOMElement</type>
+          </tag>
+        </docblock>
+        <argument line="282">
+          <name>$doc</name>
+          <default/>
+          <type>\DOMDocument</type>
+        </argument>
+        <argument line="282">
+          <name>$tag</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="src/at/mkweb/upnp/UPnP.php" hash="3957d9dff7e3586837d22d9071ce39ae" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp" line="27" package="at\mkweb\upnp">
+      <extends/>
+      <name>UPnP</name>
+      <full_name>\at\mkweb\upnp\UPnP</full_name>
+      <docblock line="21">
+        <description>UPnP main class</description>
+        <long-description/>
+        <tag line="21" name="package" description="at.mkweb.upnp"/>
+        <tag line="21" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb\upnp" line="41" package="at\mkweb\upnp">
+        <name>getDevices</name>
+        <full_name>getDevices</full_name>
+        <docblock line="29">
+          <description>Get all known devices.</description>
+          <long-description>&lt;p&gt;If devices are cached it will return cached devicelist, either it will perform an UPnP
+multicast lookup.&lt;/p&gt;</long-description>
+          <tag line="29" name="static" description=""/>
+          <tag line="29" name="access" description="public"/>
+          <tag line="29" name="param" description="Only return devices which provide given services" type="string" variable="$service">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="29" name="return" description="Array of devices" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="41">
+          <name>$service</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb\upnp" line="80" package="at\mkweb\upnp">
+        <name>getDevice</name>
+        <full_name>getDevice</full_name>
+        <docblock line="70">
+          <description>Returns device from cache</description>
+          <long-description/>
+          <tag line="70" name="static" description=""/>
+          <tag line="70" name="access" description="public"/>
+          <tag line="70" name="param" description="UID     Device UID" type="string" variable="$uid">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="70" name="return" description="" type="\at\mkweb\upnp\at.mkweb.upnp.Device">
+            <type by_reference="false">\at\mkweb\upnp\at.mkweb.upnp.Device</type>
+          </tag>
+        </docblock>
+        <argument line="80">
+          <name>$uid</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb\upnp" line="96" package="at\mkweb\upnp">
+        <name>findDevices</name>
+        <full_name>findDevices</full_name>
+        <docblock line="88">
+          <description>Find devices by UPnP multicast message and stores them to cache</description>
+          <long-description/>
+          <tag line="88" name="static" description=""/>
+          <tag line="88" name="access" description="public"/>
+          <tag line="88" name="return" description="Parsed device list" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb\upnp" line="134" package="at\mkweb\upnp">
+        <name>saveCache</name>
+        <full_name>saveCache</full_name>
+        <docblock line="127">
+          <description>Write devicelist to cache file [cachdir]/devices.serialized</description>
+          <long-description/>
+          <tag line="127" name="param" description="" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="127" name="throws" description="Thrown if cache dir is not found or not writeable" type="\at\mkweb\upnp\at.mkweb.upnp.exception.UPnPLogicException">
+            <type by_reference="false">\at\mkweb\upnp\at.mkweb.upnp.exception.UPnPLogicException</type>
+          </tag>
+        </docblock>
+        <argument line="134">
+          <name>$data</name>
+          <default/>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb\upnp" line="168" package="at\mkweb\upnp">
+        <name>discover</name>
+        <full_name>discover</full_name>
+        <docblock line="155">
+          <description>Performs a standardized UPnP multicast request to 239.255.255.250:1900
+and listens $timeout seconds for responses</description>
+          <long-description>&lt;p&gt;Thanks to artheus (https://github.com/artheus/PHP-UPnP/blob/master/phpupnp.class.php)&lt;/p&gt;</long-description>
+          <tag line="155" name="static" description=""/>
+          <tag line="155" name="access" description="public"/>
+          <tag line="155" name="param" description="Timeout to wait for responses" type="int" variable="$timeout">
+            <type by_reference="false">int</type>
+          </tag>
+          <tag line="155" name="return" description="Response" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="168">
+          <name>$timeout</name>
+          <default>2</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="private" namespace="at\mkweb\upnp" line="206" package="at\mkweb\upnp">
+        <name>discoveryReponse2Array</name>
+        <full_name>discoveryReponse2Array</full_name>
+        <docblock line="196">
+          <description>Transforms discovery response string to key/value array</description>
+          <long-description/>
+          <tag line="196" name="static" description=""/>
+          <tag line="196" name="access" description="private"/>
+          <tag line="196" name="param" description="discovery response" type="string" variable="$res">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="196" name="return" description="" type="\stdObj">
+            <type by_reference="false">\stdObj</type>
+          </tag>
+        </docblock>
+        <argument line="206">
+          <name>$res</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="private" namespace="at\mkweb\upnp" line="238" package="at\mkweb\upnp">
+        <name>getCacheDir</name>
+        <full_name>getCacheDir</full_name>
+        <docblock line="230">
+          <description>Returns path to cache directory</description>
+          <long-description/>
+          <tag line="230" name="static" description=""/>
+          <tag line="230" name="access" description="private"/>
+          <tag line="230" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="src/at/mkweb/upnp/Device.php" hash="0094458c464d304facccce18917dad8d" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb\upnp" line="34" package="at\mkweb\upnp">
+      <extends/>
+      <name>Device</name>
+      <full_name>\at\mkweb\upnp\Device</full_name>
+      <docblock line="28">
+        <description>UPnP Device representation</description>
+        <long-description/>
+        <tag line="28" name="package" description="at.mkweb.upnp"/>
+        <tag line="28" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="40" namespace="at\mkweb\upnp" package="Default">
+        <name>$id</name>
+        <default/>
+        <docblock line="36">
+          <description>Device UID</description>
+          <long-description/>
+          <tag line="36" name="var" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="46" namespace="at\mkweb\upnp" package="Default">
+        <name>$name</name>
+        <default/>
+        <docblock line="42">
+          <description>Device friendlyName</description>
+          <long-description/>
+          <tag line="42" name="var" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="52" namespace="at\mkweb\upnp" package="Default">
+        <name>$date</name>
+        <default/>
+        <docblock line="48">
+          <description>Date of last discovery response</description>
+          <long-description/>
+          <tag line="48" name="var" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="58" namespace="at\mkweb\upnp" package="Default">
+        <name>$location</name>
+        <default/>
+        <docblock line="54">
+          <description>Location of the root XML</description>
+          <long-description/>
+          <tag line="54" name="var" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="64" namespace="at\mkweb\upnp" package="Default">
+        <name>$server</name>
+        <default/>
+        <docblock line="60">
+          <description>Server name</description>
+          <long-description/>
+          <tag line="60" name="var" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="70" namespace="at\mkweb\upnp" package="Default">
+        <name>$st</name>
+        <default/>
+        <docblock line="66">
+          <description>ST value in UPnP discovery response</description>
+          <long-description/>
+          <tag line="66" name="var" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="76" namespace="at\mkweb\upnp" package="Default">
+        <name>$usn</name>
+        <default/>
+        <docblock line="72">
+          <description>USN value in UPnP discovery response</description>
+          <long-description/>
+          <tag line="72" name="var" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="82" namespace="at\mkweb\upnp" package="Default">
+        <name>$root</name>
+        <default/>
+        <docblock line="78">
+          <description>USN value in UPnP discovery response</description>
+          <long-description/>
+          <tag line="78" name="var" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="88" namespace="at\mkweb\upnp" package="Default">
+        <name>$services</name>
+        <default/>
+        <docblock line="84">
+          <description>Root xml</description>
+          <long-description/>
+          <tag line="84" name="var" description="" type="\at\mkweb\upnp\at.mkweb.upnp.xmlparsers.RootXMLParser">
+            <type by_reference="false">\at\mkweb\upnp\at.mkweb.upnp.xmlparsers.RootXMLParser</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="private" line="94" namespace="at\mkweb\upnp" package="Default">
+        <name>$typeMapping</name>
+        <default>array('urn:schemas-upnp-org:service:AVTransport:1' =&gt; 'AVTransport', 'urn:schemas-upnp-org:service:AVTransport:2' =&gt; 'AVTransport', 'urn:schemas-upnp-org:service:ConnectionManager:1' =&gt; 'ConnectionManager', 'urn:schemas-upnp-org:service:ConnectionManager:2' =&gt; 'ConnectionManager', 'urn:schemas-upnp-org:service:RenderingControl:1' =&gt; 'RenderingControl', 'urn:schemas-upnp-org:service:RenderingControl:2' =&gt; 'RenderingControl', 'urn:schemas-upnp-org:service:ContentDirectory:1' =&gt; 'ContentDirectory', 'urn:schemas-upnp-org:service:ContentDirectory:2' =&gt; 'ContentDirectory', 'urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1' =&gt; 'X_MS_MediaReceiverRegistrar', 'urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:2' =&gt; 'X_MS_MediaReceiverRegistrar')</default>
+        <docblock line="90">
+          <description>Typemapping for more simple services access</description>
+          <long-description/>
+          <tag line="90" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="114" package="at\mkweb\upnp">
+        <name>getId</name>
+        <full_name>getId</full_name>
+        <docblock line="107">
+          <description>Returns uid for selected device</description>
+          <long-description/>
+          <tag line="107" name="access" description="public"/>
+          <tag line="107" name="return" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="126" package="at\mkweb\upnp">
+        <name>getName</name>
+        <full_name>getName</full_name>
+        <docblock line="119">
+          <description>Returns friendlyName for selected device</description>
+          <long-description/>
+          <tag line="119" name="access" description="public"/>
+          <tag line="119" name="return" description="" type="\at\mkweb\upnp\str">
+            <type by_reference="false">\at\mkweb\upnp\str</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="138" package="at\mkweb\upnp">
+        <name>getServices</name>
+        <full_name>getServices</full_name>
+        <docblock line="131">
+          <description>Returns all available service names</description>
+          <long-description/>
+          <tag line="131" name="access" description="public"/>
+          <tag line="131" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="152" package="at\mkweb\upnp">
+        <name>getClient</name>
+        <full_name>getClient</full_name>
+        <docblock line="143">
+          <description>Returns new HTTP-Client for selected service</description>
+          <long-description/>
+          <tag line="143" name="access" description="public"/>
+          <tag line="143" name="param" description="Service Name" type="string" variable="$service">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="143" name="return" description="" type="\at\mkweb\upnp\at.mkweb.upnp.Client">
+            <type by_reference="false">\at\mkweb\upnp\at.mkweb.upnp.Client</type>
+          </tag>
+        </docblock>
+        <argument line="152">
+          <name>$service</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="164" package="at\mkweb\upnp">
+        <name>getData</name>
+        <full_name>getData</full_name>
+        <docblock line="157">
+          <description>Returns data from root-xml</description>
+          <long-description/>
+          <tag line="157" name="access" description="public"/>
+          <tag line="157" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="176" package="at\mkweb\upnp">
+        <name>getIcons</name>
+        <full_name>getIcons</full_name>
+        <docblock line="169">
+          <description>Returns icons list from root-xml</description>
+          <long-description/>
+          <tag line="169" name="access" description="public"/>
+          <tag line="169" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="188" package="at\mkweb\upnp">
+        <name>loadFromCache</name>
+        <full_name>loadFromCache</full_name>
+        <docblock line="181">
+          <description>Loading device from serialized cache file</description>
+          <long-description/>
+          <tag line="181" name="access" description="public"/>
+          <tag line="181" name="param" description="Device UID" type="string" variable="$uid">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="188">
+          <name>$uid</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="216" package="at\mkweb\upnp">
+        <name>initByDiscoveryReponse</name>
+        <full_name>initByDiscoveryReponse</full_name>
+        <docblock line="209">
+          <description>Init device by discovery response</description>
+          <long-description/>
+          <tag line="209" name="access" description="public"/>
+          <tag line="209" name="param" description="Discovery response" type="\stdClass" variable="$response">
+            <type by_reference="false">\stdClass</type>
+          </tag>
+        </docblock>
+        <argument line="216">
+          <name>$response</name>
+          <default/>
+          <type>\stdClass</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="at\mkweb\upnp" line="250" package="at\mkweb\upnp">
+        <name>saveToCache</name>
+        <full_name>saveToCache</full_name>
+        <docblock line="245">
+          <description>Save current device to serialized cache file</description>
+          <long-description/>
+          <tag line="245" name="access" description="public"/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="private" namespace="at\mkweb\upnp" line="277" package="at\mkweb\upnp">
+        <name>getCacheDir</name>
+        <full_name>getCacheDir</full_name>
+        <docblock line="268">
+          <description>Returns path to current cache dir</description>
+          <long-description/>
+          <tag line="268" name="static" description=""/>
+          <tag line="268" name="access" description="public"/>
+          <tag line="268" name="throws" description="If cache dir not found or not writeable" type="\at\mkweb\upnp\at.mkweb.upnp.exception.UPnPLogicException">
+            <type by_reference="false">\at\mkweb\upnp\at.mkweb.upnp.exception.UPnPLogicException</type>
+          </tag>
+          <tag line="268" name="return" description="Path of cache dir" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="src/at/mkweb/Config.php" hash="50579fe0b19bec3ad7ba13ab95815119" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <include line="65" type="Require Once" package="Default">
+      <name/>
+    </include>
+    <class final="false" abstract="false" namespace="at\mkweb" line="28" package="Default">
+      <extends/>
+      <name>Config</name>
+      <full_name>\at\mkweb\Config</full_name>
+      <docblock line="21">
+        <description>Simple config implementation</description>
+        <long-description/>
+        <tag line="21" name="namespace" description="at.mkweb"/>
+        <tag line="21" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <property final="false" static="true" visibility="private" line="37" namespace="at\mkweb" package="Default">
+        <name>$file</name>
+        <default/>
+        <docblock line="30">
+          <description>Path to config file</description>
+          <long-description/>
+          <tag line="30" name="static" description=""/>
+          <tag line="30" name="access" description="private"/>
+          <tag line="30" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="private" line="46" namespace="at\mkweb" package="Default">
+        <name>$config</name>
+        <default>array()</default>
+        <docblock line="39">
+          <description>Storage for config array</description>
+          <long-description/>
+          <tag line="39" name="static" description=""/>
+          <tag line="39" name="access" description="private"/>
+          <tag line="39" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb" line="56" package="Default">
+        <name>init</name>
+        <full_name>init</full_name>
+        <docblock line="48">
+          <description>Load file content to config storage</description>
+          <long-description/>
+          <tag line="48" name="static" description=""/>
+          <tag line="48" name="access" description="public"/>
+          <tag line="48" name="param" description="Filename" type="string" variable="$file">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="56">
+          <name>$file</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb" line="81" package="Default">
+        <name>read</name>
+        <full_name>read</full_name>
+        <docblock line="72">
+          <description>Wrapper for at.mkweb.Config::get()</description>
+          <long-description/>
+          <tag line="72" name="static" description=""/>
+          <tag line="72" name="access" description="public"/>
+          <tag line="72" name="param" description="" type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="72" name="return" description="or null if not found" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="81">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb" line="95" package="Default">
+        <name>get</name>
+        <full_name>get</full_name>
+        <docblock line="86">
+          <description>Get config value if exists</description>
+          <long-description/>
+          <tag line="86" name="static" description=""/>
+          <tag line="86" name="access" description="public"/>
+          <tag line="86" name="param" description="" type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="86" name="return" description="or null if not found" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="95">
+          <name>$key</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="src/at/mkweb/Logger.php" hash="5e2b68b9344a87a0d015067e240368ad" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <class final="false" abstract="false" namespace="at\mkweb" line="30" package="Default">
+      <extends/>
+      <name>Logger</name>
+      <full_name>\at\mkweb\Logger</full_name>
+      <docblock line="23">
+        <description>Simple Logger</description>
+        <long-description></long-description>
+        <tag line="23" name="namespace" description="at.mkweb"/>
+        <tag line="23" name="author" description="Mario Klug &lt;mario.klug@mk-web.at&gt;"/>
+      </docblock>
+      <constant namespace="at\mkweb" line="59" package="Default">
+        <name>LEVEL_NONE</name>
+        <full_name>LEVEL_NONE</full_name>
+        <value>0</value>
+      </constant>
+      <constant namespace="at\mkweb" line="60" package="Default">
+        <name>LEVEL_INFO</name>
+        <full_name>LEVEL_INFO</full_name>
+        <value>1</value>
+      </constant>
+      <constant namespace="at\mkweb" line="61" package="Default">
+        <name>LEVEL_WARNING</name>
+        <full_name>LEVEL_WARNING</full_name>
+        <value>2</value>
+      </constant>
+      <constant namespace="at\mkweb" line="62" package="Default">
+        <name>LEVEL_DEBUG</name>
+        <full_name>LEVEL_DEBUG</full_name>
+        <value>3</value>
+      </constant>
+      <property final="false" static="true" visibility="private" line="39" namespace="at\mkweb" package="Default">
+        <name>$handler</name>
+        <default></default>
+        <docblock line="32">
+          <description>File handler</description>
+          <long-description></long-description>
+          <tag line="32" name="static" description=""/>
+          <tag line="32" name="access" description="private"/>
+          <tag line="32" name="var" description="" type="resource">
+            <type by_reference="false">resource</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="private" line="48" namespace="at\mkweb" package="Default">
+        <name>$logdir</name>
+        <default></default>
+        <docblock line="41">
+          <description>Log directory</description>
+          <long-description></long-description>
+          <tag line="41" name="static" description=""/>
+          <tag line="41" name="access" description="private"/>
+          <tag line="41" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="private" line="57" namespace="at\mkweb" package="Default">
+        <name>$level</name>
+        <default>0</default>
+        <docblock line="50">
+          <description>Configured log level</description>
+          <long-description></long-description>
+          <tag line="50" name="static" description=""/>
+          <tag line="50" name="access" description="private"/>
+          <tag line="50" name="var" description="" type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb" line="72" package="Default">
+        <name>init</name>
+        <full_name>init</full_name>
+        <docblock line="64">
+          <description>Intialize logger</description>
+          <long-description></long-description>
+          <tag line="64" name="static" description=""/>
+          <tag line="64" name="access" description="public"/>
+          <tag line="64" name="throws" description="If log directory not exists or not writeable" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="at\mkweb" line="99" package="Default">
+        <name>__callStatic</name>
+        <full_name>__callStatic</full_name>
+        <docblock line="88">
+          <description>Catchall method which checks if the requested loglevel exists
+and should be logged</description>
+          <long-description></long-description>
+          <tag line="88" name="static" description=""/>
+          <tag line="88" name="access" description="public"/>
+          <tag line="88" name="param" description="Requested method (info, warning, debug)" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="88" name="param" description="Method parameters" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="88" name="throws" description="If filename is not given" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+        </docblock>
+        <argument line="99">
+          <name>$method</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="99">
+          <name>$data</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="private" namespace="at\mkweb" line="132" package="Default">
+        <name>log</name>
+        <full_name>log</full_name>
+        <docblock line="123">
+          <description>Writing to the log file in todays log directory</description>
+          <long-description></long-description>
+          <tag line="123" name="static" description=""/>
+          <tag line="123" name="access" description="private"/>
+          <tag line="123" name="param" description="Requested loglevel" type="string" variable="$level">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="123" name="param" description="String, Array or Object to log" type="mixed" variable="$str">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="123" name="param" description="Name of the logfile to create" type="string" variable="$filename">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="132">
+          <name>$level</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="132">
+          <name>$str</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="132">
+          <name>$filename</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="private" namespace="at\mkweb" line="158" package="Default">
+        <name>createDirectory</name>
+        <full_name>createDirectory</full_name>
+        <docblock line="150">
+          <description>To avoid wrong directories because of any mistake
+this method created todays log directory from base logpath on</description>
+          <long-description></long-description>
+          <tag line="150" name="static" description=""/>
+          <tag line="150" name="access" description="private"/>
+          <tag line="150" name="param" description="Directory path" type="string" variable="$dir">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="158">
+          <name>$dir</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="discover.php" hash="70353eb48fe5758b7c56720640c875c9" package="Default">
+    <include line="13" type="Require Once" package="Default">
+      <name>src/at/mkweb/upnp/autoload.php</name>
+    </include>
+    <function namespace="global" line="7" package="Default">
+      <name>pr</name>
+      <full_name>\pr</full_name>
+      <argument line="7">
+        <name>$value</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file discover.php</error>
+      <error line="7" code="50009">No DocBlock was found for function \pr()</error>
+    </parse_markers>
+  </file>
+  <file path="backend.php" hash="8b90434044f7b556fcefff4f17a7f946" package="Default">
+    <docblock line="2">
+      <description>pUPnP, an PHP UPnP MediaControl</description>
+      <long-description>&lt;p&gt;Copyright (C) 2012 Mario Klug&lt;/p&gt;
+
+&lt;p&gt;This file is part of pUPnP.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 2 of the
+License, or (at your option) any later version.&lt;/p&gt;
+
+&lt;p&gt;pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;
+
+&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU
+General Public License along with Mupen64PlusAE. If not, see &lt;a href="http://www.gnu.org/licenses/"&gt;http://www.gnu.org/licenses/&lt;/a&gt;.&lt;/p&gt;</long-description>
+    </docblock>
+    <include line="28" type="Require Once" package="Default">
+      <name>src/at/mkweb/upnp/autoload.php</name>
+    </include>
+    <include line="31" type="Require Once" package="Default">
+      <name>class.AjaxHandler.php</name>
+    </include>
+    <include line="41" type="Require Once" package="Default">
+      <name>image.php</name>
+    </include>
+    <function namespace="global" line="33" package="Default">
+      <name>pr</name>
+      <full_name>\pr</full_name>
+      <argument line="33">
+        <name>$value</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <parse_markers>
+      <error line="33" code="50009">No DocBlock was found for function \pr()</error>
+    </parse_markers>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="at" full_name="at">
+    <package name="mkweb" full_name="at\mkweb">
+      <package name="upnp" full_name="at\mkweb\upnp"/>
+    </package>
+  </package>
+  <namespace name="at" full_name="at">
+    <namespace name="mkweb" full_name="at\mkweb">
+      <namespace name="upnp" full_name="at\mkweb\upnp">
+        <namespace name="exception" full_name="at\mkweb\upnp\exception"/>
+        <namespace name="xmlparser" full_name="at\mkweb\upnp\xmlparser"/>
+      </namespace>
+    </namespace>
+  </namespace>
+  <namespace name="global" full_name="global"/>
+  <marker count="0">todo</marker>
+  <marker count="0">fixme</marker>
+  <deprecated count="0"/>
+</project>

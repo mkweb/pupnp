@@ -1,8 +1,43 @@
 <?php
+/**
+ * pUPnP, an PHP UPnP MediaControl
+ * 
+ * Copyright (C) 2012 Mario Klug
+ * 
+ * This file is part of pUPnP.
+ * 
+ * pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ * 
+ * pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
+ */
 namespace at\mkweb\upnp;
 
+/**
+* UPnP main class
+*
+* @package at.mkweb.upnp
+* @author Mario Klug <mario.klug@mk-web.at>
+*/
 class UPnP {
 
+    /**
+    * Get all known devices.
+    * If devices are cached it will return cached devicelist, either it will perform an UPnP
+    * multicast lookup.
+    *
+    * @static
+    * @access public
+    *
+    * @param string $service      Only return devices which provide given services
+    *
+    * @return array                 Array of devices
+    */
     public static function getDevices($service = null) {
 
         $cacheFile = self::getCacheDir() . DIRECTORY_SEPARATOR . 'devices.serialized';
@@ -32,6 +67,16 @@ class UPnP {
         return $devices;
     }
 
+    /**
+    * Returns device from cache
+    *
+    * @static
+    * @access public
+    * 
+    * @param string UID     Device UID
+    *
+    * @return at.mkweb.upnp.Device
+    */
     public static function getDevice($uid) {
 
         $device = new Device();
@@ -40,14 +85,19 @@ class UPnP {
         return $device;
     }
 
+    /**
+    * Find devices by UPnP multicast message and stores them to cache
+    * 
+    * @static
+    * @access public
+    *
+    * @return array     Parsed device list
+    */
     public static function findDevices() {
 
         $discover = self::discover();
 
         $cache = array();
-
-#        $tmp = 'O:8:"stdClass":7:{s:8:"LOCATION";s:47:"http://192.168.2.112:1649/DeviceDescription.xml";s:13:"CACHE-CONTROL";s:12:"max-age=1800";s:6:"SERVER";s:38:"UPnP/1.0 DLNADOC/1.50 Platinum/0.6.9.1";s:3:"EXT";s:0:"";s:3:"USN";s:58:"uuid:6612698b-2926-8a06-5c54-49334756eb04::upnp:rootdevice";s:2:"ST";s:15:"upnp:rootdevice";s:4:"DATE";s:29:"Thu, 03 Jan 2013 23:01:00 GMT";}';
-#        $discover = array(unserialize($tmp));
 
         pr("DISCOVER:");
         pr($discover);
@@ -74,6 +124,13 @@ class UPnP {
         return $cache;
     }
 
+    /**
+    * Write devicelist to cache file [cachdir]/devices.serialized
+    *
+    * @param array $data
+    * 
+    * @throws at.mkweb.upnp.exception.UPnPLogicException    Thrown if cache dir is not found or not writeable
+    */
     public static function saveCache(Array $data) {
 
         $cacheDir = self::getCacheDir();
@@ -95,6 +152,19 @@ class UPnP {
         fclose($fh);
     }
 
+    /**
+    * Performs a standardized UPnP multicast request to 239.255.255.250:1900
+    * and listens $timeout seconds for responses
+    *
+    * Thanks to artheus (https://github.com/artheus/PHP-UPnP/blob/master/phpupnp.class.php)
+    *
+    * @static
+    * @access public
+    *
+    * @param int $timeout       Timeout to wait for responses
+    *
+    * @return array             Response
+    */
     public static function discover($timeout = 2) {
 
 		$msg  = 'M-SEARCH * HTTP/1.1' . "\r\n";
@@ -111,7 +181,6 @@ class UPnP {
 
 		socket_set_option($sock, SOL_SOCKET, SO_RCVTIMEO, array('sec' => $timeout, 'usec' => 0));
 
-		// RECIEVE RESPONSE
 		$response = array();
 
 		do {
@@ -124,6 +193,16 @@ class UPnP {
         return $response;
     }
 
+    /**
+    * Transforms discovery response string to key/value array
+    *
+    * @static
+    * @access private
+    *
+    * @param string $res    discovery response
+    *
+    * @return \stdObj
+    */
 	private static function discoveryReponse2Array($res) {
 
 		$result = array();
@@ -148,6 +227,14 @@ class UPnP {
 		return (Object) $result;	
 	}
 
+    /**
+    * Returns path to cache directory
+    *
+    * @static
+    * @access private
+    *
+    * @return string 
+    */
     private static function getCacheDir() {
 
         $tmp = explode('\\', __NAMESPACE__);

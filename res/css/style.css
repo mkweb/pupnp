@@ -328,3 +328,28 @@ a#favorite.active {
 #favorites {
     display: none;
 }
+div.filerow {
+    background-color: #F1F1F1;
+    border: 1px solid #DEDEDE;
+    border-radius: 2px;
+    margin: 3px 4px 0;
+    padding: 10px 6px;
+    height: 16px;
+    box-shadow: 0 0 2px #000;
+}
+div.filerow:hover {
+    box-shadow: 0 0 4px #000;
+}
+div.filerow div.mime {
+    float: left;
+    width: 16px;
+    margin-right: 4px;
+}
+div.filerow a {
+    float: left;
+    text-decoration: none;
+    color: #666;
+}
+div.filerow .right {
+    float: right;
+}

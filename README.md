@@ -1,32 +1,40 @@
 PHP/JS MediaPlayer for UPnP Devices.
+===================================
 
-WARNING: This tool is under strong development, please be aware about!
+**WARNING: This tool is under strong development, please be aware about!**
 
 It's possible to accelerate UPnP Device discovery by creating a cronjob e.g. "*/1 * * * *   www-data    cd /var/www/pupnp; php discover.php"
 
-Requirements:
+Requirements
+------------
 * php5
 * php5-gd
 * php5-curl
 
-Installation:
+Installation
+------------
 * git clone https://github.com/mkweb/pupnp.git
 * chmod +w logs cache conf
 
-Usage:
+Usage
+-----
 * Point your Browser to http://[IP-Address]/pupnp
 
-Tested Browsers:
+Tested Browsers
+---------------
 * Firefox 17.0.1
 * Chromium 23.0.1271.97
 
-Tested UPnP Devices (yet):
+Tested UPnP Devices (yet)
+-------------------------
 * Hama IR2000
 * XBMC (Raspbmc - V12.0-RC2)
 
-Known issues:
+Known issues
+------------
 * Userlogins gets not encrypted or hashed yet
 
-Todos:
+Todos
+-----
 * Playlist support
 * _Sometimes_ there is an error when trying to stream any url with special chars

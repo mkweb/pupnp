@@ -14,7 +14,7 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * 
  * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
+ * General Public License along with pUPnP. If not, see <http://www.gnu.org/licenses/>.
  */
 use at\mkweb\upnp\Config;
 use at\mkweb\upnp\frontend\AuthManager;
@@ -30,16 +30,27 @@ if(AuthManager::authEnabled()) {
 <head>
 	<title>UPnP Browser</title>
 
-	<link rel="stylesheet" type="text/css" href="res/css/style.css" />
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-    <link href="res/css/lightbox.css" rel="stylesheet" />
+    <? if(Config::read('minify_css')): ?>
+
+        <link rel="stylesheet" type="text/css" href="resources.php?css=style.css|lightbox.css" />
+    <? else: ?>
+
+        <link rel="stylesheet" type="text/css" href="res/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="res/css/lightbox.css" />
+    <? endif ?>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+    <? if(Config::read('minify_js')): ?>
 
-    <script type="text/javascript" src="res/js/lightbox.js"></script>
-	<script type="text/javascript" src="res/js/phpjs.js"></script>
-	<script type="text/javascript" src="res/js/upnp-backend.js"></script>
+        <script type="text/javascript" src="resources.php?js=3rdparty/lightbox.js|3rdparty/phpjs.js|upnp-backend.js"></script>
+    <? else: ?>
+
+        <script type="text/javascript" src="res/js/3rdparty/lightbox.js"></script>
+        <script type="text/javascript" src="res/js/3rdparty/phpjs.js"></script>
+        <script type="text/javascript" src="res/js/upnp-backend.js"></script>
+    <? endif ?>
 </head>
 <body>
 

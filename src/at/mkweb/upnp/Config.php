@@ -14,7 +14,7 @@
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * 
  * See the GNU General Public License for more details. You should have received a copy of the GNU
- * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
+ * General Public License along with pUPnP. If not, see <http://www.gnu.org/licenses/>.
  */
 namespace at\mkweb\upnp;
 
@@ -29,6 +29,7 @@ class Config {
 
     const TYPE_STR  = 'string';
     const TYPE_INT  = 'int';
+    const TYPE_BOOL = 'bool';
     const TYPE_ENUM = 'enum';
 
     /**
@@ -107,6 +108,7 @@ class Config {
 
                 case self::TYPE_STR:
                 case self::TYPE_INT:
+                case self::TYPE_BOOL:
 
                     $lines[] = '; Value: ' . $type;
                     break;
@@ -162,6 +164,18 @@ class Config {
                 'desc'      => _('If "file" is selected as auth_method this file is used as user store'),
                 'type'      => self::TYPE_STR,
                 'default'   => './logs'
+            ),
+            'minify_js' => (Object)array(
+                'name'      => _('Minify Javascript'),
+                'desc'      => _('Merge all Javascript files to one to speed up this site'),
+                'type'      => self::TYPE_BOOL,
+                'default'   => 1
+            ),
+            'minify_css' => (Object)array(
+                'name'      => _('Minify CSS Stylesheets'),
+                'desc'      => _('Merge all CSS stylesheet files to one to speed up this site'),
+                'type'      => self::TYPE_BOOL,
+                'default'   => 1
             ),
         );
     }

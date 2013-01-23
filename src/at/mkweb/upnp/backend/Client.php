@@ -16,10 +16,10 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
  */
-namespace at\mkweb\upnp;
+namespace at\mkweb\upnp\backend;
 
 use at\mkweb\upnp\exception\UPnPException;
-use at\mkweb\Logger;
+use at\mkweb\upnp\Logger;
 
 use \DOMDocument;
 
@@ -33,7 +33,7 @@ class Client {
 
     /**
     * Device object
-    * @var at.mkweb.upnp.Device
+    * @var at.mkweb.upnp.backend.Device
     */ 
     private $device;
 

@@ -237,7 +237,7 @@ function deviceSelected(site) {
         var html = '';
         if(undefined != res.icons[0]) {
 
-            var icon = 'backend.php?image=' + res.icons[0].url + '&sq=30';
+            var icon = 'image.php?image=' + res.icons[0].url + '&sq=30';
             html += '<img src="' + icon + '" alt="' + res.friendlyName + '" />';
         }
 
@@ -866,7 +866,7 @@ function buildFileTable(files) {
 
                     case 'object.item.imageItem.photo':
 
-                        html += '   <a href="backend.php?image=' + data.res + '&w=640" rel="lightbox[preview]" title="' + i18n('View') + '">';
+                        html += '   <a href="image.php?image=' + data.res + '&w=640" rel="lightbox[preview]" title="' + i18n('View') + '">';
                         html += '       <img src="res/images/icons/view.png" alt="' + i18n('View') + '" />';
                         html += '   </a>';
                         break;
@@ -1015,7 +1015,7 @@ function createLightbox(url, name) {
 	html += '		<a id="close" href="javascript:removeLightbox();" title="' + i18n('Close') + '"></a>';
 	html += '	</div>';
 	html += '	<div id="image">';
-	html += '		<img style="max-width: 640px; max-height: 480px;" src="backend.php?image=' + url + '" />';
+	html += '		<img style="max-width: 640px; max-height: 480px;" src="image.php?image=' + url + '" />';
 	html += '	</div>';
 	html += '	<div class="foot">';
 	html += '		<div id="name">' + name + '</div>';

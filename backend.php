@@ -19,30 +19,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 
-use at\mkweb\upnp\UPnP;
+use at\mkweb\upnp\backend\AjaxHandler;
 use at\mkweb\upnp\exception\UPnPException;
 
-use at\mkweb\Config;
-use at\mkweb\Logger;
-
-require_once('src/at/mkweb/upnp/autoload.php');
-at\mkweb\upnp\Autoloader::register();
-
-require_once('class.AjaxHandler.php');
-
-function pr($value) {
-    echo '<pre>';
-    print_r($value);
-    echo '</pre>';
-}
-
-if(isset($_GET['image'])) {
-
-    require_once('image.php');
-    exit;
-}
-
-Config::init('config.php');
+require_once('src/at/mkweb/upnp/init.php');
 
 $action = $_GET['action']; unset($_GET['action']);
 

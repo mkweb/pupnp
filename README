@@ -11,7 +11,7 @@ Requirements:
 
 Installation:
 * git clone https://github.com/mkweb/pupnp.git
-* chmod +w logs cache
+* chmod +w logs cache conf
 
 Usage:
 * Point your Browser to http://[IP-Address]/pupnp

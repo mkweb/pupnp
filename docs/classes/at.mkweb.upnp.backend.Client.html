@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \at\mkweb\upnp\backend\Client</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/at.html"><i class="icon-th"></i> at</a></li>
+<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/at.html"><i class="icon-folder-open"></i> at</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">40</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___call" title="__call :: Catchall function to enable direct method calls like $client-&gt;methodName();"><span class="description">Catchall function to enable direct method calls like $client-&gt;methodName();</span><pre>__call()</pre></a></li>
+<li class="method public "><a href="#method___construct" title="__construct :: Constructor - preparing Service"><span class="description">Constructor - preparing Service</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_call" title="call :: Sending HTTP-Request and returns parsed response"><span class="description">Sending HTTP-Request and returns parsed response</span><pre>call()</pre></a></li>
+<li class="method public "><a href="#method_getAction" title="getAction :: Returns action name if it's a valid action for selected service, either null"><span class="description">Returns action name if it's a valid action for selected service, either null</span><pre>getAction()</pre></a></li>
+<li class="method public "><a href="#method_getActions" title="getActions :: Returns all actions for selected service"><span class="description">Returns all actions for selected service</span><pre>getActions()</pre></a></li>
+<li class="method public "><a href="#method_getRequest" title="getRequest :: Prepares SOAP XML-Request"><span class="description">Prepares SOAP XML-Request</span><pre>getRequest()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="method private "><a href="#method_getFirst" title="getFirst :: DOMDocument helper to return first non-DOMText child"><span class="description">DOMDocument helper to return first non-DOMText child</span><pre>getFirst()</pre></a></li>
+<li class="method private "><a href="#method_getResponseCode" title="getResponseCode :: Filters response HTTP-Code from response headers"><span class="description">Filters response HTTP-Code from response headers</span><pre>getResponseCode()</pre></a></li>
+<li class="method private "><a href="#method_parseResponse" title="parseResponse :: Transforms response XML to Array"><span class="description">Transforms response XML to Array</span><pre>parseResponse()</pre></a></li>
+<li class="method private "><a href="#method_parseResponseError" title="parseResponseError :: Transforms SOAPFault XML to Array"><span class="description">Transforms SOAPFault XML to Array</span><pre>parseResponseError()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="property private "><a href="#property_device" title="$device :: Device object"><span class="description"></span><pre>$device</pre></a></li>
+<li class="property private "><a href="#property_hideLogs" title="$hideLogs :: Hide logs for debugging purposes"><span class="description"></span><pre>$hideLogs</pre></a></li>
+<li class="property private "><a href="#property_hideLogsMethods" title="$hideLogsMethods :: Hide logs for these methods - for debugging purposes"><span class="description"></span><pre>$hideLogsMethods</pre></a></li>
+<li class="property private "><a href="#property_logfile" title="$logfile :: Name of logfile for this class"><span class="description"></span><pre>$logfile</pre></a></li>
+<li class="property private "><a href="#property_service" title="$service :: Service"><span class="description"></span><pre>$service</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\at\mkweb\upnp\backend\Client"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/at.html">at</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.html">mkweb</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.upnp.html">upnp</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.upnp.backend.html">backend</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/at.mkweb.upnp.backend.Client.html">Client</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">pUPnP HTTP-Client</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/at.mkweb.upnp.html">at.mkweb.upnp</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:mario.klug@mk-web.at">Mario Klug</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___call"></a><div class="element clickable method public method___call" data-toggle="collapse" data-target=".method___call .collapse">
+<h2>Catchall function to enable direct method calls like $client-&gt;methodName();</h2>
+<pre>__call(string $method, array $data) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$method</h4>
+<code>string</code><p>Method name</p></div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code><p>Key-value array</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Parsed response</div>
+</div></div>
+</div>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Constructor - preparing Service</h2>
+<pre>__construct(\at\mkweb\upnp\backend\Device $device, string $service) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$device</h4>
+<code><a href="../classes/at.mkweb.upnp.backend.Device.html">\at\mkweb\upnp\backend\Device</a></code>
+</div>
+<div class="subelement argument">
+<h4>$service</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a id="method_call"></a><div class="element clickable method public method_call" data-toggle="collapse" data-target=".method_call .collapse">
+<h2>Sending HTTP-Request and returns parsed response</h2>
+<pre>call(string $method, array $data) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$method</h4>
+<code>string</code><p>Method name</p></div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code><p>Key-Value array</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Parsed response</div>
+</div></div>
+</div>
+<a id="method_getAction"></a><div class="element clickable method public method_getAction" data-toggle="collapse" data-target=".method_getAction .collapse">
+<h2>Returns action name if it's a valid action for selected service, either null</h2>
+<pre>getAction(string $name) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>return mixed  Action name or null</p></div>
+</div></div>
+</div>
+<a id="method_getActions"></a><div class="element clickable method public method_getActions" data-toggle="collapse" data-target=".method_getActions .collapse">
+<h2>Returns all actions for selected service</h2>
+<pre>getActions() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getRequest"></a><div class="element clickable method public method_getRequest" data-toggle="collapse" data-target=".method_getRequest .collapse">
+<h2>Prepares SOAP XML-Request</h2>
+<pre>getRequest(string $method, array $userData) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$method</h4>
+<code>string</code><p>Method name</p></div>
+<div class="subelement argument">
+<h4>$userData</h4>
+<code>array</code><p>Key-value array</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Request XML</div>
+</div></div>
+</div>
+<a id="method_getFirst"></a><div class="element clickable method private method_getFirst" data-toggle="collapse" data-target=".method_getFirst .collapse">
+<h2>DOMDocument helper to return first non-DOMText child</h2>
+<pre>getFirst(<a href="http://php.net/manual/en/class.domnodelist.php">\DOMNodeList</a> $node) : <a href="http://php.net/manual/en/class.domnode.php">\DOMNode</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$node</h4>
+<code><a href="http://php.net/manual/en/class.domnodelist.php">\DOMNodeList</a></code><p>List of DOMNodes</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.domnode.php">\DOMNode</a></code></div>
+</div></div>
+</div>
+<a id="method_getResponseCode"></a><div class="element clickable method private method_getResponseCode" data-toggle="collapse" data-target=".method_getResponseCode .collapse">
+<h2>Filters response HTTP-Code from response headers</h2>
+<pre>getResponseCode(string $headers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$headers</h4>
+<code>string</code><p>HTTP response headers</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>mixed</code>Response code (int) or null if not found</div>
+</div></div>
+</div>
+<a id="method_parseResponse"></a><div class="element clickable method private method_parseResponse" data-toggle="collapse" data-target=".method_parseResponse .collapse">
+<h2>Transforms response XML to Array</h2>
+<pre>parseResponse(string $method, string $xml) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$method</h4>
+<code>string</code><p>Method name</p></div>
+<div class="subelement argument">
+<h4>$xml</h4>
+<code>string</code><p>Response XML</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_parseResponseError"></a><div class="element clickable method private method_parseResponseError" data-toggle="collapse" data-target=".method_parseResponseError .collapse">
+<h2>Transforms SOAPFault XML to Array</h2>
+<pre>parseResponseError(string $xml) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$xml</h4>
+<code>string</code><p>Response XML</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_device"> </a><div class="element clickable property private property_device" data-toggle="collapse" data-target=".property_device .collapse">
+<h2></h2>
+<pre>$device : \at\mkweb\upnp\backend\at.mkweb.upnp.backend.Device</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_hideLogs"> </a><div class="element clickable property private property_hideLogs" data-toggle="collapse" data-target=".property_hideLogs .collapse">
+<h2></h2>
+<pre>$hideLogs : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_hideLogsMethods"> </a><div class="element clickable property private property_hideLogsMethods" data-toggle="collapse" data-target=".property_hideLogsMethods .collapse">
+<h2></h2>
+<pre>$hideLogsMethods : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_logfile"> </a><div class="element clickable property private property_logfile" data-toggle="collapse" data-target=".property_logfile .collapse">
+<h2></h2>
+<pre>$logfile : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_service"> </a><div class="element clickable property private property_service" data-toggle="collapse" data-target=".property_service .collapse">
+<h2></h2>
+<pre>$service : \at\mkweb\upnp\backend\at.mkweb.upnp.xmlparser.ServiceXMLParser</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-01-23T13:18:36+01:00.<br></footer></div>
+</div>
+</body>
+</html>

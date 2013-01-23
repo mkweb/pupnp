@@ -16,7 +16,7 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
  */
-namespace at\mkweb\upnp;
+namespace at\mkweb\upnp\backend;
 
 /**
 * UPnP main class
@@ -75,7 +75,7 @@ class UPnP {
     * 
     * @param string UID     Device UID
     *
-    * @return at.mkweb.upnp.Device
+    * @return at.mkweb.upnp.backend.Device
     */
     public static function getDevice($uid) {
 

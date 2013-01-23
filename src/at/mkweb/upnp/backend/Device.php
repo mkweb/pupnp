@@ -16,12 +16,12 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
  */
-namespace at\mkweb\upnp;
+namespace at\mkweb\upnp\backend;
 
 use at\mkweb\upnp\exception\UPnPLogicException;
 
-use at\mkweb\upnp\xmlparser\RootXMLParser;
-use at\mkweb\upnp\xmlparser\ServiceXMLParser;
+use at\mkweb\upnp\backend\xmlparser\RootXMLParser;
+use at\mkweb\upnp\backend\xmlparser\ServiceXMLParser;
 
 use \ReflectionClass;
 
@@ -147,7 +147,7 @@ class Device {
     * 
     * @param string $service    Service Name
     *
-    * @return at.mkweb.upnp.Client
+    * @return at.mkweb.upnp.backend.Client
     */
     public function getClient($service) {
 

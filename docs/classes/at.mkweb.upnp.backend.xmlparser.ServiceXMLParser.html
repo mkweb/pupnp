@@ -1,0 +1,578 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \at\mkweb\upnp\backend\xmlparser\ServiceXMLParser</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/at.html"><i class="icon-th"></i> at</a></li>
+<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/at.html"><i class="icon-folder-open"></i> at</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">40</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: Constructor
+Triggers ServiceXMLParser::parse() for scpdUrl"><span class="description">Constructor
+Triggers ServiceXMLParser::parse() for scpdUrl</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_getActions" title="getActions :: Get action list"><span class="description">Get action list</span><pre>getActions()</pre></a></li>
+<li class="method public "><a href="#method_getControlUrl" title="getControlUrl :: Get control URL"><span class="description">Get control URL</span><pre>getControlUrl()</pre></a></li>
+<li class="method public "><a href="#method_getEventSubUrl" title="getEventSubUrl :: Get eventing URL"><span class="description">Get eventing URL</span><pre>getEventSubUrl()</pre></a></li>
+<li class="method public "><a href="#method_getId" title="getId :: Get UID of this service"><span class="description">Get UID of this service</span><pre>getId()</pre></a></li>
+<li class="method public "><a href="#method_getScdpUrl" title="getScdpUrl :: Get service description URL"><span class="description">Get service description URL</span><pre>getScdpUrl()</pre></a></li>
+<li class="method public "><a href="#method_getStateVar" title="getStateVar :: Get stateVars"><span class="description">Get stateVars</span><pre>getStateVar()</pre></a></li>
+<li class="method public "><a href="#method_getType" title="getType :: Get ServiceType"><span class="description">Get ServiceType</span><pre>getType()</pre></a></li>
+<li class="method public "><a href="#method_parse" title="parse :: Parse given service XML"><span class="description">Parse given service XML</span><pre>parse()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected inherited"><a href="#method_isText" title="isText :: Check if this node is a DOMText-Node or if it only contains 1 DOMText node"><span class="description">Check if this node is a DOMText-Node or if it only contains 1 DOMText node</span><pre>isText()</pre></a></li>
+<li class="method protected inherited"><a href="#method_parseSpecVersion" title="parseSpecVersion :: Search for min and max supported UPnP version"><span class="description">Search for min and max supported UPnP version</span><pre>parseSpecVersion()</pre></a></li>
+<li class="method protected inherited"><a href="#method_relativeToAbsolutePath" title="relativeToAbsolutePath :: Transforms relative paths to absolute ones"><span class="description">Transforms relative paths to absolute ones</span><pre>relativeToAbsolutePath()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="method private "><a href="#method_parseActionList" title="parseActionList :: Parse service XML action structure"><span class="description">Parse service XML action structure</span><pre>parseActionList()</pre></a></li>
+<li class="method private "><a href="#method_parseStateVars" title="parseStateVars :: Parse service XML statevars"><span class="description">Parse service XML statevars</span><pre>parseStateVars()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected inherited"><a href="#property_host" title="$host :: Device hostname or IP"><span class="description"></span><pre>$host</pre></a></li>
+<li class="property protected inherited"><a href="#property_port" title="$port :: Device port"><span class="description"></span><pre>$port</pre></a></li>
+<li class="property protected inherited"><a href="#property_specVersion_max" title="$specVersion_max :: Supported UPnP Version (max)"><span class="description"></span><pre>$specVersion_max</pre></a></li>
+<li class="property protected inherited"><a href="#property_specVersion_min" title="$specVersion_min :: Supported UPnP Version (min)"><span class="description"></span><pre>$specVersion_min</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="property private "><a href="#property_actions" title="$actions :: Action storage"><span class="description"></span><pre>$actions</pre></a></li>
+<li class="property private "><a href="#property_controlUrl" title="$controlUrl :: Control URL"><span class="description"></span><pre>$controlUrl</pre></a></li>
+<li class="property private "><a href="#property_eventSubUrl" title="$eventSubUrl :: URL for eventing"><span class="description"></span><pre>$eventSubUrl</pre></a></li>
+<li class="property private "><a href="#property_id" title="$id :: UPnP Service UID"><span class="description"></span><pre>$id</pre></a></li>
+<li class="property private "><a href="#property_scpdUrl" title="$scpdUrl :: URL to service description"><span class="description"></span><pre>$scpdUrl</pre></a></li>
+<li class="property private "><a href="#property_stateVars" title="$stateVars :: StateVar storage"><span class="description"></span><pre>$stateVars</pre></a></li>
+<li class="property private "><a href="#property_type" title="$type :: UPnP ServiceType"><span class="description"></span><pre>$type</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\at\mkweb\upnp\backend\xmlparser\ServiceXMLParser"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/at.html">at</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.html">mkweb</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.upnp.html">upnp</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.upnp.backend.html">backend</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.upnp.backend.xmlparser.html">xmlparser</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/at.mkweb.upnp.backend.xmlparser.ServiceXMLParser.html">ServiceXMLParser</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Parser and data provider class for UPnP Device service XML</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>author</th>
+<td><a href="mailto:mario.klug@mk-web.at">Mario Klug</a></td>
+</tr></table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>Constructor
+Triggers ServiceXMLParser::parse() for scpdUrl</h2>
+<pre>__construct(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code><p>Service data from RootXMLParser</p></div>
+</div></div>
+</div>
+<a id="method_getActions"></a><div class="element clickable method public method_getActions" data-toggle="collapse" data-target=".method_getActions .collapse">
+<h2>Get action list</h2>
+<pre>getActions() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getControlUrl"></a><div class="element clickable method public method_getControlUrl" data-toggle="collapse" data-target=".method_getControlUrl .collapse">
+<h2>Get control URL</h2>
+<pre>getControlUrl() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>if found or null</div>
+</div></div>
+</div>
+<a id="method_getEventSubUrl"></a><div class="element clickable method public method_getEventSubUrl" data-toggle="collapse" data-target=".method_getEventSubUrl .collapse">
+<h2>Get eventing URL</h2>
+<pre>getEventSubUrl() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>if found or null</div>
+</div></div>
+</div>
+<a id="method_getId"></a><div class="element clickable method public method_getId" data-toggle="collapse" data-target=".method_getId .collapse">
+<h2>Get UID of this service</h2>
+<pre>getId() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>if found or null</div>
+</div></div>
+</div>
+<a id="method_getScdpUrl"></a><div class="element clickable method public method_getScdpUrl" data-toggle="collapse" data-target=".method_getScdpUrl .collapse">
+<h2>Get service description URL</h2>
+<pre>getScdpUrl() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>if found or null</div>
+</div></div>
+</div>
+<a id="method_getStateVar"></a><div class="element clickable method public method_getStateVar" data-toggle="collapse" data-target=".method_getStateVar .collapse">
+<h2>Get stateVars</h2>
+<pre>getStateVar(string $name) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getType"></a><div class="element clickable method public method_getType" data-toggle="collapse" data-target=".method_getType .collapse">
+<h2>Get ServiceType</h2>
+<pre>getType() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>if found or null</div>
+</div></div>
+</div>
+<a id="method_parse"></a><div class="element clickable method public method_parse" data-toggle="collapse" data-target=".method_parse .collapse">
+<h2>Parse given service XML</h2>
+<pre>parse($path) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4><p>URL to service XML</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\at\mkweb\upnp\backend\xmlparser\at.mkweb.upnp.exception.UPnPException</code></th>
+<td>if unable to load service XML</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_isText"></a><div class="element clickable method protected method_isText" data-toggle="collapse" data-target=".method_isText .collapse">
+<h2>Check if this node is a DOMText-Node or if it only contains 1 DOMText node</h2>
+<pre>isText(<a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a> $node) : boolean</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\at\mkweb\upnp\backend\xmlparser\XMLParser::isText()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$node</h4>
+<code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>boolean</code></div>
+</div></div>
+</div>
+<a id="method_parseSpecVersion"></a><div class="element clickable method protected method_parseSpecVersion" data-toggle="collapse" data-target=".method_parseSpecVersion .collapse">
+<h2>Search for min and max supported UPnP version</h2>
+<pre>parseSpecVersion(\DOMDocument $doc, <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a> $tag) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\at\mkweb\upnp\backend\xmlparser\XMLParser::parseSpecVersion()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$doc</h4>
+<code><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></code>
+</div>
+<div class="subelement argument">
+<h4>$tag</h4>
+<code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code>
+</div>
+</div></div>
+</div>
+<a id="method_relativeToAbsolutePath"></a><div class="element clickable method protected method_relativeToAbsolutePath" data-toggle="collapse" data-target=".method_relativeToAbsolutePath .collapse">
+<h2>Transforms relative paths to absolute ones</h2>
+<pre>relativeToAbsolutePath(string $path) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\at\mkweb\upnp\backend\xmlparser\XMLParser::relativeToAbsolutePath()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$path</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_parseActionList"></a><div class="element clickable method private method_parseActionList" data-toggle="collapse" data-target=".method_parseActionList .collapse">
+<h2>Parse service XML action structure</h2>
+<pre>parseActionList(\DOMDocument $dom, <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a> $node) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$dom</h4>
+<code><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></code>
+</div>
+<div class="subelement argument">
+<h4>$node</h4>
+<code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code>
+</div>
+</div></div>
+</div>
+<a id="method_parseStateVars"></a><div class="element clickable method private method_parseStateVars" data-toggle="collapse" data-target=".method_parseStateVars .collapse">
+<h2>Parse service XML statevars</h2>
+<pre>parseStateVars(\DOMDocument $dom, <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a> $node) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$dom</h4>
+<code><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></code>
+</div>
+<div class="subelement argument">
+<h4>$node</h4>
+<code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code>
+</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_host"> </a><div class="element clickable property protected property_host" data-toggle="collapse" data-target=".property_host .collapse">
+<h2></h2>
+<pre>$host : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\at\mkweb\upnp\backend\xmlparser\XMLParser::$$host</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_port"> </a><div class="element clickable property protected property_port" data-toggle="collapse" data-target=".property_port .collapse">
+<h2></h2>
+<pre>$port : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\at\mkweb\upnp\backend\xmlparser\XMLParser::$$port</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_specVersion_max"> </a><div class="element clickable property protected property_specVersion_max" data-toggle="collapse" data-target=".property_specVersion_max .collapse">
+<h2></h2>
+<pre>$specVersion_max : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\at\mkweb\upnp\backend\xmlparser\XMLParser::$$specVersion_max</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_specVersion_min"> </a><div class="element clickable property protected property_specVersion_min" data-toggle="collapse" data-target=".property_specVersion_min .collapse">
+<h2></h2>
+<pre>$specVersion_min : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\at\mkweb\upnp\backend\xmlparser\XMLParser::$$specVersion_min</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property_actions"> </a><div class="element clickable property private property_actions" data-toggle="collapse" data-target=".property_actions .collapse">
+<h2></h2>
+<pre>$actions : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_controlUrl"> </a><div class="element clickable property private property_controlUrl" data-toggle="collapse" data-target=".property_controlUrl .collapse">
+<h2></h2>
+<pre>$controlUrl : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_eventSubUrl"> </a><div class="element clickable property private property_eventSubUrl" data-toggle="collapse" data-target=".property_eventSubUrl .collapse">
+<h2></h2>
+<pre>$eventSubUrl : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_id"> </a><div class="element clickable property private property_id" data-toggle="collapse" data-target=".property_id .collapse">
+<h2></h2>
+<pre>$id : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_scpdUrl"> </a><div class="element clickable property private property_scpdUrl" data-toggle="collapse" data-target=".property_scpdUrl .collapse">
+<h2></h2>
+<pre>$scpdUrl : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_stateVars"> </a><div class="element clickable property private property_stateVars" data-toggle="collapse" data-target=".property_stateVars .collapse">
+<h2></h2>
+<pre>$stateVars : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+</div></div>
+</div>
+<a id="property_type"> </a><div class="element clickable property private property_type" data-toggle="collapse" data-target=".property_type .collapse">
+<h2></h2>
+<pre>$type : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>private</td>
+</tr></table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-01-23T13:18:36+01:00.<br></footer></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \at\mkweb\upnp\backend\AjaxHandler</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/at.html"><i class="icon-th"></i> at</a></li>
+<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/at.html"><i class="icon-folder-open"></i> at</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">40</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_Pause" title="Pause :: "><span class="description">Pause()
+        </span><pre>Pause()</pre></a></li>
+<li class="method public "><a href="#method_Play" title="Play :: "><span class="description">Play()
+        </span><pre>Play()</pre></a></li>
+<li class="method public "><a href="#method_Seek" title="Seek :: "><span class="description">Seek()
+        </span><pre>Seek()</pre></a></li>
+<li class="method public "><a href="#method_SetAVTransportURI" title="SetAVTransportURI :: "><span class="description">SetAVTransportURI()
+        </span><pre>SetAVTransportURI()</pre></a></li>
+<li class="method public "><a href="#method_StartPlay" title="StartPlay :: "><span class="description">StartPlay()
+        </span><pre>StartPlay()</pre></a></li>
+<li class="method public "><a href="#method_Stop" title="Stop :: "><span class="description">Stop()
+        </span><pre>Stop()</pre></a></li>
+<li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
+        </span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_addFavorite" title="addFavorite :: "><span class="description">addFavorite()
+        </span><pre>addFavorite()</pre></a></li>
+<li class="method public "><a href="#method_call" title="call :: "><span class="description">call()
+        </span><pre>call()</pre></a></li>
+<li class="method public "><a href="#method_getChilds" title="getChilds :: "><span class="description">getChilds()
+        </span><pre>getChilds()</pre></a></li>
+<li class="method public "><a href="#method_getCurrentInfoHtml" title="getCurrentInfoHtml :: "><span class="description">getCurrentInfoHtml()
+        </span><pre>getCurrentInfoHtml()</pre></a></li>
+<li class="method public "><a href="#method_getDeviceData" title="getDeviceData :: "><span class="description">getDeviceData()
+        </span><pre>getDeviceData()</pre></a></li>
+<li class="method public "><a href="#method_getDevices" title="getDevices :: "><span class="description">getDevices()
+        </span><pre>getDevices()</pre></a></li>
+<li class="method public "><a href="#method_getFavorites" title="getFavorites :: "><span class="description">getFavorites()
+        </span><pre>getFavorites()</pre></a></li>
+<li class="method public "><a href="#method_getFileInfoHtml" title="getFileInfoHtml :: "><span class="description">getFileInfoHtml()
+        </span><pre>getFileInfoHtml()</pre></a></li>
+<li class="method public "><a href="#method_getMediaInfo" title="getMediaInfo :: "><span class="description">getMediaInfo()
+        </span><pre>getMediaInfo()</pre></a></li>
+<li class="method public "><a href="#method_getMetaData" title="getMetaData :: "><span class="description">getMetaData()
+        </span><pre>getMetaData()</pre></a></li>
+<li class="method public "><a href="#method_getPositionInfo" title="getPositionInfo :: "><span class="description">getPositionInfo()
+        </span><pre>getPositionInfo()</pre></a></li>
+<li class="method public "><a href="#method_getProtocolInfo" title="getProtocolInfo :: "><span class="description">getProtocolInfo()
+        </span><pre>getProtocolInfo()</pre></a></li>
+<li class="method public "><a href="#method_getTransportInfo" title="getTransportInfo :: "><span class="description">getTransportInfo()
+        </span><pre>getTransportInfo()</pre></a></li>
+<li class="method public "><a href="#method_removeFavorite" title="removeFavorite :: "><span class="description">removeFavorite()
+        </span><pre>removeFavorite()</pre></a></li>
+<li class="method public "><a href="#method_respond" title="respond :: "><span class="description">respond()
+        </span><pre>respond()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="method private "><a href="#method_prepareMetaData" title="prepareMetaData :: "><span class="description">prepareMetaData()
+        </span><pre>prepareMetaData()</pre></a></li>
+<li class="method private "><a href="#method_respondHtmlTemplate" title="respondHtmlTemplate :: "><span class="description">respondHtmlTemplate()
+        </span><pre>respondHtmlTemplate()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="property private "><a href="#property_callback" title="$callback :: "><span class="description"></span><pre>$callback</pre></a></li>
+<li class="property private "><a href="#property_logfile" title="$logfile :: "><span class="description"></span><pre>$logfile</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\at\mkweb\upnp\backend\AjaxHandler"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/at.html">at</a></li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.html">mkweb</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.upnp.html">upnp</a>
+</li>
+<li>
+<span class="divider">\</span><a href="../namespaces/at.mkweb.upnp.backend.html">backend</a>
+</li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/at.mkweb.upnp.backend.AjaxHandler.html">AjaxHandler</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Wrapper for simple data access using Ajax (JavaScript)</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>author</th>
+<td><a href="mailto:mario.klug@mk-web.at">Mario Klug</a></td>
+</tr></table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_Pause"></a><div class="element clickable method public method_Pause" data-toggle="collapse" data-target=".method_Pause .collapse">
+<h2>Pause()
+        </h2>
+<pre>Pause($device) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+</div></div>
+</div>
+<a id="method_Play"></a><div class="element clickable method public method_Play" data-toggle="collapse" data-target=".method_Play .collapse">
+<h2>Play()
+        </h2>
+<pre>Play($device) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+</div></div>
+</div>
+<a id="method_Seek"></a><div class="element clickable method public method_Seek" data-toggle="collapse" data-target=".method_Seek .collapse">
+<h2>Seek()
+        </h2>
+<pre>Seek($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_SetAVTransportURI"></a><div class="element clickable method public method_SetAVTransportURI" data-toggle="collapse" data-target=".method_SetAVTransportURI .collapse">
+<h2>SetAVTransportURI()
+        </h2>
+<pre>SetAVTransportURI($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_StartPlay"></a><div class="element clickable method public method_StartPlay" data-toggle="collapse" data-target=".method_StartPlay .collapse">
+<h2>StartPlay()
+        </h2>
+<pre>StartPlay($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_Stop"></a><div class="element clickable method public method_Stop" data-toggle="collapse" data-target=".method_Stop .collapse">
+<h2>Stop()
+        </h2>
+<pre>Stop($device) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+</div></div>
+</div>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>__construct()
+        </h2>
+<pre>__construct() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_addFavorite"></a><div class="element clickable method public method_addFavorite" data-toggle="collapse" data-target=".method_addFavorite .collapse">
+<h2>addFavorite()
+        </h2>
+<pre>addFavorite(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_call"></a><div class="element clickable method public method_call" data-toggle="collapse" data-target=".method_call .collapse">
+<h2>call()
+        </h2>
+<pre>call($method, $params) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$method</h4></div>
+<div class="subelement argument"><h4>$params</h4></div>
+</div></div>
+</div>
+<a id="method_getChilds"></a><div class="element clickable method public method_getChilds" data-toggle="collapse" data-target=".method_getChilds .collapse">
+<h2>getChilds()
+        </h2>
+<pre>getChilds($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_getCurrentInfoHtml"></a><div class="element clickable method public method_getCurrentInfoHtml" data-toggle="collapse" data-target=".method_getCurrentInfoHtml .collapse">
+<h2>getCurrentInfoHtml()
+        </h2>
+<pre>getCurrentInfoHtml($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_getDeviceData"></a><div class="element clickable method public method_getDeviceData" data-toggle="collapse" data-target=".method_getDeviceData .collapse">
+<h2>getDeviceData()
+        </h2>
+<pre>getDeviceData($device) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+</div></div>
+</div>
+<a id="method_getDevices"></a><div class="element clickable method public method_getDevices" data-toggle="collapse" data-target=".method_getDevices .collapse">
+<h2>getDevices()
+        </h2>
+<pre>getDevices($request) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$request</h4></div>
+</div></div>
+</div>
+<a id="method_getFavorites"></a><div class="element clickable method public method_getFavorites" data-toggle="collapse" data-target=".method_getFavorites .collapse">
+<h2>getFavorites()
+        </h2>
+<pre>getFavorites() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_getFileInfoHtml"></a><div class="element clickable method public method_getFileInfoHtml" data-toggle="collapse" data-target=".method_getFileInfoHtml .collapse">
+<h2>getFileInfoHtml()
+        </h2>
+<pre>getFileInfoHtml($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_getMediaInfo"></a><div class="element clickable method public method_getMediaInfo" data-toggle="collapse" data-target=".method_getMediaInfo .collapse">
+<h2>getMediaInfo()
+        </h2>
+<pre>getMediaInfo($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_getMetaData"></a><div class="element clickable method public method_getMetaData" data-toggle="collapse" data-target=".method_getMetaData .collapse">
+<h2>getMetaData()
+        </h2>
+<pre>getMetaData($device, array $data, $return) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+<div class="subelement argument"><h4>$return</h4></div>
+</div></div>
+</div>
+<a id="method_getPositionInfo"></a><div class="element clickable method public method_getPositionInfo" data-toggle="collapse" data-target=".method_getPositionInfo .collapse">
+<h2>getPositionInfo()
+        </h2>
+<pre>getPositionInfo($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_getProtocolInfo"></a><div class="element clickable method public method_getProtocolInfo" data-toggle="collapse" data-target=".method_getProtocolInfo .collapse">
+<h2>getProtocolInfo()
+        </h2>
+<pre>getProtocolInfo($device) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+</div></div>
+</div>
+<a id="method_getTransportInfo"></a><div class="element clickable method public method_getTransportInfo" data-toggle="collapse" data-target=".method_getTransportInfo .collapse">
+<h2>getTransportInfo()
+        </h2>
+<pre>getTransportInfo($device, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$device</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_removeFavorite"></a><div class="element clickable method public method_removeFavorite" data-toggle="collapse" data-target=".method_removeFavorite .collapse">
+<h2>removeFavorite()
+        </h2>
+<pre>removeFavorite(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_respond"></a><div class="element clickable method public method_respond" data-toggle="collapse" data-target=".method_respond .collapse">
+<h2>respond()
+        </h2>
+<pre>respond($data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_prepareMetaData"></a><div class="element clickable method private method_prepareMetaData" data-toggle="collapse" data-target=".method_prepareMetaData .collapse">
+<h2>prepareMetaData()
+        </h2>
+<pre>prepareMetaData(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method_respondHtmlTemplate"></a><div class="element clickable method private method_respondHtmlTemplate" data-toggle="collapse" data-target=".method_respondHtmlTemplate .collapse">
+<h2>respondHtmlTemplate()
+        </h2>
+<pre>respondHtmlTemplate($template, array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$template</h4></div>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_callback"> </a><div class="element clickable property private property_callback" data-toggle="collapse" data-target=".property_callback .collapse">
+<h2></h2>
+<pre>$callback </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_logfile"> </a><div class="element clickable property private property_logfile" data-toggle="collapse" data-target=".property_logfile .collapse">
+<h2></h2>
+<pre>$logfile </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-01-23T13:18:37+01:00.<br></footer></div>
+</div>
+</body>
+</html>

@@ -16,66 +16,14 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with Mupen64PlusAE. If not, see <http://www.gnu.org/licenses/>.
  */
-use at\mkweb\Config;
+use at\mkweb\upnp\Config;
+use at\mkweb\upnp\frontend\AuthManager;
 
-function pr($value) {
-    echo '<pre>';
-    print_r($value);
-    echo '</pre>';
-}
-require_once('src/at/mkweb/Config.php');
+require_once('src/at/mkweb/upnp/init.php');
 
-Config::init('config.php');
+if(AuthManager::authEnabled()) {
 
-function sendAuthHeader($msg) {
-    header('WWW-Authenticate: Basic realm="' . $msg . '"');
-    header('HTTP/1.1 401 Unauthorized');
-    exit;
-}
-
-function loginValid() {
-
-    $http_user = $_SERVER['PHP_AUTH_USER'];
-    $http_pass = $_SERVER['PHP_AUTH_PW'];
-
-    $method = Config::get('auth_method');
-
-    switch($method) {
-
-        case 'file':
-
-            $file = Config::get('auth_file');
-
-            if(file_exists($file)) {
-
-                $lines = file($file);
-
-                $users = array();
-                foreach($lines as $line) {
-
-                    list($user, $hash) = explode(':', $line);
-
-                    $users[trim($user)] = trim($hash);
-                }
-
-                if(array_key_exists($http_user, $users) && $users[$http_user] == $http_pass) {
-
-                    return true;
-                }
-            }
-            break;
-
-        default: 
-            return true;
-            break;
-    }
-
-    return false;
-}
-
-if(!isset($_SERVER['PHP_AUTH_USER']) || !loginValid()) {
-
-    sendAuthHeader(_('Please Authenticate'));
+    AuthManager::authenticate();
 }
 ?>
 <html>

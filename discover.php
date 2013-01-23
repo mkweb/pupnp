@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', false);
 
-use at\mkweb\upnp\UPnP;
+use at\mkweb\upnp\backend\UPnP;
 
 function pr($value) {
     echo '<pre>';
@@ -10,9 +10,7 @@ function pr($value) {
     echo '</pre>';
 }
 
-require_once('src/at/mkweb/upnp/autoload.php');
-
-at\mkweb\upnp\Autoloader::register();
+require_once('src/at/mkweb/upnp/init.php');
 
 try {
     UPnP::findDevices(); 

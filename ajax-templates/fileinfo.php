@@ -11,11 +11,12 @@ $values = array(
     'actor'     => _('Actor'),
     'longDescription' => _('Description')
 );
+
 ?>
 <h2><?= $item->title ?></h2>
 
 <? if(isset($image)): ?>
-    <img src="backend.php?image=<?= urlencode($image) ?>&w=200" style="float: left; margin-right: 10px; margin-bottom: 10px;" />
+    <img src="resources.php?image=<?= urlencode($image) ?>&w=200" style="float: left; margin-right: 10px; margin-bottom: 10px;" />
 <? endif ?>
 
 <table>

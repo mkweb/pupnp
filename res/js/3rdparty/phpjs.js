@@ -513,3 +513,15 @@ function json_encode (mixed_val) {
     return null;
   }
 }
+
+function LPad(ContentToSize,PadLength,PadChar)
+{
+	var PaddedString=ContentToSize.toString();
+
+	for(var i = ContentToSize.length + 1 ; i <= PadLength; i++)
+	{
+		PaddedString=PadChar+PaddedString;
+	}
+
+	return PaddedString;
+}

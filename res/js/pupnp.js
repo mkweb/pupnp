@@ -1,3 +1,20 @@
+/**
+ * pUPnP, an PHP UPnP MediaControl
+ * 
+ * Copyright (C) 2012 Mario Klug
+ * 
+ * This file is part of pUPnP.
+ * 
+ * pUPnP is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ * 
+ * pUPnP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
+ * See the GNU General Public License for more details. You should have received a copy of the GNU
+ * General Public License along with pUPnP. If not, see <http://www.gnu.org/licenses/>.
+ */
 var currentFiles = {};
 var intv_playing = null;
 var breadcrumps = {};
@@ -12,153 +29,10 @@ var disableSliderUpdate = false;
 var counter = 0;
 var favorites = {};
 
-function in_array(search, arr) {
-
-    for(var i in arr) {
-
-        if(arr[i] == search) {
-
-            return true;
-        }
-    }
-
-    return false;
-}
-
-Object.size = function(obj) {
-    var size = 0, key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-    }
-    return size;
-};
-
-var UPnPBackend = {
-
-	url : 'backend.php',
-
-	call : function(device, method, data, c) {
-
-		if(undefined != c) {
-
-			var callback = c;
-		}
-		
-		var url = this.url + '?' + (device != null ? 'device=' + device + '&' : '') + 'action=' + method + '&' + data;
-
-		$.ajax({
-
-			url : url,
-			success : function(res) {
-
-                if(res.substr(res.length - 2, 2) == '==') {
-
-                    res = base64_decode(res);
-
-                    if(undefined != callback) {
-
-                        callback(res);
-                    } else {
-
-                        console.log(res);
-                    }
-
-                    return;
-                }
-
-				if(res != '') {
-
-					response = eval('(' + res + ')');
-				}
-
-				if(null != response) {
-
-					if(undefined != response.error) {
-
-						setError(response.error);
-					} else {
-
-						if(undefined != callback) {
-
-							callback(response);
-						} else {
-
-							console.log(response);
-						}
-					}
-				} else {
-
-					console.log("Error in response");
-						
-					if(undefined != callback) {
-	
-						callback(null);
-					}
-				}
-			}
-		});
-	}
-};
-
 function i18n(msg) {
 
 	return msg;
 }
-
-function setError(message) {
-
-	unsetLoader('left');
-	unsetLoader('right');
-
-	$('#error').html(message);
-	$('#error').slideDown();
-
-	window.setTimeout(function() {
-
-		$('#error').slideUp();
-		$('#error').html('');
-	}, 3000);
-}
-
-function setLoader(column) {
-
-	if(null != loader[column]) {
-
-		return false;
-	}
-
-	var col = $('#p_' + column);
-
-	if($(col).css('display') == 'none') {
-
-		$(col).slideDown();
-	}
-
-	var id = 'loader_' + Math.floor(Math.random() * 1000);
-	
-	var oldhtml = $(col).html();
-	$(col).html($('<div class="loading" id="' + id + '"><img src="res/images/icons/ajax-loader.gif" /></div>' + oldhtml));
-
-	// $('#' + id).css('height', $('#p_' + column).css('height'));
-
-	loader[column] = id;
-}
-
-function unsetLoader(column) {
-
-	if(null != loader[column]) {
-
-		var id = loader[column];
-
-		$('#' + id).remove();
-		loader[column] = null;
-	}
-}
-
-var loader = {
-	left : null,
-	right : null
-};
 
 window.onload = function() {
 
@@ -198,7 +72,7 @@ window.onload = function() {
 			$('#ds_' + site).append(dropdown);
 			$('#ds_' + site).append(loader);
 
-            updateFavorites();
+            Favorites.update();
 
 			$('#device-' + site).change(function() {
 
@@ -285,7 +159,7 @@ function deviceSelected(site) {
                     $('#desc-' + column).append(info);
                     $('#desc-' + column).append('<br class="clear" />');
 
-                    initTooltips();
+                    Gui.initTooltips();
                 }
             });
         }
@@ -315,51 +189,6 @@ function deviceSelected(site) {
     }
 }
 
-function initTooltips() {
-
-	$('.tooltip').each(function() {
-
-		if($(this).attr('title') != '' && $(this).attr('rel') == undefined) {
-
-			$(this).attr('rel', $(this).attr('title'));
-			$(this).attr('title', '');
-		}
-
-		var random = Math.floor(Math.random() * 10000);
-
-		$(this).hover(function() {
-
-			$(document.body).css('cursor', 'pointer');
-
-			var html = '<div class="tooltip" id="tooltip-' + random + '">' + $(this).attr('rel') + '</div>';
-			var tooltip = $(html);
-
-			var offset = $(this).offset();
-
-			tooltip.css('top', offset.top + $(this).height());
-			tooltip.css('left', offset.left + $(this).width());
-
-			$(document.body).append(tooltip);
-
-			$('#tooltip-' + random).fadeIn();
-
-		}, function() {
-
-			$(document.body).css('cursor', 'default');
-
-			$('#tooltip-' + random).fadeOut('fast', function() {
-
-				$('#tooltip-' + random).remove();
-			});
-		});
-	});
-}
-
-function getUnixTimestamp(date) {
-
-	return Date.parse(date) / 1000;
-}
-
 function getPercentage(now, all) {
 
 	var zero = getUnixTimestamp('01.01.2012 00:00:00');
@@ -379,30 +208,6 @@ function getTimeByPercentage(all, percentage) {
 	all = getUnixTimestamp('01.01.2012 ' + all) - zero;
 
 	return getTime((all * percentage) / 100);
-}
-
-function LPad(ContentToSize,PadLength,PadChar)
-{
-	var PaddedString=ContentToSize.toString();
-
-	for(var i = ContentToSize.length + 1 ; i <= PadLength; i++)
-	{
-		PaddedString=PadChar+PaddedString;
-	}
-
-	return PaddedString;
-}
-
-function getTime(UNIX_timestamp){
-
-	var a = new Date(UNIX_timestamp * 1000);
-
-	var hour = a.getUTCHours();
-	var min = a.getUTCMinutes();
-	var sec = a.getUTCSeconds();
-	var time = LPad(hour, 2, '0') + ':' + LPad(min, 2, '0') + ':' + LPad(sec, 2, '0');
-
-	return time;
 }
 
 function currentPlaying() {
@@ -515,7 +320,7 @@ function currentPlaying() {
 
                         var all = $('#time-all').html();
 
-                        $('#slider-tooltip').html(getTimeByPercentage(all, ui.value));
+                        $('#slider-tooltip').html(getTimeByPercentage(all, $('#slider').val()));
                     }, function(e) {
 
                         $('#slider-tooltip').remove();
@@ -531,22 +336,6 @@ function currentPlaying() {
             });
         }
     });
-}
-
-function disableLink(link) {
-
-	$(link).bind('click', function(e) {
-
-		e.preventDefault();
-	});
-
-	$(link).addClass('disabled');
-}
-
-function enableLink(link) {
-
-	$(link).removeClass('disabled');
-	$(link).unbind('click');
 }
 
 function playControl(action) {
@@ -678,11 +467,6 @@ function watchPlaying() {
 	}
 }
 
-function is_int(mixed_var) {
-
-	return mixed_var === +mixed_var && isFinite(mixed_var) && !(mixed_var % 1);
-}
-
 function loadFiles(objectId, objectName) {
 
 	if(undefined == objectId) {
@@ -697,17 +481,17 @@ function loadFiles(objectId, objectName) {
 
 	currentFiles = {};
 
-	setLoader('left');
+	Gui.setLoader('left');
 
 	var device = $('#device-left').val();
 
 	UPnPBackend.call(device, 'getChilds', 'ObjectID=' + objectId, function(res) {
 
-		unsetLoader('left');
+		Gui.unsetLoader('left');
 
 		if(res.NumberReturned == 0) {
 
-			setError(i18n('This directory is empty'));
+			Gui.setError(i18n('This directory is empty'));
 		}
 
 		if(undefined != res.Result) {
@@ -761,7 +545,7 @@ function loadFiles(objectId, objectName) {
                 $(navigation).append(bc_navigation);
 			}
             
-            var html = '<a href="javascript:toggleFav();" id="favorite" title="' + i18n('Set/Unset as favorite') + '"></a><br class="clear" />';
+            var html = '<a href="javascript:Favorites.toggle();" id="favorite" title="' + i18n('Set/Unset as favorite') + '"></a><br class="clear" />';
             $(navigation).append($(html));
 
             var searchbar = $('<div id="search"><span>' + i18n('Search') + '</span>: <input type="text" id="searchbar" value="" /> <img id="search-enter" src="res/images/icons/keyboard-enter.png" style="display: none;" /></div>');
@@ -771,7 +555,7 @@ function loadFiles(objectId, objectName) {
 
             $('#p_left').append(searchbar);
 
-            if(isFavorite()) {
+            if(Favorites.isFavorite()) {
 
                 $('#favorite').addClass('active');
             }
@@ -937,30 +721,19 @@ function showFileInfo(objectId) {
     });
 }
 
-function showLoadingLayer(msg) {
-
-	$(document.body).append('<div id="carpet"></div><div id="loading-layer">' + msg + '<br /><img src="res/images/icons/ajax-loader.gif" /><br /><input type="button" onclick="hideLoadingLayer();" value="' + i18n('Cancel') + '" /></div>');
-}
-
-function hideLoadingLayer() {
-
-	$('#carpet').remove();
-	$('#loading-layer').remove();
-}
-
 function play(objectId) {
 
 	var playDevice = $('#device-right').val();
 
 	if(playDevice == '') {
 
-		setError(i18n('No Destination selected'));
+		Gui.setError(i18n('No Destination selected'));
         return;
 	}
 
 	var className = currentFiles[objectId].class;
 
-	showLoadingLayer(i18n('Sending to device'));
+	Gui.showLoadingLayer(i18n('Sending to device'));
 
     UPnPBackend.call($('#device-left').val(), 'getMetaData', 'ObjectID=' + objectId, function(res) {
 
@@ -974,8 +747,8 @@ function play(objectId) {
 
         if(mime != null && !in_array(mime, allowedMimes)) {
 
-            setError(i18n('Selected device does not support files with type ' + mime));
-            hideLoadingLayer();
+            Gui.setError(i18n('Selected device does not support files with type ' + mime));
+            Gui.hideLoadingLayer();
         }
 
         var artist = (undefined == data ? null : data.artist);
@@ -988,184 +761,7 @@ function play(objectId) {
 
         UPnPBackend.call($('#device-right').val(), 'StartPlay', 'source=' + $('#device-left').val() + '&id=' + objectId, function(res) {
 
-            hideLoadingLayer();
+            Gui.hideLoadingLayer();
         });
     });
-}
-
-function removeLightbox() {
-
-	if($('#carpet').length > 0) {
-
-		$('#carpet').fadeOut();
-	}
-
-	if($('#lightbox').length > 0) {
-
-		$('#lightbox').fadeIn();
-	}
-}
-
-function createLightbox(url, name) {
-
-	var html = '<div id="carpet"></div>';
-
-	html += '<div id="lightbox">';
-	html += '	<div class="head">';
-	html += '		<a id="close" href="javascript:removeLightbox();" title="' + i18n('Close') + '"></a>';
-	html += '	</div>';
-	html += '	<div id="image">';
-	html += '		<img style="max-width: 640px; max-height: 480px;" src="resources.php?image=' + url + '" />';
-	html += '	</div>';
-	html += '	<div class="foot">';
-	html += '		<div id="name">' + name + '</div>';
-	html += '	</div>';
-	html += '</div>';
-
-	$('#lightbox img').ready(function() {
-
-		window.setTimeout(function() {
-
-			var width = $('#lightbox img').width();
-			var height = $('#lightbox img').height();
-
-			$('#lightbox').css('height', (height + 72) + 'px');
-			$('#lightbox').css('width', (width + 20) + 'px');
-			
-			$('#lightbox').css('margin-left', -($('#lightbox').width() / 2) + 'px');
-			$('#lightbox').css('margin-top', -($('#lightbox').height() / 2) + 'px');
-
-		}, 100);
-	});
-
-	$(document.body).append($(html));
-}
-
-function toggleFav() {
-
-    var elem = $('a#favorite');
-    
-    var deviceId = $('#device-left').val();
-    var uid = deviceId + '---' + currentObject.id;
-
-    if($(elem).hasClass('active')) {
-
-        removeFavorite(uid);
-        $(elem).removeClass('active');
-    } else {
-
-        addFavorite();
-        $(elem).addClass('active');
-    }
-}
-
-function addFavorite() {
-
-    var deviceId = $('#device-left').val();
-    var deviceName = $('#device-left').find('option[value=' + deviceId + ']').text();
-    var uid = deviceId + '---' + currentObject.id;
-
-    var path = '';
-    for(var i in breadcrumps) {
-
-        path += '/' + breadcrumps[i];
-    }
-
-    var data = 'deviceId=' + deviceId + '&deviceName=' + deviceName + '&objectId=' + currentObject.id + '&path=' + path + '&breadcrumps=' + json_encode(breadcrumps).split('&').join('%26');
-
-    UPnPBackend.call(null, 'addFavorite', data, function(res) {
-
-        updateFavorites();
-    });
-}
-
-function removeFavorite(uid) {
-
-    UPnPBackend.call(null, 'removeFavorite', 'uid=' + uid, function(res) {
-
-        updateFavorites();
-    });
-}
-
-function updateFavorites() {
-
-    UPnPBackend.call(null, 'getFavorites', null, function(res) {
-
-        if(Object.size(res) == 0) {
-
-            $('#favorites').slideUp();
-        } else {
-
-            favorites = res;
-
-            var div = $('<div>' + i18n('Favorites: ') + '</div>');
-			var dropdown = $('<select><option value="">-- ' + i18n('Please select') + ' --</option></select>');
-
-            for(var uid in res) {
-
-                var option = $('<option value="' + uid + '">' + utf8_decode(res[uid].deviceName + ' - ' + res[uid].path) + '</option>');
-                $(dropdown).append(option);
-            }
-
-            $(div).append(dropdown);
-
-            $('#favorites').empty();
-            $('#favorites').append(div);
-
-            $('#favorites').slideDown();
-
-            $('#favorites select').change(function() {
-
-                showLoadingLayer(i18n('Loading favorite'));
-
-                var uid = $(this).val();
-                $('#favorites select').val('');
-
-                if(uid != '') {
-
-                    var tmp = uid.split('---');
-
-                    var deviceId = tmp[0];
-                    var objectId = tmp[1];
-
-                    $('#device-left').val(deviceId);
-
-                    currentObject = {
-                        'id'   : objectId,
-                        'name' : favorites[uid].objectName
-                    };
-
-                    var bc = favorites[uid].breadcrumps;
-                    breadcrumps = eval('(' + bc + ')');
-
-                    deviceSelected('left');
-                    loadFiles(currentObject.id);
-                } else {
-
-                    if($('#device-left').val() != '') {
-
-                        loadFiles(currentObject.id);
-                    }
-                }
-
-                hideLoadingLayer();
-            });
-        }
-    });
-}
-
-function isFavorite() {
-
-    var deviceId = $('#device-left').val();
-    var check_uid = deviceId + '---' + currentObject.id;
-
-    for(var uid in favorites) {
-
-        if(uid == check_uid) {
-
-            return true;
-        }
-    }
-
-    return false;
 }

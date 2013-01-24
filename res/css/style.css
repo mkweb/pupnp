@@ -156,36 +156,6 @@ div#fileinfo {
     font-size: 8pt;
     text-align: center;
 }
-#lightbox {
-	position: absolute;
-	z-index: 999;
-	width: 640px;
-	height: 400px;
-	background-color: #EFEFEF;
-	border: 1px solid #000;
-	box-shadow: 0 0 10px 0 #000;
-	border-radius: 4px;
-	left: 50%;
-	top: 50%;
-}
-#lightbox img {
-	margin: 10px;
-}
-#lightbox .head {
-	height: 26px;
-	line-height: 26px;
-	border-bottom: 1px solid #000;
-}
-#lightbox #image {
-	background-color: #FFF;
-}
-#lightbox .foot {
-	height: 26px;
-	line-height: 26px;
-	border-top: 1px solid #000;
-	text-align: center;
-	overflow: hidden;
-}
 
 div.tooltip {
 	border: 1px solid #666;

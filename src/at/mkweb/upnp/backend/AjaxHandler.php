@@ -504,19 +504,6 @@ class AjaxHandler {
 
             $item = $data[0];
 
-            foreach($item as $key => $value) {
-
-                if(is_string($value) && is_utf8($value)) {
-
-                    $item[$key] = utf8_decode($item[$key]);
-                }
-
-                if(is_string($item[$key]) && is_utf8($item[$key])) {
-
-                    $item[$key] = utf8_decode($item[$key]);
-                }
-            }
-
             $image = null;
             if(isset($item['albumArtURI'])) {
 
@@ -537,6 +524,7 @@ class AjaxHandler {
                     echo $response; exit;
                 }
 
+                $response = utf8_decode($response);
                 $response = rtrim(base64_encode($response), '=') . '==';
 
                 echo $response;

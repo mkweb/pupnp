@@ -44,12 +44,16 @@ if(AuthManager::authEnabled()) {
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
     <? if(Config::read('minify_js')): ?>
 
-        <script type="text/javascript" src="resources.php?js=3rdparty/lightbox.js|3rdparty/phpjs.js|upnp-backend.js"></script>
+        <script type="text/javascript" src="resources.php?js=3rdparty/lightbox.js|3rdparty/phpjs.js|upnp-backend.js|pupnp-helpers.js|pupnp-gui.js|pupnp-favorites.js|pupnp.js"></script>
     <? else: ?>
 
         <script type="text/javascript" src="res/js/3rdparty/lightbox.js"></script>
         <script type="text/javascript" src="res/js/3rdparty/phpjs.js"></script>
-        <script type="text/javascript" src="res/js/upnp-backend.js"></script>
+        <script type="text/javascript" src="res/js/pupnp-backend.js"></script>
+        <script type="text/javascript" src="res/js/pupnp-helpers.js"></script>
+        <script type="text/javascript" src="res/js/pupnp-gui.js"></script>
+        <script type="text/javascript" src="res/js/pupnp-favorites.js"></script>
+        <script type="text/javascript" src="res/js/pupnp.js"></script>
     <? endif ?>
 </head>
 <body>

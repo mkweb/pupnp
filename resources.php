@@ -16,6 +16,7 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with pUPnP. If not, see <http://www.gnu.org/licenses/>.
  */
+use at\mkweb\upnp\Config;
 
 require_once('src/at/mkweb/upnp/init.php');
 
@@ -154,6 +155,9 @@ if(isset($_GET['js'])) {
         }
     }
 
+    if(Config::read('minify_js')) {
+    }
+
     header('Content-Type: application/javascript');
     echo trim($content);
 }
@@ -175,6 +179,16 @@ if(isset($_GET['css'])) {
             $content .= file_get_contents($filepath);
         }
     }
+
+    if(Config::read('minify_css')) {
+
+        $content = preg_replace('#/\*.*?\*/#s', '', $content);
+        $content = preg_replace('/\s*([{}|:;,])\s+/', '$1', $content);
+        $content = preg_replace('/\s\s+(.*)/', '$1', $content);
+        $content = str_replace(';}', '}', $content);
+    }
+
+    $content = str_replace('../', 'res/', $content);
 
     header('Content-Type: text/css');
     echo trim($content);

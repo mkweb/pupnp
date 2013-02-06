@@ -19,6 +19,18 @@
 /**
 * This file is a small collection of helper method
 */
+function object_key_exists(search, obj) {
+
+    for(var key in obj) {
+
+        if(key == search) {
+
+            return true;
+        }
+    }
+
+    return false;
+}
 function in_array(search, arr) {
 
     for(var i in arr) {
@@ -52,7 +64,7 @@ function getTime(UNIX_timestamp){
 	var hour = a.getUTCHours();
 	var min = a.getUTCMinutes();
 	var sec = a.getUTCSeconds();
-	var time = LPad(hour, 2, '0') + ':' + LPad(min, 2, '0') + ':' + LPad(sec, 2, '0');
+	var time = LPad(hour.toString(), 2, '0') + ':' + LPad(min.toString(), 2, '0') + ':' + LPad(sec.toString(), 2, '0');
 
 	return time;
 }
@@ -76,4 +88,25 @@ function enableLink(link) {
 function is_int(mixed_var) {
 
 	return mixed_var === +mixed_var && isFinite(mixed_var) && !(mixed_var % 1);
+}
+
+function getPercentage(now, all) {
+
+	var zero = getUnixTimestamp('01.01.2012 00:00:00');
+
+	var unix_now = getUnixTimestamp('01.01.2012 ' + now);
+	var unix_all = getUnixTimestamp('01.01.2012 ' + all);
+
+	var now = unix_now - zero;
+	var all = unix_all - zero;
+
+	return Math.round((now * 100) / all);
+}
+
+function getTimeByPercentage(all, percentage) {
+
+	var zero = getUnixTimestamp('01.01.2012 00:00:00');
+	all = getUnixTimestamp('01.01.2012 ' + all) - zero;
+
+	return getTime((all * percentage) / 100);
 }

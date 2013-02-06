@@ -1,14 +1,23 @@
 body {
 	background-color: #FFF;
+    margin: 0;
+    padding: 0;
 }
 * {
 	font-family: Arial;
+}
+.hidden {
+    display: none !important;
 }
 
 input[type=text],input[type=password], textarea {
     border: 1px solid #666;
     padding: 2px;
     font-size: 8pt;
+}
+
+table td.key {
+    font-weight: bold;
 }
 
 .clear {
@@ -29,14 +38,13 @@ input[type=text],input[type=password], textarea {
 }
 
 #wrapper-all {
-    margin-top: 18px;
+    margin: 10px;
 }
 
 .column {
 	background-color: #F1F1F1;
 	border: 1px solid #DEDEDE;
 	color: #626C78;
-	width: 48%;
 }
 .column > h2, .desc > h2 {
 	color: #666;
@@ -46,10 +54,12 @@ input[type=text],input[type=password], textarea {
 .column#left {
 	float: left;
 	margin-left: 10px;
+	width: 48%;
 }
 .column#right {
 	float: right;
 	margin-right: 10px;
+	width: 48%;
 }
 
 .deviceSelection, .properties, .desc, .favorites {
@@ -192,6 +202,9 @@ div#controls {
 	padding: 10px 10px 4px 10px;
 	margin-bottom: 10px;
 }
+div#controls .title {
+    margin-bottom: 6px;
+}
 div#controls table {
 	width: 100%;
 	color: #FFF;
@@ -273,7 +286,6 @@ ul#breadcrumps a:hover {
 ul#breadcrumps a.active, ul#breadcrumps a.active:hover {
     font-weight: bold;
     border-right: 1px solid #666;
-    cursor: default;
     text-decoration: none;
 }
 div#search {
@@ -302,7 +314,7 @@ div.filerow {
     background-color: #F1F1F1;
     border: 1px solid #DEDEDE;
     border-radius: 2px;
-    margin: 3px 4px 0;
+    margin: 3px 4px 4px;
     padding: 10px 6px;
     height: 16px;
     box-shadow: 0 0 2px #000;
@@ -322,4 +334,55 @@ div.filerow a {
 }
 div.filerow .right {
     float: right;
+}
+
+div#playlist {
+    background-color: #FFF;
+    display: none;
+    margin-top: 4px;
+    padding: 2px;
+}
+div#playlist .table table {
+    width: 100%;
+    color: #000;
+    background-color: #F1F1F1;
+    border-collapse: collapse;
+    font-size: 10pt;
+    margin: 2px;
+}
+div#playlist .table table tr:hover {
+    color: #FFF;
+    background-color: #AFAFAF;
+}
+div#playlist .table table tr.active td {
+    font-weight: bold;
+}
+
+#mainnav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: right;
+    background-color: #FFF;
+    border-style: solid;
+    border-color: #666;
+    border-width: 0;
+    padding: 2px 0 2px 10px;
+    border-radius: 0 0 0 6px;
+    box-shadow: 0 0 10px 2px #666;
+}
+#mainnav li {
+    float: left;
+    margin-right: 10px;
+}
+#mainnav a {
+    color: #666;
+    text-decoration: none;
+    font-size: 10pt;
+}
+#mainnav a.active {
+    color: #000;
 }

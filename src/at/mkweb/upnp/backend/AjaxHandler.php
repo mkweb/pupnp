@@ -59,52 +59,100 @@ class AjaxHandler {
 		}
 	}
 
-    public function StartPlay($device, Array $data) {
+    public function startPlayFromPlaylist($device, Array $data) {
 
         Logger::debug(__METHOD__, self::$logfile);
+        Logger::debug(print_r($data, true), self::$logfile);
 
-        $sourceDevice = UPnP::getDevice($data['source']);
-        $sourceClient = $sourceDevice->getClient('ContentDirectory');
+        $id = $data['id'];
 
-        $sourceData = array(
-            'ObjectID' => $data['id'],
-            'BrowseFlag' => 'BrowseMetadata'
-        );
+        $playlist = new Playlist($device);
+        $item = $playlist->getItem($id);
+        $playlist->setPlaying($id);
 
-        $item = $sourceClient->Browse($sourceData);
+        $this->StartPlay($device, array('item' => $item), $playlist, $id);
+    }
 
-        if(isset($item['Result']) && count($item['Result']) == 1) {
+    public function StartPlay($device, Array $data, $playlist = null, $playlistId = null) {
 
-            $xml = $item['Result_XML'];
+        $item = null;
+        if(is_null($playlist)) {
 
-            $url = null;
+            $objectId = $data['id'];
 
-            foreach($item['Result'][0]['data']['res'] as $res) {
+            $item = array(
+                'device' => $data['source'],
+                'objectId' => $objectId
+            );
+        } else {
 
-                if(substr($res['attributes']['protocolInfo'], 0, 8) == 'http-get') {
+            $item = $data['item'];
+        }
 
-                    $url = $res['value'];
-                    break;
+        if(!is_null($item)) {
+
+            $sourceDevice = UPnP::getDevice($item['device']);
+            $sourceClient = $sourceDevice->getClient('ContentDirectory');
+
+            $sourceData = array(
+                'ObjectID' => $item['objectId'],
+                'BrowseFlag' => 'BrowseMetadata'
+            );
+
+            $item = $sourceClient->Browse($sourceData);
+
+            if(isset($item['Result']) && count($item['Result']) == 1) {
+
+                $xml = $item['Result_XML'];
+
+                $url = null;
+
+                foreach($item['Result'][0]['data']['res'] as $res) {
+
+                    if(substr($res['attributes']['protocolInfo'], 0, 8) == 'http-get') {
+
+                        $url = $res['value'];
+                        break;
+                    }
+                }
+
+                if(!is_null($url)) {
+
+                    $data = array(
+                        'CurrentURI' => $url,
+                        'CurrentURIMetaData' => urldecode($xml) #utf8_encode(urldecode($xml))
+                    );
+
+                    $dstDevice = UPnP::getDevice($device);
+                    $client = $dstDevice->getClient('AVTransport');
+                    
+                    $dstDevice->ignoreEvents(5);
+
+                    $client->call('Stop', array('Speed' => 1));
+                    $client->call('SetAVTransportURI', $data);
+                    $client->call('Play', array('Speed' => 1));
+
+                    if(!is_null($playlist)) {
+
+                        $playlist->setPlaying($playlistId);
+                    }
                 }
             }
-
-            if(!is_null($url)) {
-
-                $data = array(
-                    'CurrentURI' => $url,
-                    'CurrentURIMetaData' => htmlspecialchars($xml) #utf8_encode(urldecode($xml))
-                );
-
-                $dstDevice = UPnP::getDevice($device);
-                $client = $dstDevice->getClient('AVTransport');
-                
-                $client->call('Stop', array('Speed' => 1));
-
-                $client->call('SetAVTransportURI', $data);
-
-                $client->call('Play', array('Speed' => 1));
-            }
         }
+    }
+
+    private function encodeUrlsInXml($xml) {
+
+        $xml = html_entity_decode($xml);
+        preg_match_all('/http\:1\/\/(.*)</Uis', $xml, $tmp);
+
+        foreach($tmp[0] as $url) {
+
+            $url = substr($url, 0, -1);
+            $xml = str_replace($url, urldecode($url), $xml);
+        }
+
+        return $xml;
     }
 
     public function getFileInfoHtml($device, Array $data) {
@@ -127,6 +175,15 @@ class AjaxHandler {
 
             $this->respondHtmlTemplate('fileinfo', $data);
         }
+    }
+
+    public function getSubscriptions($device) {
+
+        Logger::debug(__METHOD__, self::$logfile);
+
+        $device = UPnP::getDevice($device);
+
+        $this->respond($device->getSubscriptions());
     }
 
     public function getCurrentInfoHtml($device, Array $data) {
@@ -262,7 +319,12 @@ class AjaxHandler {
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
 
+        $device->ignoreEvents(5);
+
 		$result = $client->call('Stop', array());
+
+        $playlist = new Playlist($device->getId());
+        $playlist->stop();
 
 		$this->respond($result);
 	}
@@ -270,6 +332,7 @@ class AjaxHandler {
 	public function Seek($device, Array $data) {
 
         Logger::debug(__METHOD__, self::$logfile);
+        Logger::debug('Data: ' . print_r($data, true), self::$logfile);
 
 		$device = UPnP::getDevice($device);
 		$client = $device->getClient('AVTransport');
@@ -356,6 +419,57 @@ class AjaxHandler {
         $this->respond($favorites);
     }
 
+    public function getPlaylist($device) {
+
+        Logger::debug(__METHOD__, self::$logfile);
+
+        $playlist = new Playlist($device);
+
+        $items = $playlist->getAll();
+
+        $this->respond($items);
+    }
+
+    public function addToPlaylist($device, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
+
+        $playlist = new Playlist($device);
+
+        $itemId = $playlist->addItem($data['item']);
+
+        $this->respond($itemId);
+    } 
+
+    public function removeFromPlaylist($device, Array $data) {
+
+        Logger::debug(__METHOD__, self::$logfile);
+
+        $playlist = new Playlist($device);
+
+        $playlist->removeItem($data['ItemID']);
+    } 
+
+    public function stopPlaylist($device) {
+
+        Logger::debug(__METHOD__, self::$logfile);
+
+        $playlist = new Playlist($device);
+
+        $playlist->stop();
+    }
+
+    public function startNext($device) {
+
+        Logger::debug(__METHOD__, self::$logfile);
+        
+        $playlist = new Playlist($device);
+
+        $result = $playlist->next();
+
+        $this->respond($result);
+    }
+
     public function addFavorite(Array $data) {
 
         Logger::debug(__METHOD__, self::$logfile);
@@ -416,7 +530,7 @@ class AjaxHandler {
 
         if(isset($_GET['print'])) {
 
-            pr($data);
+            echo '<pre>' . print_r($data, true) . '</pre>';
             exit;
         }
 

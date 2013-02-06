@@ -18,6 +18,8 @@
  */
 namespace at\mkweb\upnp\backend;
 
+use at\mkweb\upnp\exception\UPnPException;
+
 /**
 * UPnP main class
 *
@@ -109,9 +111,35 @@ class UPnP {
 
             $device->saveToCache();
 
+            try {
+                $client = $device->getClient('ConnectionManager');
+                $protocolInfo = $client->call('GetProtocolInfo');
+
+                $sink = $protocolInfo['Sink'];
+                $tmp = explode(',', $sink);
+
+                $protocols = array();
+
+                foreach($tmp as $protocol) {
+
+                    $t = explode(':', $protocol);
+                    if($t[0] == 'http-get') {
+
+                        $protocols[] = $t[2];
+                    }
+                }
+            } catch (UPnPException $upnpe) {
+
+                $protocols = array();
+            }
+
+            $device->protocolInfo = $protocols;
+
             $cache[$device->getId()] = array(
-                'name' => $device->getName(),
-                'services' => $device->getServices()
+                'name'      => $device->getName(),
+                'services'  => $device->getServices(),
+                'icons'     => $device->getIcons(),
+                'protocols' => $device->getProtocolInfo()
             );
         }
 

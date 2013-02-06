@@ -137,6 +137,14 @@ if(isset($_GET['image'])) {
     exit;
 }
 
+if(isset($_GET['file'])) {
+
+    // TODO create a beautiful logic for detecting the content type
+    header('Content-Type: application/octet-stream');
+    readfile($_GET['file']);
+    exit;
+}
+
 if(isset($_GET['js'])) {
 
     $tmp = explode('|', $_GET['js']);

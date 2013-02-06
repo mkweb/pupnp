@@ -26,7 +26,7 @@ use \DOMDocument;
 /**
 * pUPnP HTTP-Client
 *
-* @package at.mkweb.upnp
+* @package at.mkweb.upnp.backend
 * @author Mario Klug <mario.klug@mk-web.at>
 */
 class Client {
@@ -123,7 +123,7 @@ class Client {
     *
     * @return array             Parsed response
     */
-    public function call($method, Array $data = array()) {
+    public function call($method, Array $data = array(), $formatResponse = true) {
 
         $this->hideLogs = $hideLogs = (in_array($method, $this->hideLogsMethods));
         if(!$hideLogs) Logger::debug(__METHOD__ . '; Method: ' . $method . '; Data: ' . print_r($data, true), self::$logfile);
@@ -176,6 +176,11 @@ class Client {
 		$headers = join("\n\n", $headers);
 		$result = join("\r\n", $tmp);
 
+        if(!$formatResponse) {
+
+            return $result;
+        }
+
         $responseCode = $this->getResponseCode($lastHeaders);
         if(!$hideLogs) Logger::debug('ResponseCode: ' . $responseCode, self::$logfile);
 
@@ -191,6 +196,127 @@ class Client {
 
         if(!$hideLogs) Logger::debug('Return: ' . print_r($response, true), self::$logfile);
         return $response;
+    }
+
+    /**
+    * Subscribe to event notifies
+    *
+    * @access public
+    *
+    * @return string    Subscription ID
+    */
+    public function subscribe() {
+
+        $url = $this->service->getEventSubUrl();
+		$urldata = parse_url($url);
+
+        $path = dirname($_SERVER['SCRIPT_FILENAME']);
+        $path = trim(substr($path, strlen($_SERVER['DOCUMENT_ROOT'])), '/');
+        $eventUrl = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_ADDR'] . ':' . $_SERVER['SERVER_PORT'] . '/' . $path . '/event.php';
+
+        $header = array(
+			'HOST: ' . $urldata['host'] . ':' . $urldata['port'],
+			'USER-AGENT: Linux/2.6.31-1.0 UPnP/1.0 pupnp/0.1',
+            'CALLBACK: <' . $eventUrl . '>',
+            'NT: upnp:event',
+            'TIMEOUT: 180',
+        );
+
+        Logger::debug('Subscribe to ' . $this->device->getId() . ' with: ' . "\n" . print_r($header, true), 'subscription');
+
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, $this->service->getEventSubUrl());
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'SUBSCRIBE');
+
+        $result = curl_exec($ch);
+
+        $tmp = explode("\r\n", trim($result));
+
+        $response = array();
+        foreach($tmp as $line) {
+
+            $tmp = explode(':', $line);
+
+            $key = strtoupper(trim(array_shift($tmp)));
+            $value = trim(join(':', $tmp));
+
+            $response[$key] = $value;
+        }
+
+        if(isset($response['SID'])) {
+
+            return $response['SID'];
+        }
+
+        return null;
+    }
+
+    /**
+    * Unsubscribe from event notifies
+    *
+    * @access public
+    *
+    * @param string $sid    Subscription ID
+    */
+    public function unSubscribe($sid) {
+
+        $url = $this->service->getEventSubUrl();
+		$urldata = parse_url($url);
+
+        $header = array(
+			'HOST: ' . $urldata['host'] . ':' . $urldata['port'],
+            'SID: ' . $sid,
+        );
+
+        Logger::debug('Unsubscribe from SID: ' . $sid . ' with: ' . "\n" . print_r($header, true), 'subscription');
+
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, $this->service->getEventSubUrl());
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'UNSUBSCRIBE');
+
+        $result = curl_exec($ch);
+    }
+
+    /**
+    * Renew subscription for event notifies
+    *
+    * @access public
+    *
+    * @param string $sid    Subscription ID
+    */
+    public function renewSubscription($sid) {
+
+        $url = $this->service->getEventSubUrl();
+		$urldata = parse_url($url);
+
+        $header = array(
+			'HOST: ' . $urldata['host'] . ':' . $urldata['port'],
+            'SID: ' . $sid,
+            'TIMEOUT: 180'
+        );
+
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, $this->service->getEventSubUrl());
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'SUBSCRIBE');
+
+        $result = curl_exec($ch);
+        
+        Logger::debug('Renew subscription for sid ' . $sid . ' with: ' . "\n" . print_r($header, true), 'subscription');
     }
 
     /**
@@ -246,51 +372,58 @@ class Client {
 
         $params = $action['in'];
 
-        $defaultData = array();
-        foreach($params as $param) {
+        if(is_array($params)) {
 
-            $value = (isset($userData[$param['name']]) ? $userData[$param['name']] : null);
+            $defaultData = array();
 
-            if($param['name'] == 'InstanceID' && is_null($value)) $value = 0;
+            foreach($params as $param) {
 
-            $defaultData[$param['name']] = $value;
+                $value = (isset($userData[$param['name']]) ? $userData[$param['name']] : null);
 
-            if(isset($param['relatedStateVariable'])) {
+                if($param['name'] == 'InstanceID' && is_null($value)) $value = 0;
 
-                $stateVar = $this->service->getStateVar($param['relatedStateVariable']);
+                $defaultData[$param['name']] = $value;
 
-                if(isset($stateVar->dataType)) {
+                if(isset($param['relatedStateVariable'])) {
 
-                    $error = false;
+                    $stateVar = $this->service->getStateVar($param['relatedStateVariable']);
 
-                    switch($stateVar->dataType) {
+                    if(isset($stateVar->dataType)) {
 
-                        case 'string':
+                        $error = false;
 
-                            if(!is_null($value) && !is_string($value) && !is_int($value))  $error = true;
-                            break;
+                        switch($stateVar->dataType) {
 
-                        case 'ui4':
+                            case 'string':
 
-                        
-                            break;
+                                if(!is_null($value) && !is_string($value) && !is_int($value))  $error = true;
+                                break;
+
+                            case 'ui4':
+
+                            
+                                break;
+                        }
+
+                        if($error) {
+
+                            throw new UPnPException('Invalid data type for field "' . $param['name'] . '". Allowed type is "' . $stateVar->dataType . '"');
+                        }
                     }
 
-                    if($error) {
+                    if(isset($stateVar->allowedValueList) && !in_array($value, $stateVar->allowedValueList)) {
 
-                        throw new UPnPException('Invalid data type for field "' . $param['name'] . '". Allowed type is "' . $stateVar->dataType . '"');
+                        throw new UPnPException('Invalid value "' . $defaultData[$param['name']] . '" for field "' . $param['name'] . '". Allowed values are: ' . join(', ', $stateVar->allowedValueList));
                     }
-                }
-
-                if(isset($stateVar->allowedValueList) && !in_array($value, $stateVar->allowedValueList)) {
-
-                    throw new UPnPException('Invalid value "' . $defaultData[$param['name']] . '" for field "' . $param['name'] . '". Allowed values are: ' . join(', ', $stateVar->allowedValueList));
                 }
             }
+
+            $data = $defaultData;
+        } else {
+
+            $data = $userData;
         }
-
-        $data = $defaultData;
-
+            
         if(array_key_exists('StartingIndex', $data) && $data['StartingIndex'] == null) $data['StartingIndex'] = 0;
         if(array_key_exists('RequestedCount', $data) && $data['RequestedCount'] == null) $data['RequestedCount'] = 0;
 
@@ -413,6 +546,11 @@ class Client {
     * @return array
     */
     private function parseResponse($method, $xml) {
+
+        if($xml == '') {
+
+            return array(); 
+        }
 
         $hideLogs = $this->hideLogs;
         $original_xml = $xml;

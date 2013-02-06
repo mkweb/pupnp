@@ -15,134 +15,118 @@
  * See the GNU General Public License for more details. You should have received a copy of the GNU
  * General Public License along with pUPnP. If not, see <http://www.gnu.org/licenses/>.
  */
-var Favorites = {
 
-    toggle : function() {
+function UPnPFavorites() {
 
-        var elem = $('a#favorite');
-        
-        var deviceId = $('#device-left').val();
-        var uid = deviceId + '---' + currentObject.id;
+    this.favorites = {};
 
-        if($(elem).hasClass('active')) {
+    this.getAll = function() {
 
-            this.remove(uid);
-            $(elem).removeClass('active');
-        } else {
+        upnp.backend.call(null, 'getFavorites', null, function(favorites) {
 
-            this.add();
-            $(elem).addClass('active');
-        }
-    },
+            var cnt = Object.keys(favorites).length;
 
-    add : function() {
+            if(cnt > 0) {
 
-        var deviceId = $('#device-left').val();
-        var deviceName = $('#device-left').find('option[value="' + deviceId + '"]').text();
-        var uid = deviceId + '---' + currentObject.id;
+                var added = 0;
+                var dropdown = $('<select><option value="">-- ' + upnp.gui.i18n('Please choose') + ' --</option></select>');
 
-        var path = '';
-        for(var i in breadcrumps) {
+                for(var uid in favorites) {
 
-            path += '/' + breadcrumps[i];
-        }
+                    upnp.favorites.favorites[uid] = favorites[uid];
 
-        var data = 'deviceId=' + deviceId + '&deviceName=' + deviceName + '&objectId=' + currentObject.id + '&path=' + path + '&breadcrumps=' + json_encode(breadcrumps).split('&').join('%26');
+                    if(undefined != upnp.gui.devices[favorites[uid].deviceId]) {
 
-        UPnPBackend.call(null, 'addFavorite', data, function(res) {
+                        var option = $('<option value="' + uid + '">' + favorites[uid].deviceName + ' - ' + favorites[uid].path + '</option>');
 
-            Favorites.update();
-        });
-    },
-
-    remove : function(uid) {
-
-        UPnPBackend.call(null, 'removeFavorite', 'uid=' + uid, function(res) {
-
-            Favorites.update();
-        });
-    },
-
-    update : function() {
-
-        UPnPBackend.call(null, 'getFavorites', null, function(res) {
-
-            if(Object.size(res) == 0) {
-
-                $('#favorites').slideUp();
-            } else {
-
-                favorites = res;
-
-                var div = $('<div>' + i18n('Favorites: ') + '</div>');
-                var dropdown = $('<select><option value="">-- ' + i18n('Please select') + ' --</option></select>');
-
-                for(var uid in res) {
-
-                    var option = $('<option value="' + uid + '">' + utf8_decode(res[uid].deviceName + ' - ' + res[uid].path) + '</option>');
-                    $(dropdown).append(option);
+                        $(dropdown).append(option);
+                        added ++;
+                    }
                 }
 
-                $(div).append(dropdown);
+                if(added > 0) {
 
-                $('#favorites').empty();
-                $('#favorites').append(div);
+                    $('#favorites').text(upnp.gui.i18n('Favorites') + ': ');
+                    $('#favorites').append(dropdown);
+                    $('#favorites').slideDown();
 
-                $('#favorites').slideDown();
+                    $('#favorites select').change(function() {
 
-                $('#favorites select').change(function() {
+                        var uid = $(this).val();
 
-                    Gui.showLoadingLayer(i18n('Loading favorite'));
+                        if(undefined != upnp.favorites.favorites[uid]) {
 
-                    var uid = $(this).val();
-                    $('#favorites select').val('');
+                            var deviceId, objectId;
+                            with(upnp.favorites.favorites[uid]) {
 
-                    if(uid != '') {
+                                upnp.filemanager.breadcrumps = eval('(' + breadcrumps + ')');
 
-                        var tmp = uid.split('---');
+                                $('#device-src').val(deviceId);
+                                upnp.filemanager.load($('#device-src').val(), objectId);
 
-                        var deviceId = tmp[0];
-                        var objectId = tmp[1];
+                                upnp.gui.srcDevice = upnp.gui.devices[$('#device-src').val()];
 
-                        $('#device-left').val(deviceId);
-
-                        currentObject = {
-                            'id'   : objectId,
-                            'name' : favorites[uid].objectName
-                        };
-
-                        var bc = favorites[uid].breadcrumps;
-                        breadcrumps = eval('(' + bc + ')');
-
-                        deviceSelected('left');
-                        loadFiles(currentObject.id);
-                    } else {
-
-                        if($('#device-left').val() != '') {
-
-                            loadFiles(currentObject.id);
+                                $(this).val('');
+                            }
                         }
-                    }
+                    });
+                } else {
 
-                    Gui.hideLoadingLayer();
-                });
+                    $('#favorites').slideUp();
+                }
+            } else {
+
+                $('#favorites').slideUp();
             }
         });
-    },
+    }
 
-    isFavorite : function() {
+    this.isFavorite = function(deviceUid, objectId) {
 
-        var deviceId = $('#device-left').val();
-        var check_uid = deviceId + '---' + currentObject.id;
+        var uid = upnp.filemanager.deviceUid + '---' + upnp.filemanager.containerId;
 
-        for(var uid in favorites) {
+        return !(undefined == this.favorites[uid]);
+    }
 
-            if(uid == check_uid) {
+    this.toggle = function() {
 
-                return true;
-            }
+        if(this.isFavorite()) {
+
+            $('a#favorite').removeClass('active');
+            this.remove();
+        } else {
+
+            $('a#favorite').addClass('active');
+            this.add();
+        }
+    }
+
+    this.add = function() {
+
+        var device = upnp.gui.srcDevice;
+        var uid = device.getUid() + '---' + upnp.filemanager.containerId;
+
+        var path = '';
+        for(var i in upnp.filemanager.breadcrumps) {
+
+            path += '/' + upnp.filemanager.breadcrumps[i];
         }
 
-        return false;
+        var data = 'deviceId=' + device.getUid() + '&deviceName=' + device.getName() + '&objectId=' + upnp.filemanager.containerId + '&path=' + path + '&breadcrumps=' + json_encode(upnp.filemanager.breadcrumps).split('&').join('%26');
+
+        upnp.backend.call(null, 'addFavorite', data, function(res) {
+
+            upnp.favorites.getAll();
+        });
+    }
+
+    this.remove = function() {
+
+        var uid = upnp.gui.srcDevice.getUid() + '---' + upnp.filemanager.containerId;
+
+        upnp.backend.call(null, 'removeFavorite', 'uid=' + uid, function(res) {
+
+            upnp.favorites.getAll();
+        });
     }
 }

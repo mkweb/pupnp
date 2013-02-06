@@ -23,6 +23,8 @@ use at\mkweb\upnp\exception\UPnPLogicException;
 use at\mkweb\upnp\backend\xmlparser\RootXMLParser;
 use at\mkweb\upnp\backend\xmlparser\ServiceXMLParser;
 
+use at\mkweb\upnp\Logger;
+
 use \ReflectionClass;
 
 /**
@@ -88,6 +90,14 @@ class Device {
     public $services;
 
     /**
+    * Allowed streaming protocols
+    * @var array
+    */
+    public $protocolInfo;
+
+    private $ignoreEvents;
+
+    /**
     * Typemapping for more simple services access
     * @var array
     */	
@@ -141,6 +151,18 @@ class Device {
     }
 
     /**
+    * Returns requested service data
+    * 
+    * @access public
+    *
+    * @return array
+    */
+    public function getService($id) {
+
+        return (array_key_exists($id, $this->services) ? $this->services[$id] : null);
+    }
+
+    /**
     * Returns new HTTP-Client for selected service
     * 
     * @access public
@@ -176,6 +198,18 @@ class Device {
     public function getIcons() {
 
         return $this->root->getIcons();
+    }
+
+    /**
+    * Returns possible streaming protocols
+    *
+    * @access public
+    *
+    * @return array
+    */
+    public function getProtocolInfo() {
+
+        return $this->protocolInfo;
     }
 
     /**
@@ -243,6 +277,169 @@ class Device {
     }
 
     /**
+    * Subscribe to event notifies
+    *
+    * @access public
+    */
+    public function subscribe($service = 'AVTransport') {
+
+        $client = $this->getClient($service);
+
+        $sid = $client->subscribe();
+
+        Logger::debug(print_r($sid, true), 'subscription');
+
+        $cacheDir = self::getCacheDir();
+
+        $file = $cacheDir . DIRECTORY_SEPARATOR . 'subscription.dat';
+
+        if(!file_exists($file)) {
+
+            $content = array();
+        } else {
+
+            $content = unserialize(file_get_contents($file));
+        }
+
+        $content[$this->getId()][] = $sid;
+
+        file_put_contents($file, serialize($content));
+    }
+
+    /**
+    * Renet an event subscription
+    *
+    * @access public
+    */
+    public function renewSubscription($sid, $service = 'AVTransport') {
+
+        Logger::debug('Renew subscription for ' . $sid, 'subscription');
+
+        $client = $this->getClient($service);
+
+        $sid = $client->renewSubscription($sid);
+    }
+
+    /**
+    * Unsubscribe from event notifies
+    *
+    * @access public
+    */
+    public function unSubscribe($sid, $service = 'AVTransport') {
+
+        $client = $this->getClient($service);
+
+        $client->unSubscribe($sid);
+
+        Logger::debug('Unsubscribe from: ' . $sid, 'subscription');
+
+        $cacheDir = self::getCacheDir();
+
+        $file = $cacheDir . DIRECTORY_SEPARATOR . 'subscription.dat';
+
+        if(!file_exists($file)) {
+
+            $content = array();
+        } else {
+
+            $content = unserialize(file_get_contents($file));
+        }
+
+        if(isset($content[$this->getId()])) {
+
+            foreach($content[$this->getId()] as $key => $value) {
+
+                if($value == $sid) {
+
+                    unset($content[$this->getId()][$key]);
+                }
+            }
+        }
+
+        file_put_contents($file, serialize($content));
+    }
+
+    public static function getAllSubscriptions() {
+
+        $cacheDir = self::getCacheDir();
+
+        $file = $cacheDir . DIRECTORY_SEPARATOR . 'subscription.dat';
+
+        if(!file_exists($file)) {
+
+            $content = array();
+        } else {
+
+            $content = unserialize(file_get_contents($file));
+        }
+
+        return $content;
+    }
+
+    /**
+    * Get all subscription UIDs for current device
+    *
+    * @access public
+    *
+    * @return array
+    */
+    public function getSubscriptions() {
+
+        $cacheDir = self::getCacheDir();
+
+        $file = $cacheDir . DIRECTORY_SEPARATOR . 'subscription.dat';
+
+        if(!file_exists($file)) {
+
+            $content = array();
+        } else {
+
+            $content = unserialize(file_get_contents($file));
+        }
+
+        if(isset($content[$this->getId()])) {
+
+            return $content[$this->getId()];
+        }
+
+        return array();
+    }
+
+    public function ignoreEvents($seconds) {
+
+        $this->ignoreEvents = time() + $seconds;
+        Logger::debug('Set ignore of events for ' . $seconds . ' seconds - ends at ' . $this->ignoreEvents, 'client');
+
+        $this->saveToCache();
+    }
+
+    public function receivedEvent($transportState) {
+
+        Logger::debug('Reveived transportState event: ' . $transportState, 'client');
+        Logger::debug('Now: ' . time(), 'client');
+        Logger::debug('Ignoring events until: ' . $this->ignoreEvents, 'client');
+
+        if(is_null($this->ignoreEvents) || time() > $this->ignoreEvents) {
+
+            Logger::debug('Allow state change', 'client');
+
+            switch($transportState) {
+
+                case 'STOPPED':
+
+                    Logger::debug('Try to play next', 'client');
+
+                    $playlist = new Playlist($this->getId());
+                    $next = $playlist->next();
+                    break;
+                }
+        } else {
+
+            Logger::debug('Ignoring state change', 'client');
+        }
+    }
+
+    /**
     * Save current device to serialized cache file
     *
     * @access public
@@ -252,11 +449,6 @@ class Device {
         $content = serialize($this);
 
         $cacheDir = self::getCacheDir();
-
-        if(!file_exists($cacheDir)) {
-
-            mkdir($cacheDir, 0777);
-        }
 
         $file = $cacheDir . DIRECTORY_SEPARATOR . $this->id;
 

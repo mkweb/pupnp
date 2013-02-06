@@ -25,6 +25,24 @@ if(AuthManager::authEnabled()) {
 
     AuthManager::authenticate();
 }
+
+$javascript = array(
+    '3rdparty/phpjs.js',
+    'pupnp-helpers.js',
+    'pupnp-backend.js',
+    'pupnp-gui.js',
+    'pupnp-device.js',
+    'pupnp-playlist.js',
+    'pupnp-favorites.js',
+    'pupnp-file.js',
+    'pupnp-filemanager.js',
+    'pupnp.js'
+);
+
+$css = array(
+    'style.css',
+    'lightbox.css'
+);
 ?>
 <html>
 <head>
@@ -33,30 +51,35 @@ if(AuthManager::authEnabled()) {
 	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <? if(Config::read('minify_css')): ?>
 
-        <link rel="stylesheet" type="text/css" href="resources.php?css=style.css|lightbox.css" />
+        <link rel="stylesheet" type="text/css" href="resources.php?css=<?= join('|', $css) ?>" />
     <? else: ?>
 
-        <link rel="stylesheet" type="text/css" href="res/css/style.css" />
-        <link rel="stylesheet" type="text/css" href="res/css/lightbox.css" />
+        <? foreach($css as $cssfile): ?>
+
+            <link rel="stylesheet" type="text/css" href="res/css/<?= $cssfile ?>" />
+        <? endforeach ?>
     <? endif ?>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+
     <? if(Config::read('minify_js')): ?>
 
-        <script type="text/javascript" src="resources.php?js=3rdparty/lightbox.js|3rdparty/phpjs.js|upnp-backend.js|pupnp-helpers.js|pupnp-gui.js|pupnp-favorites.js|pupnp.js"></script>
+        <script type="text/javascript" src="resources.php?js=<?= join('|', $javascript) ?>"></script>
     <? else: ?>
 
-        <script type="text/javascript" src="res/js/3rdparty/lightbox.js"></script>
-        <script type="text/javascript" src="res/js/3rdparty/phpjs.js"></script>
-        <script type="text/javascript" src="res/js/pupnp-backend.js"></script>
-        <script type="text/javascript" src="res/js/pupnp-helpers.js"></script>
-        <script type="text/javascript" src="res/js/pupnp-gui.js"></script>
-        <script type="text/javascript" src="res/js/pupnp-favorites.js"></script>
-        <script type="text/javascript" src="res/js/pupnp.js"></script>
+        <? foreach($javascript as $jsfile): ?>
+
+            <script type="text/javascript" src="res/js/<?= $jsfile ?>"></script>
+        <? endforeach ?>
     <? endif ?>
 </head>
 <body>
+
+<ul id="mainnav">
+    <li><a href="index.php" class="active"><?= _('Workspace') ?></a></li>
+    <li><a href="devicetest.php"><?= _('Debugging') ?></a></li>
+</ul>
 
 <div id="error" class="hidden"></div>
 
@@ -64,28 +87,26 @@ if(AuthManager::authEnabled()) {
 	<div class="column" id="left">
 		<h2><?= _('Source') ?></h2>
 
-		<div class="deviceSelection" id="ds_left">
+		<div class="deviceSelection" id="ds-src">
 			<img src="res/images/icons/ajax-loader-small.gif" /> <?= _('Loading devices') ?>
 		</div>
 
-		<div class="favorites" id="favorites">
-			<img src="res/images/icons/ajax-loader-small.gif" />
-		</div>
+		<div class="favorites" id="favorites"></div>
 
-		<div class="desc" id="desc-left"></div>
+		<div class="desc" id="desc-src"></div>
 
-		<div class="properties" id="p_left"></div>
+		<div class="properties" id="p-src"></div>
 	</div>
 	<div class="column" id="right">
 		<h2><?= _('Destination') ?></h2>
 
-		<div class="deviceSelection" id="ds_right">
+		<div class="deviceSelection" id="ds-dst">
 			<img src="res/images/icons/ajax-loader-small.gif" /> <?= _('Loading devices') ?>
 		</div>
 
-		<div class="desc" id="desc-right">Pogo</div>
+		<div class="desc" id="desc-dst"></div>
 
-		<div class="properties" id="p_right"></div>
+		<div class="properties" id="p-dst"></div>
 	</div>
 </div>
 

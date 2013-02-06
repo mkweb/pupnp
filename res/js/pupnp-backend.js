@@ -21,13 +21,13 @@
 *
 * @author Mario Klug <mario.klug@mk-web.at>
 */
-var UPnPBackend = {
+function UPnPBackend() {
 
     /**
     * Url of server file
     * @var string
     */
-	url : 'backend.php',
+	this.url = 'backend.php';
 
     /**
     * Performing asynchronious Ajax request
@@ -38,7 +38,7 @@ var UPnPBackend = {
     * @var string   data      HTTP querystring
     * @var function c         Callback function
     */
-	call : function(device, method, data, c) {
+	this.call = function(device, method, data, c) {
 
 		if(undefined != c) {
 

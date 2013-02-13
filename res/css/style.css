@@ -2,6 +2,7 @@ body {
 	background-color: #FFF;
     margin: 0;
     padding: 0;
+    padding-top: 50px;
 }
 * {
 	font-family: Arial;
@@ -38,7 +39,7 @@ table td.key {
 }
 
 #wrapper-all {
-    margin: 10px;
+    width: 100%;
 }
 
 .column {
@@ -63,7 +64,7 @@ table td.key {
 }
 
 .deviceSelection, .properties, .desc, .favorites {
-	padding: 10px;
+    padding: 10px 10px 0;
 	margin: 4px;
 	background-color: #FFF;
 	border: 1px solid #DEDEDE;
@@ -265,6 +266,7 @@ ul#breadcrumps {
     list-style-type: none;
     border-collapse: collapse;
     float: left;
+    border: 1px solid #000;
 }
 ul#breadcrumps li {
     float: left;
@@ -273,12 +275,9 @@ ul#breadcrumps a {
     display: block;
     padding: 4px 10px;
     color: #000;
-    background-color: #EFEFEF;
-    border-color: #666;
-    border-style: solid;
-    border-width: 1px 0 1px 1px;
     font-size: 8pt;
     text-decoration: none;
+    color: #FFF;
 }
 ul#breadcrumps a:hover {
     text-decoration: underline;
@@ -291,9 +290,6 @@ ul#breadcrumps a.active, ul#breadcrumps a.active:hover {
 div#search {
     width: 100%;
     margin-bottom: 10px;
-}
-input#searchbar {
-    width: 260px;
 }
 
 a#favorite {
@@ -342,19 +338,23 @@ div#playlist {
     margin-top: 4px;
     padding: 2px;
 }
-div#playlist .table table {
+div#playlist table {
     width: 100%;
     color: #000;
     background-color: #F1F1F1;
     border-collapse: collapse;
     font-size: 10pt;
     margin: 2px;
+    margin-bottom: 0;
 }
-div#playlist .table table tr:hover {
-    color: #FFF;
-    background-color: #AFAFAF;
+div#playlist table td {
+    padding: 2px 4px;
 }
-div#playlist .table table tr.active td {
+div#playlist table tr:hover {
+    background-color: #FFF;
+    font-style: italic;
+}
+div#playlist table tr.active td {
     font-weight: bold;
 }
 
@@ -385,4 +385,37 @@ div#playlist .table table tr.active td {
 }
 #mainnav a.active {
     color: #000;
+}
+
+label {
+    float: left;
+    margin-top: 4px;
+    margin-right: 4px;    
+}
+.icon-search {
+    background-position: -48px 0 !important;
+}
+.navbar-inner, #breadcrumps {
+    background: #4c4c4c; /* Old browsers */
+    background: -moz-linear-gradient(top, #4c4c4c 0%, #131313 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4c4c4c), color-stop(100%,#131313)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #4c4c4c 0%,#131313 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #4c4c4c 0%,#131313 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #4c4c4c 0%,#131313 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #4c4c4c 0%,#131313 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+    border-bottom-color: #000;
+}
+.navbar {
+    box-shadow: 0 0 10px 4px #666;
+}
+.navbar-inner > div.container {
+    width: 100%;
+}
+.navbar .nav > li > a {
+    color: #7a7a7a;
+    text-shadow: 0 1px 0 #000;
+}
+.navbar .nav > li > a:hover, .navbar .nav > li > a.active {
+    color: #FFF;
 }

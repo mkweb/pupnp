@@ -46,7 +46,7 @@ function UPnPFavorites() {
 
                 if(added > 0) {
 
-                    $('#favorites').text(upnp.gui.i18n('Favorites') + ': ');
+                    $('#favorites').html('<label class="control-label" for="device-src">' + upnp.gui.i18n('Favorites') + ':</label> ');
                     $('#favorites').append(dropdown);
                     $('#favorites').slideDown();
 

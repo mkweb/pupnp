@@ -304,8 +304,8 @@ function UPnPGUI() {
                 }
             }
 
-            $('#ds-src').text(upnp.gui.i18n('Device') + ': ').append(dropdown_src);
-            $('#ds-dst').text(upnp.gui.i18n('Device') + ': ').append(dropdown_dst);
+            $('#ds-src').html('<label class="control-label" for="device-src">' + upnp.gui.i18n('Device') + ':</label> ').append(dropdown_src);
+            $('#ds-dst').html('<label class="control-label" for="device-dst">' + upnp.gui.i18n('Device') + ':</label> ').append(dropdown_dst);
 
             $('#device-src, #device-dst').change(function() {
 
@@ -451,9 +451,7 @@ function UPnPGUI() {
 
 
         var html_playlist = '<div id="playlist">';
-        html_playlist += '    <div class="table">';
-        html_playlist += '        <table></table>';
-        html_playlist += '    </div>';
+        html_playlist += '    <table></table>';
         html_playlist += '</div>';
 
         var playlist = $(html_playlist);
@@ -477,16 +475,19 @@ function UPnPGUI() {
 
         var navbar = $('<div id="navbar"></div>');
 
-        var breadcrumplist = $('<ul id="breadcrumps"></ul>');
-        for(var uid in upnp.filemanager.breadcrumps) {
+        if(Object.keys(upnp.filemanager.breadcrumps).length > 1) {
 
-            if(uid != upnp.filemanager.objectId) {
+            var breadcrumplist = $('<ul id="breadcrumps"></ul>');
+            for(var uid in upnp.filemanager.breadcrumps) {
 
-                $(breadcrumplist).append($('<li><a href="javascript:upnp.filemanager.open(\'' + uid + '\');"' + (uid == upnp.filemanager.containerId ? ' class="active"' : '') + '>' + upnp.filemanager.breadcrumps[uid] + '</a></li>'));
+                if(uid != upnp.filemanager.objectId) {
+
+                    $(breadcrumplist).append($('<li><a href="javascript:upnp.filemanager.open(\'' + uid + '\');"' + (uid == upnp.filemanager.containerId ? ' class="active"' : '') + '>' + upnp.filemanager.breadcrumps[uid] + '</a></li>'));
+                }
             }
-        }
 
-        $(navbar).append(breadcrumplist);
+            $(navbar).append(breadcrumplist);
+        }
 
         var favLink = $('<a href="javascript:upnp.favorites.toggle();" id="favorite" title="' + upnp.gui.i18n('Set/Unset as favorite') + '"' + (isFavorit ? ' class="active"' : '') + ' /></a>');
         $(navbar).append(favLink);
@@ -497,6 +498,16 @@ function UPnPGUI() {
         html += '   <input type="text" id="searchbar" value="" />';
         html += '   <img id="search-enter" src="res/images/icons/keyboard-enter.png" style="display: none;" />';
         html += '</div>';
+
+        html = '<div class="control-group">';
+        html+= '  <div class="controls">';
+        html+= '    <div class="input-prepend">';
+        html+= '      <span class="add-on"><i class="icon-search"></i></span>';
+        html+= '      <input class="span12" id="searchbar" type="text">';
+        html+= '      <img id="search-enter" src="res/images/icons/keyboard-enter.png" style="display: none;" />';
+        html+= '    </div>';
+        html+= '  </div>';
+        html+= '</div>';
 
         var search = $(html);
 

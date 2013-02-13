@@ -36,10 +36,12 @@ $javascript = array(
     'pupnp-favorites.js',
     'pupnp-file.js',
     'pupnp-filemanager.js',
-    'pupnp.js'
+    'pupnp.js',
+    'bootstrap.min.js'
 );
 
 $css = array(
+    'bootstrap.min.css',
     'style.css',
     'lightbox.css'
 );
@@ -76,38 +78,50 @@ $css = array(
 </head>
 <body>
 
-<ul id="mainnav">
-    <li><a href="index.php" class="active"><?= _('Workspace') ?></a></li>
-    <li><a href="devicetest.php"><?= _('Debugging') ?></a></li>
-</ul>
+<div class="navbar navbar-fixed-top"> 
+  <div class="navbar-inner"> 
+    <div class="container"> 
+      <div class="nav-collapse"> 
+        <ul class="nav"> 
+            <li><a href="index.php" class="active"><?= _('Workspace') ?></a></li>
+            <li><a href="devicetest.php"><?= _('Debugging') ?></a></li>
+        </ul> 
+     </div> 
+   </div> 
+  </div> 
+</div> 
 
 <div id="error" class="hidden"></div>
 
-<div id="wrapper-all">
-	<div class="column" id="left">
-		<h2><?= _('Source') ?></h2>
+<div id="wrapper-all" class="container">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span6" id="left">
+                <h2><?= _('Source') ?></h2>
 
-		<div class="deviceSelection" id="ds-src">
-			<img src="res/images/icons/ajax-loader-small.gif" /> <?= _('Loading devices') ?>
-		</div>
+                <div class="deviceSelection" id="ds-src">
+                    <img src="res/images/icons/ajax-loader-small.gif" /> <?= _('Loading devices') ?>
+                </div>
 
-		<div class="favorites" id="favorites"></div>
+                <div class="favorites" id="favorites"></div>
 
-		<div class="desc" id="desc-src"></div>
+                <div class="desc" id="desc-src"></div>
 
-		<div class="properties" id="p-src"></div>
-	</div>
-	<div class="column" id="right">
-		<h2><?= _('Destination') ?></h2>
+                <div class="properties" id="p-src"></div>
+            </div>
+            <div class="span6" id="right">
+                <h2><?= _('Destination') ?></h2>
 
-		<div class="deviceSelection" id="ds-dst">
-			<img src="res/images/icons/ajax-loader-small.gif" /> <?= _('Loading devices') ?>
-		</div>
+                <div class="deviceSelection" id="ds-dst">
+                    <img src="res/images/icons/ajax-loader-small.gif" /> <?= _('Loading devices') ?>
+                </div>
 
-		<div class="desc" id="desc-dst"></div>
+                <div class="desc" id="desc-dst"></div>
 
-		<div class="properties" id="p-dst"></div>
-	</div>
+                <div class="properties" id="p-dst"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

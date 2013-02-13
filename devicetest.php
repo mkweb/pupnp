@@ -223,6 +223,7 @@ try {
 <head>
     <title>pUPnP Device Tester</title>
 
+    <link rel="stylesheet" type="text/css" href="res/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="resources.php?css=style.css" />
     <style type="text/css">
     #right {
@@ -275,16 +276,24 @@ try {
 </head>
 <body>
 
-<ul id="mainnav">
-    <li><a href="index.php"><?= _('Workspace') ?></a></li>
-    <li><a href="devicetest.php" class="active"><?= _('Debugging') ?></a></li>
-</ul>
+<div class="navbar navbar-fixed-top"> 
+  <div class="navbar-inner"> 
+    <div class="container"> 
+      <div class="nav-collapse"> 
+        <ul class="nav"> 
+            <li><a href="index.php"><?= _('Workspace') ?></a></li>
+            <li><a href="devicetest.php" class="active"><?= _('Debugging') ?></a></li>
+        </ul> 
+     </div> 
+   </div> 
+  </div> 
+</div> 
 
 <div id="wrapper-all">
 
     <? if(isset($error)) echo '<div id="error">' . $error . '</div>'; ?>
 
-    <div class="column">
+    <div class="span5">
         <h2><?= _('Devices') ?></h2>
 
         <div class="desc">
@@ -322,7 +331,7 @@ try {
     </div>
 
     <? if(!is_null($action)): ?>
-        <div id="right" class="column">
+        <div id="right" class="span7">
 
             <h2><?= $actionName ?></h2>
 

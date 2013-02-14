@@ -43,7 +43,8 @@ $javascript = array(
 $css = array(
     'bootstrap.min.css',
     'style.css',
-    'lightbox.css'
+    'lightbox.css',
+    'dropdown.css'
 );
 ?>
 <html>

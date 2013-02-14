@@ -78,6 +78,8 @@ function UPnPFavorites() {
 
                 $('#favorites').slideUp();
             }
+        
+            updateDropdowns();
         });
     }
 

@@ -295,12 +295,12 @@ function UPnPGUI() {
 
                 if(device.hasService('ContentDirectory')) {
 
-                    $(dropdown_src).append($('<option value="' + uid + '">' + device.getName() + '</option>'));
+                    $(dropdown_src).append($('<option value="' + uid + '" data-icon="resources.php?image=' + device.icons[0].url + '&sq=18">' + device.getName() + '</option>'));
                 }
 
                 if(device.hasService('AVTransport')) {
 
-                    $(dropdown_dst).append($('<option value="' + uid + '">' + device.getName() + '</option>'));
+                    $(dropdown_dst).append($('<option value="' + uid + '" data-icon="resources.php?image=' + device.icons[0].url + '&sq=18">' + device.getName() + '</option>'));
                 }
             }
 
@@ -324,8 +324,6 @@ function UPnPGUI() {
 
         var device = this.devices[uid];
 
-        this.displayDeviceProperties(rel, device);
-
         switch(rel) {
 
             case 'src':
@@ -346,66 +344,6 @@ function UPnPGUI() {
                     this.loadRenderer(device);
                 }
                 break;
-        }
-    };
-
-    this.displayDeviceProperties = function(rel, device) {
-
-        var icon = this.defaultIcon;
-        var desc = $('#desc-' + rel);
-
-        if(undefined == device) {
-
-            $(desc).slideUp();
-        } else {
-
-            $(desc).slideUp('fast', function() {
-            
-                $(desc).empty();
-
-                if(device.hasIcons()) {
-
-                    var icons = device.getIcons();
-                    var smallest = null;
-
-                    var last = null;
-                    for(var i in icons) {
-
-                        if(last == null || icons[i].width < last) {
-
-                            smallest = i;
-                        }
-                    }
-
-                    icon = icons[smallest].url;
-                }
-
-                var protocols = device.getProtocols();
-
-                var img = $('<img src="resources.php?image=' + icon + '&sq=30" alt="icon_' + device.getName().split(' ').join('-').toLowerCase() + '" />');
-                var name = $('<h2 class="right">' + device.getName() + '</h2>');
-
-                $(desc).append(img);
-                $(desc).append(name);
-
-                if(rel == 'dst') {
-
-                    var html = '<img class="tooltip" src="res/images/icons/info.png" title="<b>' + upnp.gui.i18n('Possible Media Types') + ':</b><br />';
-                    for(var i in protocols) {
-                        html += protocols[i] + "<br />";
-                    }
-                    html += '" />';
-
-                    var protocols = $(html);
-
-                    $(desc).append(protocols);
-                    upnp.gui.initTooltips();
-                }
-
-                $(desc).append($('<br class="clear" />'));
-
-                $(desc).slideDown();
-            });
         }
     };
 

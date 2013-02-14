@@ -1,0 +1,123 @@
+#page{
+    width:230px;
+    margin:100px auto;
+}
+
+#page h1{
+    font-weight:normal;
+    text-indent:-99999px;
+    overflow:hidden;
+    background:url('../img/your_product.png') no-repeat;
+    width:230px;
+    height:36px;
+}
+
+#page form{
+    margin:20px auto;
+    width:200px;
+}
+
+.select{
+
+    /* This is the container of the new select element */
+
+    height:34px;
+    display:inline-block;
+    min-width:200px;
+    position:relative;
+
+    width: 96%;
+}
+
+.select .selectBox{
+  display: inline-block;
+  height: 20px;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555555;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  width: 220px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+
+  cursor: pointer;
+
+  background: url('../images/dropdown.png') no-repeat top right;
+  background-position-x = -10px;
+  background-position-y = 6px;
+
+  width: 100%;
+}
+.select .selectBox img, .select .selectBox span {
+    float: left;
+} 
+.select .selectBox img {
+    margin-top: 2px;
+}
+.select .selectBox span {
+    display: block;
+    margin-left: 4px;
+    padding-top: 1px;
+}
+
+.select .selectBox:hover,
+.select .selectBox.expanded{
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.select .dropDown{
+    position:absolute;
+    top:34px;
+    left:-24px;
+    width:100%;
+    border:1px solid #32333b;
+    border-width:0 1px 1px;
+    list-style:none;
+
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+
+    -moz-box-shadow:0 0 4px #111;
+    -webkit-box-shadow:0 0 4px #111;
+    box-shadow:0 0 4px #111;
+    z-index: 999;
+}
+
+.select li{
+    height:40px;
+    line-height: 40px;
+    padding-left: 10px;
+    cursor:pointer;
+    position:relative;
+    overflow: hidden;
+
+    background-color: #4c4c4c;
+}
+
+.select li:hover{
+    background-color: #2c2c2c;
+}
+
+.select li span{
+    color: #FFF;
+    float: left;
+}
+
+.select li i{
+    color:#999999;
+    display:block;
+    font-size:12px;
+}
+
+.select li img{
+    margin: 10px;
+    float: left;
+}

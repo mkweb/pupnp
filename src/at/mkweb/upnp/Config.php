@@ -74,6 +74,74 @@ class Config {
         }
 
         self::$config = parse_ini_file($file);
+
+        foreach(self::$values as $key => $data) {
+
+            if(isset(self::$config[$key])) {
+
+                self::$values[$key]->current = self::$config[$key];
+            } elseif (isset($data->default)) {
+
+                self::$values[$key]->current = $data->default;
+            } else {
+
+                self::$values[$key]->current = '';
+            }
+        }
+    }
+
+    public static function validate(Array $newConfig) {
+
+        $errors = array();
+
+        foreach($newConfig as $key => $value) {
+
+            $value = trim($value);
+
+            if(isset(self::$values[$key])) {
+
+                $type = self::$values[$key]->type;
+
+                if($type == 'bool' && !in_array($value, array('on', 'off'))) {
+
+                    $errors[$key] = _('Inavlid value');
+                }
+
+                if($type == 'string' && strlen($value) < 1) {
+
+                    $errors[$key] = _('Inavlid value');
+                }
+
+                if($type == 'enum' && !in_array($value, array_keys(self::$values[$key]->values))) {
+
+                    $errors[$key] = _('Inavlid value');
+                }
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function change(Array $newConfig) {
+
+        foreach($newConfig as $key => $value) {
+
+            if(isset(self::$values[$key])) {
+
+                $type = self::$values[$key]->type;
+
+                if($type == 'bool' && in_array($value, array('on', 'off'))) {
+
+                    $value = ($value == 'on' ? true : false);
+                }
+
+                self::$config[$key] = $value;
+            }
+        }
+
+        self::writeFile();
+
+        return true;
     }
 
     private static function writeFile() {
@@ -87,6 +155,8 @@ class Config {
             $desc       = (isset($data->desc) ? $data->desc : null);
             $default    = (isset($data->default) ? $data->default : null);
             $values     = (isset($data->values) ? $data->values : null);
+
+            $current    = (isset(self::$config[$code]) ? self::$config[$code] : $default);
 
             $lines[] = '; ' . $data->name;
                     
@@ -119,7 +189,7 @@ class Config {
                 $lines[] = '; Default: ' . $default;
             }
 
-            $lines[] = $code . ' = ' . $default;
+            $lines[] = $code . ' = ' . $current;
             
             $lines[] = '';
         }
@@ -206,5 +276,10 @@ class Config {
     public static function get($key) {
 
         return (isset(self::$config[$key]) ? self::$config[$key] : null);
+    }
+
+    public static function getAll() {
+
+        return self::$values;
     }
 }

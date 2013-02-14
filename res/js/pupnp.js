@@ -31,7 +31,28 @@ var upnp;
 
 window.onload = function() {
 
-    upnp = new UPnP();
+    if($('.deviceSelection').length > 0) {
 
-    upnp.gui.prepare();
+        upnp = new UPnP();
+
+        upnp.gui.prepare();
+    }
+
+    if($('.flash').length > 0) {
+
+        window.setTimeout(function() {
+
+            $('.flash').slideUp();
+        }, 3000);
+    }
+
+    updateClock();
+    window.setInterval('updateClock()', 1000);
+
+    $('select').dropdown();
+}
+
+function updateClock() {
+
+    $('#clock').text((new Date()).toLocaleString());
 }

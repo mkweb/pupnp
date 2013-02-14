@@ -223,6 +223,9 @@ try {
 <head>
     <title>pUPnP Device Tester</title>
 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="res/js/pupnp.js"></script>
+
     <link rel="stylesheet" type="text/css" href="res/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="resources.php?css=style.css" />
     <style type="text/css">
@@ -276,18 +279,7 @@ try {
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top"> 
-  <div class="navbar-inner"> 
-    <div class="container"> 
-      <div class="nav-collapse"> 
-        <ul class="nav"> 
-            <li><a href="index.php"><?= _('Workspace') ?></a></li>
-            <li><a href="devicetest.php" class="active"><?= _('Debugging') ?></a></li>
-        </ul> 
-     </div> 
-   </div> 
-  </div> 
-</div> 
+<? require_once(dirname(__FILE__) . '/navigation.php') ?>
 
 <div id="wrapper-all">
 
@@ -301,7 +293,7 @@ try {
             <? foreach($deviceList as $uid => $dev): ?>
 
                 <li>
-                    <a href="<?= basename(__FILE__) ?>?d=<?= $uid ?>"<?= (!is_null($device) && $device->getId() == $uid ? ' class="active"' : '') ?>>
+                    <a href="?page=devicetest&d=<?= $uid ?>"<?= (!is_null($device) && $device->getId() == $uid ? ' class="active"' : '') ?>>
                         <img src="resources.php?image=<?= urlencode($dev->icon) ?>&sq=30" />
                         <?= $dev->name ?>
                     </a>
@@ -309,12 +301,12 @@ try {
                     <ul>
                         <? foreach($services as $serv): ?>
                             <li>
-                                <a href="<?= basename(__FILE__) ?>?d=<?= $uid ?>&s=<?= $serv ?>"<?= (!is_null($serviceCode) && $serviceCode == $serv ? ' class="active"' : '') ?>><?= $serv ?></a>
+                                <a href="?page=devicetest&d=<?= $uid ?>&s=<?= $serv ?>"<?= (!is_null($serviceCode) && $serviceCode == $serv ? ' class="active"' : '') ?>><?= $serv ?></a>
                                 <? if(!is_null($serviceCode) && $serviceCode == $serv): ?>
                                 <ul>
                                     <? foreach($actions as $key => $data): ?>
                                         <li>
-                                            <a href="<?= basename(__FILE__) ?>?d=<?= $uid ?>&s=<?= $serv ?>&a=<?= $key ?>"<?= (!is_null($actionName) && $actionName == $key ? ' class="active"' : '') ?>><?= $key ?></a>
+                                            <a href="?page=devicetest&d=<?= $uid ?>&s=<?= $serv ?>&a=<?= $key ?>"<?= (!is_null($actionName) && $actionName == $key ? ' class="active"' : '') ?>><?= $key ?></a>
                                         </li>
                                     <? endforeach ?>
                                 </ul>
@@ -356,7 +348,7 @@ try {
 
             <? if(!is_null($response)): ?>
             <h2><?= _('Output') ?></h2>
-            <textarea rows="12" cols="100" class="desc"><?= formatXmlString($response) ?></textarea>
+            <textarea rows="12" cols="100" class="well"><?= formatXmlString($response) ?></textarea>
             <? endif ?>
 
         </div>

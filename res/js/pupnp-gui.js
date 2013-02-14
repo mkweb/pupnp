@@ -413,7 +413,7 @@ function UPnPGUI() {
 
         var navbar = $('<div id="navbar"></div>');
 
-        if(Object.keys(upnp.filemanager.breadcrumps).length > 1) {
+        if(Object.keys(upnp.filemanager.breadcrumps).length > 0) {
 
             var breadcrumplist = $('<ul id="breadcrumps"></ul>');
             for(var uid in upnp.filemanager.breadcrumps) {

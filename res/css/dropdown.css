@@ -1,25 +1,6 @@
-#page{
-    width:230px;
-    margin:100px auto;
-}
-
-#page h1{
-    font-weight:normal;
-    text-indent:-99999px;
-    overflow:hidden;
-    background:url('../img/your_product.png') no-repeat;
-    width:230px;
-    height:36px;
-}
-
-#page form{
-    margin:20px auto;
-    width:200px;
-}
+// Thanks to http://tutorialzine.com/2010/11/better-select-jquery-css3/
 
 .select{
-
-    /* This is the container of the new select element */
 
     height:34px;
     display:inline-block;

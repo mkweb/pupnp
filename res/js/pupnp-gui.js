@@ -125,12 +125,18 @@ function UPnPGUI() {
                 case 'STOPPED':
 
                     this.setPlayerButtons('stop');
+                    $('#slider').slider({ value: 0 });
                     break;
             }
         }
     }
 
     this.updatePlayerPosition = function() {
+
+        window.setTimeout(function() {
+
+            upnp.playlist.load();
+        }, 100);
 
         upnp.backend.call(this.dstDevice.getUid(), 'getPositionInfo', null, function(res) {
 
@@ -231,17 +237,71 @@ function UPnPGUI() {
 
                 upnp.gui.disablePlayer();
             }
+
+            if(Object.keys(upnp.playlist.items).length > 1) {
+
+                $('#previous').show();
+                $('#next').show();
+
+                if(!upnp.playlist.hasPrevious()) {
+
+                    $('#previous').removeClass('disabled');
+                } else {
+
+                    $('#previous').addClass('disabled');
+                }
+
+                if(!upnp.playlist.hasNext()) {
+
+                    $('#next').removeClass('disabled');
+                } else {
+
+                    $('#next').addClass('disabled');
+                }
+            } else {
+
+                $('#previous').hide();
+                $('#next').hide();
+            }
         });
     }
 
     this.control = function(action) {
 
+        if($('#' + action).hasClass('disabled')) {
+
+            console.log("diabled control");
+
+            return false;
+        }
+
+        if(action == 'previous') {
+
+            var uid = upnp.playlist.getPrevious();
+
+            upnp.playlist.start(uid);
+
+            return true;
+        }
+
+        if(action == 'next') {
+
+            var uid = upnp.playlist.getNext();
+
+            upnp.playlist.start(uid);
+
+            return true;
+        }
+
         $('#player-loading').show();
         upnp.backend.call(this.dstDevice.getUid(), action, null, function(res) {
 
-            upnp.playlist.load();
-
             $('#player-loading').hide();
+
+            window.setTimeout(function() {
+
+                upnp.playlist.load();
+            }, 100);
         });
     }
 
@@ -379,14 +439,15 @@ function UPnPGUI() {
         $(tbody).append(progressRow);
         $(tbody).append(buttonRow);
 
+        $(buttonList).append('<li><a href="javascript:upnp.gui.control(\'previous\');" class="control disabled" id="previous" title="' + upnp.gui.i18n('Previous') + '" /></li>');
         $(buttonList).append('<li><a href="javascript:upnp.gui.control(\'play\');" class="control disabled" id="play" title="' + upnp.gui.i18n('Play') + '" /></li>');
         $(buttonList).append('<li><a href="javascript:upnp.gui.control(\'pause\');" class="control disabled hidden" id="pause" title="' + upnp.gui.i18n('Pause') + '" /></li>');
         $(buttonList).append('<li><a href="javascript:upnp.gui.control(\'stop\');" class="control disabled" id="stop" title="' + upnp.gui.i18n('Stop') + '" /></li>');
+        $(buttonList).append('<li><a href="javascript:upnp.gui.control(\'next\');" class="control disabled" id="next" title="' + upnp.gui.i18n('Next') + '" /></li>');
 
         $(table).append(tbody);
         $(controls).append(title);
         $(controls).append(table);
-
 
         var html_playlist = '<div id="playlist">';
         html_playlist += '    <table></table>';
@@ -474,6 +535,13 @@ function UPnPGUI() {
                 html += '   </div>';
                 html += '   <a id="item-' + file.getId() + '" href="javascript:upnp.filemanager.' + (file.getType() == 'container' ? 'open' : 'details') + '(\'' + file.getId() + '\');">' + file.getTitle() + '</a>';
                 html += '   <div class="right">';
+
+                if(file.getClass() == 'object.container.album.musicAlbum') {
+
+                    html += '   <a href="javascript:upnp.playlist.appendAlbum(\'' + this.srcDevice.getUid() + '\', \'' + file.getId() + '\');" title="' + upnp.gui.i18n('Play') + '">';
+                    html += '       <img src="res/images/icons/add.png" alt="' + upnp.gui.i18n('Add to playlist') + '" />';
+                    html += '   </a>';
+                }
 
                 if(!in_array(file.getClass(), ['object.container', 'object.container.storageFolder'])) {
 

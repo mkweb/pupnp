@@ -20,6 +20,7 @@ namespace at\mkweb\upnp\backend;
 
 use at\mkweb\upnp\exception\UPnPException;
 use at\mkweb\upnp\Logger;
+use at\mkweb\upnp\Config;
 
 use \DOMDocument;
 
@@ -210,9 +211,7 @@ class Client {
         $url = $this->service->getEventSubUrl();
 		$urldata = parse_url($url);
 
-        $path = dirname($_SERVER['SCRIPT_FILENAME']);
-        $path = trim(substr($path, strlen($_SERVER['DOCUMENT_ROOT'])), '/');
-        $eventUrl = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['SERVER_ADDR'] . ':' . $_SERVER['SERVER_PORT'] . '/' . $path . '/event.php';
+        $eventUrl = 'http://' . Config::read('host_name') . '/pupnp/event.php';
 
         $header = array(
 			'HOST: ' . $urldata['host'] . ':' . $urldata['port'],

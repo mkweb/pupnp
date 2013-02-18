@@ -207,7 +207,11 @@ class Playlist {
 
         Logger::debug(__METHOD__, 'playlist');
 
-        $this->currentPlaying;
+        if($this->currentPlaying == null) {
+
+            Logger::debug('Playlist is stopped - ignore next();', 'playlist');
+            return;
+        }
 
         $found = false;
 
@@ -238,9 +242,15 @@ class Playlist {
 
             $this->currentPlaying = $next;
 
-            Logger::debug('Found next', 'playlist');
+            Logger::debug('Found next: ' . print_r($item, true), 'playlist');
             $handler = new AjaxHandler();
-            $handler->StartPlay($this->deviceId, array('id' => $next));
+            $handler->startPlayFromPlaylist($this->deviceId, array('id' => $next));
+
+            $this->setPlaying($next);
+        } else {
+
+            Logger::debug('No next item found', 'playlist');
+            $this->stop();
         }
 
         $this->save();

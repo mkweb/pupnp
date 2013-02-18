@@ -85,8 +85,10 @@ if(isset($_POST['save'])) {
             <table class="table table-striped table-config">
             <? foreach($config as $key => $data): ?>
 
+                <? if(isset($data->hidden)): continue; endif ?>
+
                 <tr valign="top">
-                    <td><label for="<?= $key ?>"><?= $data->name ?></label></td>
+                    <td><label for="<?= $key ?>"<?= (!isset($data->null) ? ' class="bold"' : '') ?>><?= $data->name ?></label></td>
                     <td>
                         <? switch($data->type): 
 

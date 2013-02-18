@@ -96,6 +96,7 @@ class Device {
     public $protocolInfo;
 
     private $ignoreEvents;
+    private $ignoreStops = false;
 
     /**
     * Typemapping for more simple services access
@@ -274,6 +275,8 @@ class Device {
 
         $this->id = $this->root->getId();
         $this->name = $this->root->getName();
+
+        return true;
     }
 
     /**
@@ -413,30 +416,42 @@ class Device {
         $this->saveToCache();
     }
 
+    public function ignoreStops() {
+
+        $this->ignoreStops = true;
+        Logger::debug('Ignore stops until receiving playing', 'event');
+            
+        $this->saveToCache();
+    }
+
     public function receivedEvent($transportState) {
 
-        Logger::debug('Reveived transportState event: ' . $transportState, 'client');
-        Logger::debug('Now: ' . time(), 'client');
-        Logger::debug('Ignoring events until: ' . $this->ignoreEvents, 'client');
+        Logger::debug('Reveived transportState event: ' . $transportState, 'event');
 
-        if(is_null($this->ignoreEvents) || time() > $this->ignoreEvents) {
+        if($this->ignoreStops && $transportState == 'PLAYING') {
 
-            Logger::debug('Allow state change', 'client');
+            Logger::debug('Finished ignoring STOPPED state', 'event');
 
-            switch($transportState) {
-
-                case 'STOPPED':
-
-                    Logger::debug('Try to play next', 'client');
-
-                    $playlist = new Playlist($this->getId());
-                    $next = $playlist->next();
-                    break;
-                }
-        } else {
-
-            Logger::debug('Ignoring state change', 'client');
+            $this->ignoreStops = false;
+            $this->saveToCache();
         }
+
+        if($this->ignoreStops && $transportState == 'STOPPED') {
+
+            Logger::debug('Ignoring STOPPED state', 'event');
+            return;
+        }
+
+        switch($transportState) {
+
+            case 'STOPPED':
+
+                Logger::debug('Try to play next', 'event');
+
+                $playlist = new Playlist($this->getId());
+                $next = $playlist->next();
+                break;
+            }
     }
 
     /**

@@ -32,12 +32,9 @@ try {
 
             foreach($current as $uid) {
 
-//              Renew is not working like expected so resubscribe
-//              $device->renewSubscription($uid);
-        
                 echo "Renew\n";
                 $device->unSubscribe($uid);
-                $device->subscribe('AVTransport');
+                $device->subscribe();
             }
         } else {
 

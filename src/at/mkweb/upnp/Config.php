@@ -98,6 +98,11 @@ class Config {
 
             $value = trim($value);
 
+            if(isset(self::$values[$key]->null)) {
+
+                continue;
+            }
+
             if(isset(self::$values[$key])) {
 
                 $type = self::$values[$key]->type;
@@ -203,6 +208,13 @@ class Config {
 
         // Fill here because method calls (gettext) are not valid in property declaration
         self::$values = array(
+            'host_name' => (Object)array(
+                'name' => _('Hostname'),
+                'desc' => _('Hostname or IP'),
+                'type' => self::TYPE_STR,
+                'null' => true,
+                'hidden' => true,
+            ),
             'auth_method' => (Object)array(
                 'name'      => _('Authentication method'),
                 'type'      => self::TYPE_ENUM,
@@ -248,6 +260,33 @@ class Config {
                 'default'   => 1
             ),
         );
+    }
+
+    /**
+    * Wrapper for at.mkweb.Config::set()
+    *
+    * @static
+    * @access public
+    * @param string $key
+    * @param string $value
+    */
+    public static function write($key, $value) {
+
+        return self::set($key, $value);  
+    }
+
+    /**
+    * Set config value
+    *
+    * @static
+    * @access public
+    * @param string $key
+    * @param string $value
+    */
+    public static function set($key, $value) {
+
+        self::$config[$key] = $value;
+        self::writeFile();
     }
 
     /**

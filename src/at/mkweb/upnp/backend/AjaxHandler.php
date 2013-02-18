@@ -126,7 +126,7 @@ class AjaxHandler {
                     $dstDevice = UPnP::getDevice($device);
                     $client = $dstDevice->getClient('AVTransport');
                     
-                    $dstDevice->ignoreEvents(5);
+                    $dstDevice->ignoreStops();
 
                     $client->call('Stop', array('Speed' => 1));
                     $client->call('SetAVTransportURI', $data);

@@ -11,6 +11,10 @@ body {
     display: none !important;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 input[type=text],input[type=password], textarea {
     border: 1px solid #666;
     padding: 2px;
@@ -191,6 +195,7 @@ div#controls {
 	color: #FFF;
 	padding: 10px 10px 4px 10px;
 	margin-bottom: 10px;
+    box-shadow: 0 0 10px 0 #000;
 }
 div#controls .title {
     margin-bottom: 6px;
@@ -232,6 +237,12 @@ a.control#play {
 a.control#stop {
 	background-image: url('../images/icons/control/stop.png');
 }
+a.control#previous {
+	background-image: url('../images/icons/control/previous.png');
+}
+a.control#next {
+	background-image: url('../images/icons/control/next.png');
+}
 #player-loading {
 	display: none;
 	margin-right: 4px;
@@ -256,6 +267,7 @@ ul#breadcrumps {
     border-collapse: collapse;
     float: left;
     border: 1px solid #000;
+    box-shadow: 0 0 10px 0 #000;
 }
 ul#breadcrumps li {
     float: left;
@@ -326,6 +338,7 @@ div#playlist {
     display: none;
     margin-top: 4px;
     padding: 2px;
+    border: 2px solid #000;
 }
 div#playlist table {
     width: 100%;

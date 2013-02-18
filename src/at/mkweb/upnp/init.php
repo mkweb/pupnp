@@ -12,6 +12,11 @@ $configFile = BASE_PATH . DS . 'conf' . DS . 'config.ini';
 Autoloader::register();
 Config::init($configFile);
 
+if(isset($_SERVER['SERVER_ADDR'])) {
+
+    Config::write('host_name', $_SERVER['SERVER_ADDR']);
+}
+
 function pr($value) {
     echo '<pre>';
     print_r($value);

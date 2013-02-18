@@ -122,6 +122,27 @@ function UPnPPlaylist() {
         });
     }
 
+    this.appendAlbum = function(deviceUid, albumId) {
+
+        $('#player-loading').show();
+        upnp.backend.call(deviceUid, 'getChilds', 'ObjectID=' + albumId, function(res) {
+
+            if(res.NumberReturned > 0) {
+
+                var files = res.Result;
+
+                for(var i in files) {
+
+                    var file = files[i];
+
+                    upnp.playlist.append(deviceUid, file.id, file.title, file.class);
+                }
+        
+                $('#player-loading').hide();
+            }
+        });
+    }
+
     this.remove = function(uid, force) {
 
         doIt = false;
@@ -175,5 +196,86 @@ function UPnPPlaylist() {
                 'opacity'    : 0.5
             });
         }
+    }
+
+    this.getNext = function() {
+
+        if(this.current == null) {
+
+            if(this.items.length > 0) {
+
+                return true;
+            } else {
+
+                return false;
+            }
+        }
+
+        var next = null;
+        var found = false;
+        for(var id in this.items) {
+
+            if(id == this.current) {
+
+                found = true;
+                continue;
+            }
+
+            if(found) {
+
+                next = id;
+                break;
+            }
+        }
+
+        return next;
+    }
+
+    this.getPrevious = function() {
+
+        if(this.current == null) {
+
+            if(this.items.length > 0) {
+
+                return true;
+            } else {
+
+                return false;
+            }
+        }
+
+        var ids = Object.keys(this.items);
+        ids.reverse();
+
+        var next = null;
+        var found = false;
+        for(var i in ids) {
+
+            var id = ids[i];
+
+            if(id == this.current) {
+
+                found = true;
+                continue;
+            }
+
+            if(found) {
+
+                next = id;
+                break;
+            }
+        }
+
+        return next;
+    }
+
+    this.hasNext = function() {
+
+        return (this.getNext() == null);
+    }
+
+    this.hasPrevious = function() {
+
+        return (this.getPrevious() == null);
     }
 }

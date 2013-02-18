@@ -107,40 +107,41 @@ class UPnP {
         foreach($discover as $response) {
 
             $device = new Device();
-            $device->initByDiscoveryReponse($response);
+            if($device->initByDiscoveryReponse($response)) {
 
-            $device->saveToCache();
+                $device->saveToCache();
 
-            try {
-                $client = $device->getClient('ConnectionManager');
-                $protocolInfo = $client->call('GetProtocolInfo');
+                try {
+                    $client = $device->getClient('ConnectionManager');
+                    $protocolInfo = $client->call('GetProtocolInfo');
 
-                $sink = $protocolInfo['Sink'];
-                $tmp = explode(',', $sink);
+                    $sink = $protocolInfo['Sink'];
+                    $tmp = explode(',', $sink);
 
-                $protocols = array();
+                    $protocols = array();
 
-                foreach($tmp as $protocol) {
+                    foreach($tmp as $protocol) {
 
-                    $t = explode(':', $protocol);
-                    if($t[0] == 'http-get') {
+                        $t = explode(':', $protocol);
+                        if($t[0] == 'http-get') {
 
-                        $protocols[] = $t[2];
+                            $protocols[] = $t[2];
+                        }
                     }
+                } catch (UPnPException $upnpe) {
+
+                    $protocols = array();
                 }
-            } catch (UPnPException $upnpe) {
 
-                $protocols = array();
+                $device->protocolInfo = $protocols;
+
+                $cache[$device->getId()] = array(
+                    'name'      => $device->getName(),
+                    'services'  => $device->getServices(),
+                    'icons'     => $device->getIcons(),
+                    'protocols' => $device->getProtocolInfo()
+                );
             }
-
-            $device->protocolInfo = $protocols;
-
-            $cache[$device->getId()] = array(
-                'name'      => $device->getName(),
-                'services'  => $device->getServices(),
-                'icons'     => $device->getIcons(),
-                'protocols' => $device->getProtocolInfo()
-            );
         }
 
         self::saveCache($cache);

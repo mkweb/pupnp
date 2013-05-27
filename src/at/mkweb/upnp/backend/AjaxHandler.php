@@ -530,6 +530,7 @@ class AjaxHandler {
 
         if(isset($_GET['print'])) {
 
+	    Logger::debug('Response: ' . print_r($data, true), self::$logfile);
             echo '<pre>' . print_r($data, true) . '</pre>';
             exit;
         }
@@ -539,7 +540,10 @@ class AjaxHandler {
 			$data['callback'] = $this->callback;
 		}
 
-		echo json_encode($data);
+		$result =  json_encode($data);
+
+		Logger::info('Response: ' . $result, self::$logfile);
+		echo $result;
 		exit;
 	}
 

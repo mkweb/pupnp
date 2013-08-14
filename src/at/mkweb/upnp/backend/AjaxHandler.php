@@ -32,48 +32,72 @@ class AjaxHandler {
 
     public function __construct() {
 
-        Logger::debug('construct()', self::$logfile);
+        Logger::debug(str_pad('=', 100, '='), self::$logfile);
     }
 
 	public function call($method, $params) {
 
-        Logger::debug(__METHOD__, self::$logfile);
+        Logger::debug('New Request for method "' . $method . '" with params: ' . print_r($params, true), self::$logfile);
 
 		if(isset($params['callback'])) {
 
+            Logger::debug('Got callback: ' . $params['callback'], self::$logfile);
 			$this->callback = $params['callback'];
 			unset($params['callback']);
 		}
 
 		$device = (isset($params['device']) ? $params['device'] : null);
+        Logger::debug('Device: ' . var_export($device, true), self::$logfile);
 
-		if(method_exists($this, $method)) {
+        try {
+            if(method_exists($this, $method)) {
 
-			if(!is_null($device)) {
+                if(!is_null($device)) {
 
-				$this->$method($device, $params);
-			} else {
+                    Logger::debug('Triggering "' . $method . '" with device and params', self::$logfile);
+                    $this->$method($device, $params);
+                } else {
 
-				$this->$method($params);
-			}
-		}
+                    Logger::debug('Triggering "' . $method . '" without device', self::$logfile);
+                    $this->$method($params);
+                }
+            } else {
+
+                Logger::warn('Unknown method: ' . $method, self::$logfile);
+            }
+        } catch (UPnPException $e) {
+
+            Logger::error('Exception occured: ' . $e->getMessage(), self::$logfile);
+        }
 	}
 
     public function startPlayFromPlaylist($device, Array $data) {
 
-        Logger::debug(__METHOD__, self::$logfile);
-        Logger::debug(print_r($data, true), self::$logfile);
+        Logger::debug('Starting ' . __METHOD__ . ' with data: ' . print_r($data, true), self::$logfile);
 
         $id = $data['id'];
 
         $playlist = new Playlist($device);
         $item = $playlist->getItem($id);
-        $playlist->setPlaying($id);
 
-        $this->StartPlay($device, array('item' => $item), $playlist, $id);
+        if(!is_null($item)) {
+
+            $playlist->setPlaying($id);
+
+            $this->StartPlay($device, array('item' => $item), $playlist, $id);
+        } else {
+
+            Logger::error('Item with id "' . $id . '" not found in Playlist!', self::$logfile);
+        }
     }
 
     public function StartPlay($device, Array $data, $playlist = null, $playlistId = null) {
+
+        Logger::debug('Starting ' . __METHOD__ . ' with data: ' . print_r(array(
+            'device' => var_export($device, true),
+            'playlist' => var_export($playlist, true),
+            'playlistId' => var_export($playlistId, true)
+        ), true), self::$logfile);
 
         $item = null;
         if(is_null($playlist)) {
@@ -89,55 +113,78 @@ class AjaxHandler {
             $item = $data['item'];
         }
 
+        Logger::debug('Item: ' . var_export($item, true), self::$logfile);
+
         if(!is_null($item)) {
 
-            $sourceDevice = UPnP::getDevice($item['device']);
-            $sourceClient = $sourceDevice->getClient('ContentDirectory');
+            try {
+                $sourceDevice = UPnP::getDevice($item['device']);
+                $sourceClient = $sourceDevice->getClient('ContentDirectory');
 
-            $sourceData = array(
-                'ObjectID' => $item['objectId'],
-                'BrowseFlag' => 'BrowseMetadata'
-            );
+                Logger::debug('SrcDevice: ' . $sourceDevice->getId(), self::$logfile);
 
-            $item = $sourceClient->Browse($sourceData);
+                $sourceData = array(
+                    'ObjectID' => $item['objectId'],
+                    'BrowseFlag' => 'BrowseMetadata'
+                );
 
-            if(isset($item['Result']) && count($item['Result']) == 1) {
+                $item = $sourceClient->Browse($sourceData);
+                Logger::debug('Item from SrcDevice: ' . print_r($item, true), self::$logfile);
 
-                $xml = $item['Result_XML'];
+                if(isset($item['Result']) && count($item['Result']) == 1) {
 
-                $url = null;
+                    $xml = $item['Result_XML'];
 
-                foreach($item['Result'][0]['data']['res'] as $res) {
+                    $url = null;
 
-                    if(substr($res['attributes']['protocolInfo'], 0, 8) == 'http-get') {
+                    foreach($item['Result'][0]['data']['res'] as $res) {
 
-                        $url = $res['value'];
-                        break;
+                        if(substr($res['attributes']['protocolInfo'], 0, 8) == 'http-get') {
+
+                            $url = $res['value'];
+                            break;
+                        }
                     }
-                }
 
-                if(!is_null($url)) {
+                    if(!is_null($url)) {
 
-                    $data = array(
-                        'CurrentURI' => $url,
-                        'CurrentURIMetaData' => urldecode($xml) #utf8_encode(urldecode($xml))
-                    );
+                        Logger::debug('URL: ' . $url, self::$logfile);
 
-                    $dstDevice = UPnP::getDevice($device);
-                    $client = $dstDevice->getClient('AVTransport');
-                    
-                    $dstDevice->ignoreStops();
+                        $data = array(
+                            'CurrentURI' => $url,
+                            'CurrentURIMetaData' => urldecode($xml) #utf8_encode(urldecode($xml))
+                        );
 
-                    $client->call('Stop', array('Speed' => 1));
-                    $client->call('SetAVTransportURI', $data);
-                    $client->call('Play', array('Speed' => 1));
+                        $dstDevice = UPnP::getDevice($device);
+                        $client = $dstDevice->getClient('AVTransport');
 
-                    if(!is_null($playlist)) {
+                        Logger::debug('DstDevice: ' . $dstDevice->getId(), self::$logfile);
+                        
+                        $dstDevice->ignoreStops();
 
-                        $playlist->setPlaying($playlistId);
+                        $client->call('Stop', array('Speed' => 1));
+                        $client->call('SetAVTransportURI', $data);
+                        $client->call('Play', array('Speed' => 1));
+
+                        if(!is_null($playlist)) {
+
+                            $playlist->setPlaying($playlistId);
+                        }
+                    } else {
+
+                        Logger::error('NO URL FOUND!', self::$logfile);
                     }
+                } else {
+
+                    Logger::error('NO VALID ITEM FOUND!', self::$logfile);
                 }
+            } catch (UPnPException $e) {
+
+                Logger::error('Exception: ' . $e->getMessage(), self::$logfile);
             }
+        } else {
+
+            Logger::error('ITEM NOT FOUND!', self::$logfile);
         }
     }
 
@@ -247,19 +294,28 @@ class AjaxHandler {
 
 	public function getChilds($device, Array $data) {
 
-        Logger::debug(__METHOD__, self::$logfile);
+        Logger::debug('Starting ' . __METHOD__ . ' with device "' . $device . '" and params ' . print_r($data, true), self::$logfile);
 
-        $device = UPnP::getDevice($device);
-        $client = $device->getClient('ContentDirectory');
+        try {
 
-        $data['BrowseFlag'] = 'BrowseDirectChildren';
+            $device = UPnP::getDevice($device);
+            $client = $device->getClient('ContentDirectory');
 
-		$data = $client->Browse($data);
+            $data['BrowseFlag'] = 'BrowseDirectChildren';
 
-        if(isset($data['Result'])) {
+            $data = $client->Browse($data);
+            Logger::debug('Got data: ' . json_encode($data), self::$logfile);
 
-            $data['Result'] = $this->prepareMetaData($data['Result']);
+            if(isset($data['Result'])) {
+
+                $data['Result'] = $this->prepareMetaData($data['Result']);
+            }
+        } catch (UPnPException $e) {
+
+            Logger::error('Got Exception: ' . $e->getMessage(), self::$logfile);
         }
+
+        Logger::debug('Finished ' . __METHOD__, self::$logfile);
 
 		$this->respond($data);
 	}
@@ -530,13 +586,14 @@ class AjaxHandler {
 
         if(isset($_GET['print'])) {
 
-	    Logger::debug('Response: ' . print_r($data, true), self::$logfile);
+            Logger::debug('Response: ' . print_r($data, true), self::$logfile);
             echo '<pre>' . print_r($data, true) . '</pre>';
             exit;
         }
 
 		if(!is_null($this->callback)) {
 
+            Logger::debug('Appending stored callback: ' . $this->callback, self::$logfile);
 			$data['callback'] = $this->callback;
 		}
 
@@ -549,7 +606,7 @@ class AjaxHandler {
 
     private function prepareMetaData(Array $data) {
 
-        Logger::debug(__METHOD__, self::$logfile);
+        Logger::debug('Starting ' . __METHOD__, self::$logfile);
 
         $newData = array();
 
@@ -611,6 +668,7 @@ class AjaxHandler {
             }
         }
 
+        Logger::debug('Finished ' . __METHOD__ . ' with data: ' . print_r($newData, true), self::$logfile);
         return $newData;
     }
 

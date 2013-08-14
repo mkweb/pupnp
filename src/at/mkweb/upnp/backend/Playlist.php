@@ -121,8 +121,7 @@ class Playlist {
     */
     public function addItem($item) {
 
-        Logger::debug(__METHOD__, self::$logfile);
-        Logger::debug('Item: ' . print_r($item, true), self::$logfile);
+        Logger::debug('Starting ' . __METHOD__ . ' with item: ' . print_r($item, true), self::$logfile);
 
         $id = md5(microtime() . serialize($item));
 
@@ -205,11 +204,11 @@ class Playlist {
     */
     public function next() {
 
-        Logger::debug(__METHOD__, 'playlist');
+        Logger::debug(__METHOD__, self::$logfile);
 
         if($this->currentPlaying == null) {
 
-            Logger::debug('Playlist is stopped - ignore next();', 'playlist');
+            Logger::debug('Playlist is stopped - ignore next();', self::$logfile);
             return;
         }
 
@@ -242,14 +241,14 @@ class Playlist {
 
             $this->currentPlaying = $next;
 
-            Logger::debug('Found next: ' . print_r($item, true), 'playlist');
+            Logger::debug('Found next: ' . print_r($item, true), self::$logfile);
             $handler = new AjaxHandler();
             $handler->startPlayFromPlaylist($this->deviceId, array('id' => $next));
 
             $this->setPlaying($next);
         } else {
 
-            Logger::debug('No next item found', 'playlist');
+            Logger::debug('No next item found', self::$logfile);
             $this->stop();
         }
 

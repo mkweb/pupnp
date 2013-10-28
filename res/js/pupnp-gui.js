@@ -355,12 +355,14 @@ function UPnPGUI() {
 
                 if(device.hasService('ContentDirectory')) {
 
-                    $(dropdown_src).append($('<option value="' + uid + '" data-icon="resources.php?image=' + device.icons[0].url + '&sq=18">' + device.getName() + '</option>'));
+                    var icon = (undefined != device.icons[0] ? device.icons[0].url : '');
+                    $(dropdown_src).append($('<option value="' + uid + '" data-icon="resources.php?image=' + icon + '&sq=18">' + device.getName() + '</option>'));
                 }
 
                 if(device.hasService('AVTransport')) {
 
-                    $(dropdown_dst).append($('<option value="' + uid + '" data-icon="resources.php?image=' + device.icons[0].url + '&sq=18">' + device.getName() + '</option>'));
+                    var icon = (undefined != device.icons[0] ? device.icons[0].url : '');
+                    $(dropdown_dst).append($('<option value="' + uid + '" data-icon="resources.php?image=' + icon + '&sq=18">' + device.getName() + '</option>'));
                 }
             }
 

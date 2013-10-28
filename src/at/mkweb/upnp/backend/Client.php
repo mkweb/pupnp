@@ -138,7 +138,7 @@ class Client {
 			'Content-LENGTH: ' . mb_strlen($request),
 			'CONTENT-TYPE: text/xml;charset="utf-8"',
 			'USER-AGENT: Linux/2.6.31-1.0 UPnP/1.0 pupnp/0.1',
-			'SOAPACTION: "' . $this->service->getId() . ':1#' . $method . '"',
+			'SOAPACTION: "' . $this->service->getType() . ':1#' . $method . '"',
 		);
 
         if(!$hideLogs) Logger::debug("Endpoint: " . $this->service->getControlUrl(), self::$logfile);
@@ -423,8 +423,9 @@ class Client {
             $data = $userData;
         }
             
-        if(array_key_exists('StartingIndex', $data) && $data['StartingIndex'] == null) $data['StartingIndex'] = 0;
+        if(array_key_exists('StartingIndex', $data) && $data['StartingIndex'] == null)   $data['StartingIndex'] = 0;
         if(array_key_exists('RequestedCount', $data) && $data['RequestedCount'] == null) $data['RequestedCount'] = 0;
+        if(array_key_exists('ObjectID', $data) && $data['ObjectID'] == null)             $data['ObjectID'] = 0;
 
         $xml = '<?xml version="1.0"?>';
         $xml.= '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">';

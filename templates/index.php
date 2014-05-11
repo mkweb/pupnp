@@ -51,7 +51,7 @@ $css = array(
 <head>
 	<title>UPnP Browser</title>
 
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+	<link href="res/jqueryui/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"/>
     <? if(Config::read('minify_css')): ?>
 
         <link rel="stylesheet" type="text/css" href="resources.php?css=<?= join('|', $css) ?>" />
@@ -63,8 +63,8 @@ $css = array(
         <? endforeach ?>
     <? endif ?>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="res/js/jquery.min.js" type="text/javascript"></script>
+	<script src="res/jqueryui/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 
     <? if(Config::read('minify_js')): ?>
 

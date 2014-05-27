@@ -14,7 +14,7 @@ Requirements
 Installation
 ------------
 * git clone https://github.com/mkweb/pupnp.git
-* cd punpnp && chmod -R +w logs cache conf
+* cd pupnp && chmod -R +w logs cache conf
 
 Usage
 -----

@@ -101,8 +101,6 @@ class UPnP {
 
         $cache = array();
 
-        \pr("DISCOVER:");
-        \pr($discover);
         flush();
         foreach($discover as $response) {
 
@@ -146,8 +144,6 @@ class UPnP {
 
         self::saveCache($cache);
 
-        \pr("CACHE:");
-        \pr($cache);
         flush();
 
         return $cache;

@@ -17,12 +17,6 @@ if(isset($_SERVER['SERVER_ADDR'])) {
     Config::write('host_name', $_SERVER['SERVER_ADDR']);
 }
 
-function pr($value) {
-    echo '<pre>';
-    print_r($value);
-    echo '</pre>';
-}
-
 function is_utf8($str){
   $strlen = strlen($str);
   for($i=0; $i<$strlen; $i++){

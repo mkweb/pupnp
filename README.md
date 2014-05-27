@@ -16,6 +16,18 @@ Installation
 * git clone https://github.com/mkweb/pupnp.git
 * cd pupnp && chmod -R +w logs cache conf
 
+Discover
+-----
+* Point your Browser to http://[IP-Address]/pupnp/cronjob.php
+
+The file cronjob.php makes the discovery request to search all UPnP enabled devices
+in the your network.
+
+It can also be run from command line by using
+ $ php cronjob.php
+
+or ideally add it to your crontab.
+
 Usage
 -----
 * Point your Browser to http://[IP-Address]/pupnp
